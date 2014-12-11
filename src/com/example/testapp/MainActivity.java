@@ -1,5 +1,7 @@
 package com.example.testapp;
 
+// IMPORTS
+// Imports package android (divers)
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,20 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
+import android.bluetooth.BluetoothAdapter;
+import android.graphics.Color;
+import android.util.Log;
+// Imports api GraphView
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
+// Imports api ThinkGear
 import com.neurosky.thinkgear.TGDevice;
 import com.neurosky.thinkgear.TGEegPower;
 import com.neurosky.thinkgear.TGRawMulti;
-
-import android.bluetooth.BluetoothAdapter;
-import android.graphics.Color;
-import android.util.Log;
 
 
 public class MainActivity extends Activity {
@@ -30,15 +32,17 @@ public class MainActivity extends Activity {
 	TGDevice tgDevice;
 	BluetoothAdapter btAdapter;
 	
+	// Echelle Y du graph pour Meditation et Attention
     double max = 100 ;
     double min = 0;
     
     int passage = 1;
 	
+    // Courbe de l'attention (Couleur = rouge / Nom = Attention)
     GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {
 
       });
-    
+    // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {
 
     });
@@ -55,30 +59,10 @@ public class MainActivity extends Activity {
         }
         
         tgDevice.connect(true);
-        
-        GraphView graphView1 = new LineGraphView( 
-                this // contex 
-                , "Activité" // heading
-        );
-
-		graphView1.setManualYAxisBounds((double) max, (double) min);
-		graphView1.addSeries(seriesAttention);
-		graphView1.addSeries(seriesMeditation);// data
-		graphView1.setShowLegend(true);
-		// set view port, start=1, size=5
-		graphView1.setViewPort(1,25);
-		graphView1.setScrollable(true);
-		graphView1.getGraphViewStyle().setHorizontalLabelsColor(Color.WHITE);
-		graphView1.getGraphViewStyle().setLegendWidth(200);
-		graphView1.setLegendAlign(LegendAlign.TOP);
-		graphView1.getGraphViewStyle().setNumVerticalLabels(5);
-		graphView1.getGraphViewStyle().setNumHorizontalLabels(25);
-		LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
-		layout.addView(graphView1);
 		
 	}
         
-    
+    // Handler du ThinkGear Device (thread qui traite constamment les données reçus)
     @SuppressLint("HandlerLeak") private final Handler handler = new Handler() {
     	@SuppressWarnings("deprecation")
 		@Override
@@ -90,9 +74,11 @@ public class MainActivity extends Activity {
     					break;
     					case TGDevice.STATE_CONNECTING:
     						Log.v("Test1", "Connecting");
+    						Toast.makeText(getApplicationContext(), "Connection en cours ...", Toast.LENGTH_SHORT).show();
 						break;
 						case TGDevice.STATE_CONNECTED:
 							Log.v("Test1", "Connected");
+							Toast.makeText(getApplicationContext(), "Connecté !", Toast.LENGTH_SHORT).show();
 							tgDevice.start();
 						break;
 						case TGDevice.STATE_DISCONNECTED:
@@ -108,10 +94,19 @@ public class MainActivity extends Activity {
 						break;
     				}
     			break;
-    			case TGDevice.MSG_POOR_SIGNAL:
+    			case TGDevice.MSG_POOR_SIGNAL: // Indique la qualité du signal (0 indique un bon fonctionnement)
     				Log.v("HelloEEG", "PoorSignal: " + msg.arg1);
     			break;
     			case TGDevice.MSG_ATTENTION:
+    				/*
+    				 * Renvoie une valeur entre 0 et 100 sur la capacité d'attention
+    				 * 0 : incapacité à calculé une valeur d'attention
+    				 * 1 - 20 : faible attention
+    				 * 20 - 40 : peu d'attention
+    				 * 40 - 50 : valeur d'attention normal
+    				 * 50 - 80 : attention relativement élevé
+    				 * 80 - 100 : attention élevé
+    				 */
     				Log.v("HelloEEG", "Attention: " + msg.arg1);
     				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true); 
     				  passage++;
@@ -151,6 +146,29 @@ public class MainActivity extends Activity {
     	}
     };
 
+    // Création du graphique attention / meditation
+    public void createGraph(){
+    	
+        // Instanciation du GraphView
+        GraphView graphView = new LineGraphView( 
+                this, 
+                "Activité"
+        );
+
+		graphView.setManualYAxisBounds((double) max, (double) min);
+		graphView.addSeries(seriesAttention);
+		graphView.addSeries(seriesMeditation);
+		graphView.setShowLegend(true);
+		graphView.setViewPort(1,25);
+		graphView.setScrollable(true);
+		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.WHITE);
+		graphView.getGraphViewStyle().setLegendWidth(200);
+		graphView.setLegendAlign(LegendAlign.TOP);
+		graphView.getGraphViewStyle().setNumVerticalLabels(5);
+		graphView.getGraphViewStyle().setNumHorizontalLabels(25);
+		LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
+		layout.addView(graphView);
+    }
 
 
     @Override
@@ -172,4 +190,3 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
-
