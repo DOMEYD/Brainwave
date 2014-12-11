@@ -4,6 +4,7 @@ package com.example.testapp;
 // Imports package android (divers)
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 // Imports api GraphView
@@ -192,13 +194,25 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.propos:
-    		// Comportement du bouton "A Propos"
+    		// Comportement du bouton "A propos"
+    		new AlertDialog.Builder(this)
+    	    .setTitle("A propos")
+    	    .setMessage("Application réalisé dans le cadre du projet BrainWaves de Licence Pro Orleans.\n" +
+    	    		"- Robin Hayart \n" +
+    	    		"- Loic Dieudonné \n" +
+    	    		"- Chafik Daggag \n" +
+    	    		"- Cecile Kergal")
+    	    .setIcon(android.R.drawable.ic_dialog_alert)
+    	     .show();
     		return true;
     	case R.id.aide:
     		// Comportement du bouton "Aide"
+    		Intent aideIntent = new Intent(this,AideActivity.class);
+    		startActivity(aideIntent);
     		return true;
     	case R.id.quitter:
-    		// Comportement du bouton "Rafraichir"
+    		// Comportement du bouton "Quitter"
+    		finish();
     		return true;
     	default:
     		return super.onOptionsItemSelected(item);

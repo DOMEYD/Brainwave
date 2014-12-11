@@ -7,5 +7,6 @@
     <string name="aide">Aide</string>
     <string name="propos">A propos</string>
     <string name="quitter">Quitter</string>
+    <string name="title_activity_aide">AideActivity</string>
 
 </resources>

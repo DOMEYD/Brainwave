@@ -31,7 +31,8 @@ public final class R {
         public static final int quitter=0x7f080003;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
+        public static final int activity_aide=0x7f030000;
+        public static final int activity_main=0x7f030001;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -43,6 +44,7 @@ public final class R {
         public static final int hello_world=0x7f050001;
         public static final int propos=0x7f050004;
         public static final int quitter=0x7f050005;
+        public static final int title_activity_aide=0x7f050006;
     }
     public static final class style {
         /** 
