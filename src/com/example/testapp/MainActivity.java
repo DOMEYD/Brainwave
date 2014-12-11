@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
         }
         
         tgDevice.connect(true);
+        createGraph();
 		
 	}
         
@@ -112,6 +113,15 @@ public class MainActivity extends Activity {
     				  passage++;
     			break;
     			case TGDevice.MSG_MEDITATION:
+    				/*
+    				 * Renvoie une valeur entre 0 et 100 sur la capacité de méditation
+    				 * 0 : incapacité à calculé une valeur de meditation
+    				 * 1 - 20 : faible meditation
+    				 * 20 - 40 : peu de de meditation
+    				 * 40 - 50 : valeur de meditation normal
+    				 * 50 - 80 : meditation relativement élevé
+    				 * 80 - 100 : meditation élevé
+    				 */
     				Log.v("HelloEEG","Meditation: " +msg.arg1);
     				seriesMeditation.appendData( new GraphViewData(passage, msg.arg1), true); 
     			break;
@@ -180,13 +190,18 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    	switch (item.getItemId()) {
+    	case R.id.propos:
+    		// Comportement du bouton "A Propos"
+    		return true;
+    	case R.id.aide:
+    		// Comportement du bouton "Aide"
+    		return true;
+    	case R.id.quitter:
+    		// Comportement du bouton "Rafraichir"
+    		return true;
+    	default:
+    		return super.onOptionsItemSelected(item);
+    	}
     }
 }

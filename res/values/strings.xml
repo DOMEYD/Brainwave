@@ -4,5 +4,8 @@
     <string name="app_name">Testapp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="aide">Aide</string>
+    <string name="propos">A propos</string>
+    <string name="quitter">Quitter</string>
 
 </resources>
