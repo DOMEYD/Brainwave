@@ -28,6 +28,10 @@
             android:name=".AideActivity"
             android:label="@string/title_activity_aide" >
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

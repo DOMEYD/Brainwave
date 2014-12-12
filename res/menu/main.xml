@@ -2,13 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.testapp.MainActivity" >
 
+    	<item android:id="@+id/settings" 
+			android:icon="@drawable/ic_settings"
+		    android:title="@string/settings"/>
+    		
 	    <item android:id="@+id/propos" 
-	      android:title="@string/propos"/>
+	      	android:title="@string/propos"/>
 	 
 		<item android:id="@+id/aide" 
-		     android:title="@string/aide"/>
+		    android:title="@string/aide"/>
 		
 		<item android:id="@+id/quitter" 
-		     android:title="@string/quitter"/>
+		    android:title="@string/quitter"/>
 
 </menu>
