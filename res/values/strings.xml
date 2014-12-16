@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Basics -->
+    
     <string name="app_name">Testapp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+   
+   <!-- Main Activity-->
+   
+   <string name="buttonGraph">Laner app</string>
+   <string name="menu">Menu</string>
+   
+   <!-- Gestion Bluetooth -->
+      
+    <string name="GestionBluetooth">Gestion Bluetooth</string>
+    
+    <string name="recherche"> La recherche est en cours &#8230;</string> <!-- &#8230; est le unicode de "..."   -->
+    
+	    <!-- Buttons -->
+	    <string name="on">On</string>
+	    <string name="off">Turn Off</string>
+	    <string name="Visible">Get Visible</string>
+	    <string name="buttonPairedDevices">List Paired Devices</string>
+	    <string name="buttonAroundDevices">List Device(s) Around</string>
+	    <string name="ListPairedDevices">List of Paired Devices :</string>
+	    <string name="ListAroundDevices">List of the bluetooth devices around :</string>
 
 </resources>

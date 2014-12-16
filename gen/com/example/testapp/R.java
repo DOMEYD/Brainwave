@@ -25,19 +25,55 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080001;
+        public static final int action_settings=0x7f08000f;
+        public static final int buttonGestionBluetooth=0x7f08000e;
+        public static final int buttonGraph=0x7f08000d;
+        public static final int buttonOff=0x7f080004;
+        public static final int buttonOn=0x7f080003;
+        public static final int buttonPairedDevices=0x7f080006;
+        public static final int buttonUnpairedDevices=0x7f080007;
+        public static final int buttonVisible=0x7f080005;
         public static final int layout1=0x7f080000;
+        public static final int lvAroundDevices=0x7f08000c;
+        public static final int lvPairedDevices=0x7f080009;
+        public static final int scrollView1=0x7f080001;
+        public static final int tvGestionBluetooth=0x7f080002;
+        public static final int tvListAroundDevices=0x7f08000a;
+        public static final int tvListPairedDevices=0x7f080008;
+        public static final int tvRechercheEnCours=0x7f08000b;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int gestionbluetooth=0x7f030001;
+        public static final int menu=0x7f030002;
     }
     public static final class menu {
         public static final int main=0x7f070000;
     }
     public static final class string {
+        /**  Gestion Bluetooth 
+         */
+        public static final int GestionBluetooth=0x7f050005;
+        public static final int ListAroundDevices=0x7f05000d;
+        public static final int ListPairedDevices=0x7f05000c;
+        public static final int Visible=0x7f050009;
         public static final int action_settings=0x7f050002;
+        /**  Basics 
+         */
         public static final int app_name=0x7f050000;
+        public static final int buttonAroundDevices=0x7f05000b;
+        /**  Main Activity
+         */
+        public static final int buttonGraph=0x7f050003;
+        public static final int buttonPairedDevices=0x7f05000a;
         public static final int hello_world=0x7f050001;
+        public static final int menu=0x7f050004;
+        public static final int off=0x7f050008;
+        /**  &#8230; est le unicode de "..."   
+ Buttons 
+         */
+        public static final int on=0x7f050007;
+        public static final int recherche=0x7f050006;
     }
     public static final class style {
         /** 
