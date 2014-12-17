@@ -11,21 +11,20 @@
    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        
         android:orientation="vertical" >
 
         <ScrollView
             android:id="@+id/scrollView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
+               android:gravity="center"
+               android:layout_width="match_parent"
+               android:layout_height="fill_parent"
+               
+               android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/tvGestionBluetooth"
@@ -36,38 +35,31 @@
 
                 <Button
                     android:id="@+id/buttonOn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ButtonsMenuBluetooth"
                     android:onClick="on"
                     android:text="@string/on" />
                 
                  <Button
                     android:id="@+id/buttonOff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ButtonsMenuBluetooth"
                     android:onClick="off"
                     android:text="@string/off" />
 
                 <Button
                     android:id="@+id/buttonVisible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ButtonsMenuBluetooth"
                     android:onClick="visible"
                     android:text="@string/Visible" />
 
                 <Button
                     android:id="@+id/buttonPairedDevices"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ButtonsMenuBluetooth"
                     android:onClick="list"
                     android:text="@string/buttonPairedDevices" />
-                
                
-
                 <Button
                     android:id="@+id/buttonUnpairedDevices"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/ButtonsMenuBluetooth"
                     android:onClick="listAround"
                     android:text="@string/buttonAroundDevices" />
   
@@ -81,12 +73,9 @@
            
             <TextView
                 android:id="@+id/tvListPairedDevices"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/ListPairedDevices"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                style="@style/ListeTitle"
+                android:layout_marginTop="20sp"
+                android:text="@string/ListPairedDevices"/>
 
             <ListView
                 android:id="@+id/lvPairedDevices"
@@ -98,12 +87,9 @@
 
             <TextView
                 android:id="@+id/tvListAroundDevices"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
+                style="@style/ListeTitle"
                 android:text="@string/ListAroundDevices"
-                android:textColor="#000000"
-                android:textStyle="bold" />
+                 />
             
              <TextView
              	android:id="@+id/tvRechercheEnCours"

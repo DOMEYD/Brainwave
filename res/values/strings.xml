@@ -10,7 +10,7 @@
    
    <!-- Main Activity-->
    
-   <string name="buttonGraph">Laner app</string>
+   <string name="buttonGraph">Lancer le graphique</string>
    <string name="menu">Menu</string>
    
    <!-- Gestion Bluetooth -->
