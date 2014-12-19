@@ -88,30 +88,34 @@ public class MainActivity extends Activity {
     protected void gestionParametre(){
     	try{
 	    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	    	
+	    	boolean oldCourbeAttention = courbeAttention;
+	    	boolean oldCourbeMeditation = courbeMeditation;
+	    	boolean oldCourbeBlink = courbeBlink;
 	    	courbeAttention = prefs.getBoolean("graph_attention", true);
 	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
 	    	courbeBlink = prefs.getBoolean("graph_blink", true);
     	
 	    	if(!courbeAttention){
 	    		graphView.removeSeries(seriesAttention);
-	    	}else if(courbeAttention != prefs.getBoolean("graph_attention", true)){
+	    	}else if(courbeAttention != oldCourbeAttention){
 	    		graphView.addSeries(seriesAttention);
 	    	}
 	    	
 	    	if(!courbeMeditation){
 	    		graphView.removeSeries(seriesMeditation);
-	    	}else if(courbeMeditation != prefs.getBoolean("graph_meditation", true)){
+	    	}else if(courbeMeditation != oldCourbeMeditation){
 	    		graphView.addSeries(seriesMeditation);
 	    	}
 	    	
 	    	if(!courbeBlink){
 	    		graphView.removeSeries(seriesBlink);
-	    	}else if(courbeBlink != prefs.getBoolean("graph_blink", true)){
+	    	}else if(courbeBlink != oldCourbeBlink){
 	    		graphView.addSeries(seriesBlink);
 	    	}
 	    	
 	    	if(!courbeAttention && !courbeBlink && !courbeMeditation){
-	    		Toast.makeText(getApplicationContext(), "Aucune courbe sélectionné, sélectionnez en une dans les paramètres", Toast.LENGTH_LONG).show();
+	    		Toast.makeText(getApplicationContext(), "Aucune courbe sélectionné, sélectionnez en une dans les paramètres de l\'application", Toast.LENGTH_LONG).show();
 	    	}
     	}catch(Exception exc){
     		Log.e("errorResume", "Erreur : " +exc);
@@ -129,11 +133,11 @@ public class MainActivity extends Activity {
     					case TGDevice.STATE_IDLE:
     					break;
     					case TGDevice.STATE_CONNECTING:
-    						Log.v("Statut", "Connecting");
+    						Log.v("Statut", "Connection en cours ...");
     						Toast.makeText(getApplicationContext(), "Connection en cours ...", Toast.LENGTH_SHORT).show();
 						break;
 						case TGDevice.STATE_CONNECTED:
-							Log.v("Statut", "Connected");
+							Log.v("Statut", "Connecté");
 							Toast.makeText(getApplicationContext(), "Connecté !", Toast.LENGTH_SHORT).show();
 							tgDevice.start();
 						break;
