@@ -16,14 +16,16 @@
 
         <Button
         	android:id="@+id/buttonGraph"
-        	style="@style/Buttons"
+        	style="@style/ButtonsTextMenu"
+        	android:background="@drawable/orange_button"
         	android:layout_marginBottom="40sp"
             android:onClick="Graph"
             android:text="@string/buttonGraph" />
         
          <Button
         	android:id="@+id/buttonGestionBluetooth"
-          	style="@style/Buttons"
+          	style="@style/ButtonsTextMenu"
+          	android:background="@drawable/orange_button"
             android:onClick="GestionBluetooth"
             android:layout_marginTop="40sp"
             android:text="@string/GestionBluetooth" />

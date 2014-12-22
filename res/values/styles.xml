@@ -17,20 +17,37 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     
-     <style name="Buttons" > 
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:typeface">normal</item>
-        <item name="android:textSize">30sp</item>
+      <!-- Style des textes des boutons du menu général -->
+     <style name="ButtonsTextMenu" > 
+        <item name="android:layout_width" >fill_parent</item>
+	    <item name="android:layout_height" >wrap_content</item>
+	    <item name="android:textColor" >#ffffff</item>
+	    <item name="android:gravity" >center</item>
+	    <item name="android:textSize" >30sp</item>
+	    <item name="android:textStyle" >bold</item>
+	    <item name="android:shadowColor" >#000000</item>
+	    <item name="android:shadowDx" >1</item>
+	    <item name="android:shadowDy" >1</item>
+	    <item name="android:shadowRadius" >2</item>
     </style>
     
-     <style name="ButtonsMenuBluetooth" > 
+     <!-- Style des textes des boutons du menu bluetooth -->
+     <style name="ButtonsTextMenuBluetooth" > 
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:typeface">normal</item>
+        <item name="android:layout_margin">3sp</item>
+        <item name="android:gravity" >center</item>
+        <item name="android:textColor" >#ffffff</item>
+        <item name="android:textStyle" >bold</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:shadowColor" >#000000</item>
+	    <item name="android:shadowDx" >1</item>
+	    <item name="android:shadowDy" >1</item>
+	    <item name="android:shadowRadius" >2</item>
     </style>
+   
     
+     <!-- Style des titres des listes -->
      <style name="ListeTitle" > 
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
