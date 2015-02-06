@@ -106,8 +106,14 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f060001;
-        public static final int Buttons=0x7f060002;
-        public static final int ButtonsMenuBluetooth=0x7f060003;
+        /**  Style des textes des boutons du menu général 
+         */
+        public static final int ButtonsTextMenu=0x7f060002;
+        /**  Style des textes des boutons du menu bluetooth 
+         */
+        public static final int ButtonsTextMenuBluetooth=0x7f060003;
+        /**  Style des titres des listes 
+         */
         public static final int ListeTitle=0x7f060004;
     }
 }
