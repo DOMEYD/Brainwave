@@ -3,10 +3,9 @@
 
     <!-- Basics -->
     
-    <string name="app_name">Testapp</string>
+    <string name="app_name">Brain Waves</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    
    
    <!-- Main Activity-->
    
@@ -27,5 +26,24 @@
 	    <string name="buttonAroundDevices">List Device(s) Around</string>
 	    <string name="ListPairedDevices">List of Paired Devices :</string>
 	    <string name="ListAroundDevices">List of the bluetooth devices around :</string>
+
+	 <!-- Paramètres -->   
+	    
+    <string name="settings">Paramètres</string>
+    <string name="aide">Aide</string>
+    <string name="propos">A propos</string>
+    <string name="quitter">Quitter</string>
+    <string name="title_activity_aide">AideActivity</string>
+    <string name="aideTitre1"><u>Méditation et Attention :</u>\n</string>
+    <string name="meditation_attention_content">
+        Voici comment interpréter les données concernant la méditation et l\'attention :\n
+        - 0 -> l\'application n\'a pas réussi à obtenir des données convenables\n
+        - 1 à 20 -> état d\'attention ou de méditation très faible\n
+        - 20 à 40 -> état d\'attention ou de méditation faible\n
+        - 40 à 60 -> état d\'attention ou de méditation neutre\n
+        - 60 à 80 -> état d\'attention ou de méditation partiellement élevé\n
+        - 80 à 100 -> état d\'attention ou de méditation élevé   
+    </string>
+
 
 </resources>
