@@ -36,7 +36,7 @@ public final class R {
         public static final int red_button=0x7f020005;
     }
     public static final class id {
-        public static final int aide=0x7f0a0011;
+        public static final int aide=0x7f0a0012;
         public static final int buttonGestionBluetooth=0x7f0a000e;
         public static final int buttonGraph=0x7f0a000d;
         public static final int buttonOff=0x7f0a0004;
@@ -47,10 +47,10 @@ public final class R {
         public static final int layout1=0x7f0a0000;
         public static final int lvAroundDevices=0x7f0a000c;
         public static final int lvPairedDevices=0x7f0a0009;
-        public static final int propos=0x7f0a0010;
-        public static final int quitter=0x7f0a0012;
+        public static final int propos=0x7f0a000f;
+        public static final int quitter=0x7f0a0010;
         public static final int scrollView1=0x7f0a0001;
-        public static final int settings=0x7f0a000f;
+        public static final int settings=0x7f0a0011;
         public static final int tvGestionBluetooth=0x7f0a0002;
         public static final int tvListAroundDevices=0x7f0a000a;
         public static final int tvListPairedDevices=0x7f0a0008;
@@ -63,7 +63,9 @@ public final class R {
         public static final int menu=0x7f030003;
     }
     public static final class menu {
-        public static final int main=0x7f090000;
+        public static final int gestionbluetooth=0x7f090000;
+        public static final int main=0x7f090001;
+        public static final int menuapp=0x7f090002;
     }
     public static final class string {
         /**  Gestion Bluetooth 

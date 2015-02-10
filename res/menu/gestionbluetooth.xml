@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.testapp.MenuApp" >
+    	
+	    <item android:id="@+id/propos" 
+	      	android:title="@string/propos"/>
+		
+		<item android:id="@+id/quitter" 
+		    android:title="@string/quitter"/>
+
+</menu>

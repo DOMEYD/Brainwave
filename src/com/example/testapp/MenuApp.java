@@ -1,10 +1,12 @@
 package com.example.testapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,9 +52,33 @@ public class MenuApp extends Activity
 		startActivity(intent);
 	}
 	
-	public boolean onCreateOptionsMenu(Menu menuu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menuu);
+		getMenuInflater().inflate(R.menu.menuapp, menu);
 		return true;
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+    	case R.id.propos:
+    		// Comportement du bouton "A propos"
+    		new AlertDialog.Builder(this)
+    	    .setTitle("A propos")
+    	    .setMessage("Application réalisé dans le cadre du projet BrainWaves de Licence Pro Dev Web et Mobile d'Orleans.\n" +
+    	    		"- Robin Hayart \n" +
+    	    		"- Loic Dieudonné \n" +
+    	    		"- Chafik Daggag \n" +
+    	    		"- Cecile Kergal")
+    	    .setIcon(android.R.drawable.ic_dialog_alert)
+    	     .show();
+    		return true;
+    	case R.id.quitter:
+    		// Comportement du bouton "Quitter"
+    		finish();
+    		return true;
+    	default:
+    		return super.onOptionsItemSelected(item);
+    	}
+    }
 }
