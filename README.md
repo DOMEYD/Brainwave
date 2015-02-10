@@ -1,17 +1,12 @@
 Brainwave
 ==============
 
-1. Introduction
+1. Screenshots
 --
 
-- 1.1 
+Menu d'introduction:
+![Alt text](\Screenshots/Screenshot_Menu_Buttons.png?raw=true "Menu buttons")
 
-
-2. Setup
---
-
-- 2.1 
-- 2.2 
-- 2.3 
-
+Gestion du bluetooth :
+![Alt text](\Screenshots//Screenshot_Example_Buttons.png?raw=true "Exemple stylisation boutons")
 

@@ -74,9 +74,9 @@ public class MainActivity extends Activity {
         	tgDevice = new TGDevice(btAdapter, handler); 
         }
         
+        
         tgDevice.connect(true);
         createGraph();
-		
 	}
     
     protected void onResume(){
@@ -146,6 +146,7 @@ public class MainActivity extends Activity {
 						break;
 						case TGDevice.STATE_NOT_FOUND:
 							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
+							finish(); //Nous renvoie sur le menu
 						break;
 						case TGDevice.STATE_NOT_PAIRED:
 							Log.v("Statut", "Not paired");

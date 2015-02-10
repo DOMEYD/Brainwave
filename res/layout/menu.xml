@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <Button
+        	android:id="@+id/buttonGraph"
+        	style="@style/ButtonsTextMenu"
+        	android:background="@drawable/orange_button"
+        	android:layout_marginBottom="40sp"
+            android:onClick="Graph"
+            android:text="@string/buttonGraph" />
+        
+         <Button
+        	android:id="@+id/buttonGestionBluetooth"
+          	style="@style/ButtonsTextMenu"
+          	android:background="@drawable/orange_button"
+            android:onClick="GestionBluetooth"
+            android:layout_marginTop="40sp"
+            android:text="@string/GestionBluetooth" />
+
+    </LinearLayout>
+
+</RelativeLayout>
