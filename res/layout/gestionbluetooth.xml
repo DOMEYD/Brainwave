@@ -39,6 +39,7 @@
                     style="@style/ButtonsTextMenuBluetooth"
                     android:background="@drawable/green_button"
                     android:onClick="on"
+                    
                     android:text="@string/on" />
                 
                  <Button

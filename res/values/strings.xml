@@ -34,7 +34,7 @@
     <string name="propos">A propos</string>
     <string name="quitter">Quitter</string>
     <string name="title_activity_aide">AideActivity</string>
-    <string name="aideTitre1"><u>Méditation et Attention :</u>\n</string>
+    <string name="aideTitre1"><u>Méditation et Attention :</u></string>
     <string name="meditation_attention_content">
         Voici comment interpréter les données concernant la méditation et l\'attention :\n
         - 0 -> l\'application n\'a pas réussi à obtenir des données convenables\n
