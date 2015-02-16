@@ -10,6 +10,8 @@
     <string name="pref_title_graph_blink">Courbe des clins d\'oeil</string>
     <string name="pref_title_graph_attention">Courbe de l\'attention</string>
     <string name="pref_title_graph_meditation">Courbe de la méditation</string>
+    <string name="pref_title_time_record">Temps d\'enregistrement (secondes)</string>
+    <string name="pref_title_values_record">Débuter l\'enregistrement</string>
     <string name="pref_title_freqRawData">Frequence Raw Data</string>
     <string name="pref_title_add_friends_to_messages">Example</string>
 

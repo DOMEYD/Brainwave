@@ -2,6 +2,10 @@ package com.example.testapp;
 
 // IMPORTS
 // Imports package android (divers)
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -42,9 +46,20 @@ public class MainActivity extends Activity {
     
     int passage = 1;
     
+    //variables par défaut du menu de paramètres
     boolean courbeAttention = true;
     boolean courbeMeditation = true;
     boolean courbeBlink = true;
+    boolean valuesRecord = false;
+    int timeRecord = 30;
+    
+    //getter de valeurs
+    boolean getAttention = false;
+    boolean getMeditation = false;
+    boolean getBlink = false;
+    boolean getRawData = false;
+    ArrayList<Integer> meditationValues = new ArrayList<Integer>();
+    ArrayList<Integer> attentionValues = new ArrayList<Integer>();
 	
     // Courbe de l'attention (Couleur = rouge / Nom = Attention)
     GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {
@@ -92,9 +107,14 @@ public class MainActivity extends Activity {
 	    	boolean oldCourbeAttention = courbeAttention;
 	    	boolean oldCourbeMeditation = courbeMeditation;
 	    	boolean oldCourbeBlink = courbeBlink;
+	    	boolean oldValuesRecord = valuesRecord;
+	    	int oldTimeRecord = timeRecord;
 	    	courbeAttention = prefs.getBoolean("graph_attention", true);
 	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
 	    	courbeBlink = prefs.getBoolean("graph_blink", true);
+	    	valuesRecord = prefs.getBoolean("values_record", false);
+	    	timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
+	    	
     	
 	    	if(!courbeAttention){
 	    		graphView.removeSeries(seriesAttention);
@@ -117,12 +137,55 @@ public class MainActivity extends Activity {
 	    	if(!courbeAttention && !courbeBlink && !courbeMeditation){
 	    		Toast.makeText(getApplicationContext(), "Aucune courbe sélectionné, sélectionnez en une dans les paramètres de l\'application", Toast.LENGTH_LONG).show();
 	    	}
+	    	Log.v("MsgRecordParam", "ValuesRecord : "+valuesRecord);
+	    	if(valuesRecord){
+	    		startRecord();
+	    	}else if(!valuesRecord && oldValuesRecord){
+	    		
+	    	}
     	}catch(Exception exc){
     		Log.e("errorResume", "Erreur : " +exc);
     	}
     }
         
-    // Handler du ThinkGear Device (thread qui traite constamment les données reçus)
+    private void startRecord() {
+		
+    	Log.v("MsgRecordStart", "Passage");
+    	getAttention = true;
+    	getMeditation = true;
+    	
+    	Timer timer = new Timer();
+    	
+    	timer.schedule(new TimerTask() {
+    		  @Override
+    		  public void run() {
+    			  Log.v("MsgRecordRun", "Passage run");
+    			  Log.v("MsgRecordRun", "ALM : "+meditationValues);
+    		    //Code pour insertion dans le csv puis arret
+    			  valuesRecord = false;
+    			  getAttention = false;
+    			  getMeditation = false;
+    			  SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    			  SharedPreferences.Editor editor = prefs.edit();
+    			  editor.putBoolean("values_record", false);
+    			  editor.commit();
+    			  Log.v("MsgRecordRun", "test1");
+    			  ArrayList<String> entete = new ArrayList<String>();
+    			  entete.add("Attention");
+    			  entete.add(",");
+    			  entete.add("Meditation");
+    			  entete.add("\n");
+    			  Log.v("MsgRecordRun", "test2");
+    			  csvWriter csvFile = new csvWriter("recordFile"+ (int)Math.random()*(9999999-0000000)+1 +".csv");
+    			  Log.v("MsgRecordRun", "test5");
+    			  csvFile.addCSVTwoList(meditationValues, attentionValues, entete);
+    			  Log.v("MsgRecordRun", "test6");
+    		  }
+    		}, timeRecord*1000);
+		
+	}
+
+	// Handler du ThinkGear Device (thread qui traite constamment les données reçus)
     @SuppressLint("HandlerLeak") private final Handler handler = new Handler() {
     	@SuppressWarnings("deprecation")
 		@Override
@@ -169,7 +232,10 @@ public class MainActivity extends Activity {
     				 * 80 - 100 : attention élevé
     				 */
     				Log.v("MsgEEG", "Attention: " + msg.arg1);
-    				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true); 
+    				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true);
+    				  if(getAttention){
+    					  attentionValues.add(msg.arg1);
+    				  }
     				  passage++;
     			break;
     			case TGDevice.MSG_MEDITATION:
@@ -183,7 +249,10 @@ public class MainActivity extends Activity {
     				 * 80 - 100 : meditation élevé
     				 */
     				Log.v("MsgEEG","Meditation: " +msg.arg1);
-    				seriesMeditation.appendData( new GraphViewData(passage, msg.arg1), true); 
+    				seriesMeditation.appendData( new GraphViewData(passage, msg.arg1), true);
+  				    if(getMeditation){
+					    meditationValues.add(msg.arg1);
+				    }
     			break;
     			case TGDevice.MSG_RAW_DATA:
     				int rawValue = msg.arg1;
