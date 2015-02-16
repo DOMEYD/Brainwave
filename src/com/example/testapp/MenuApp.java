@@ -69,7 +69,7 @@ public class MenuApp extends Activity
     	    		"- Robin Hayart \n" +
     	    		"- Loic Dieudonné \n" +
     	    		"- Chafik Daggag \n" +
-    	    		"- Cecile Kergal")
+    	    		"- Cecile Kergall")
     	    .setIcon(android.R.drawable.ic_dialog_alert)
     	     .show();
     		return true;
