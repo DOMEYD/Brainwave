@@ -46,8 +46,6 @@ En effet, Android inclut un support pour le Bluetooth qui permet à un périphériq
 
 Le casque possède plusieurs éléctodes qui, placées sur le front, envoient des ondes EGG (Ondes de très faibles amplitudes, de l'ordre du microVolt chez l'être humain) à un boitier bluetooth qui les convertis en données brutes, dites row_data. Ces dernières sont traitées dirrectement dans l'applications.
 
-'''
-/**
 * Renvoie une valeur entre 0 et 100 sur la capacité d'attention/méditation
 * 0 : incapacité à calculer une valeur d'attention/méditation
 * 1 - 20 : très faible attention/méditation
@@ -55,8 +53,6 @@ Le casque possède plusieurs éléctodes qui, placées sur le front, envoient des on
 * 40 - 60 : valeur d'attention/méditation normale
 * 60 - 80 : attention/méditation relativement élevée
 * 80 - 100 : attention/méditation élevée
-*/
-'''
 
 ### 3. Génération d'un graphique d'après les données
 
