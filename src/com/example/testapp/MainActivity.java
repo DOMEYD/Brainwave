@@ -32,7 +32,7 @@ import com.neurosky.thinkgear.TGDevice;
 import com.neurosky.thinkgear.TGEegPower;
 import com.neurosky.thinkgear.TGRawMulti;
 /**
- * Permet l'affichage du graphique avec les diféfrentes données recueillies en temps réel :
+ * Permet l'affichage du graphique avec les différentes données recueillies en temps réel :
  * - Attention
  * - Méditation
  * - Clins d'oeil
