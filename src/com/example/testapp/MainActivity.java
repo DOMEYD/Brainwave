@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
 
     });
     
-    // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
+    // Courbe des clins d'oeil (Couleur = vert / Nom = clins d'oeil)
     GraphViewSeries seriesBlink = new GraphViewSeries("Clins d'oeil", new GraphViewSeriesStyle(Color.rgb(0, 200, 50), 3), new GraphViewData[] {
 
     });
