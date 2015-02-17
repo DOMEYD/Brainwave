@@ -1,8 +1,5 @@
 package com.example.testapp;
 
-//IMPORTS
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 
