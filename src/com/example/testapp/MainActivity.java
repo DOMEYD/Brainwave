@@ -2,10 +2,18 @@ package com.example.testapp;
 
 // IMPORTS
 // Imports package android (divers)
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -14,10 +22,19 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
+
+
+
+
+
+
+
 // Imports api GraphView
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
@@ -29,6 +46,7 @@ import com.jjoe64.graphview.LineGraphView;
 import com.neurosky.thinkgear.TGDevice;
 import com.neurosky.thinkgear.TGEegPower;
 import com.neurosky.thinkgear.TGRawMulti;
+
 
 
 public class MainActivity extends Activity {
@@ -146,7 +164,7 @@ public class MainActivity extends Activity {
 						break;
 						case TGDevice.STATE_NOT_FOUND:
 							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
-							finish(); //Nous renvoie sur le menu
+							//finish(); //Nous renvoie sur le menu
 						break;
 						case TGDevice.STATE_NOT_PAIRED:
 							Log.v("Statut", "Not paired");
@@ -277,8 +295,71 @@ public class MainActivity extends Activity {
     		// Comportement du bouton "Quitter"
     		finish();
     		return true;
+    	case R.id.csv:
+    		// Comportement du bouton "Quitter"
+    		try {
+				rawDataCSV("test.txt");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		return true;
     	default:
     		return super.onOptionsItemSelected(item);
     	}
     }
+    
+    
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable()
+    {
+    	String state = Environment.getExternalStorageState();
+    	if(Environment.MEDIA_MOUNTED.equals(state))
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /* Checks if external storage is available to at least read */
+    public boolean isExternalStorageReadable()
+    {
+    	String state = Environment.getExternalStorageState();
+    	if(Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+    	{
+    		return true;
+    	}
+    	return false;
+    }
+			
+			public File rawDataCSV(String albumName)
+			{
+				
+				if (isExternalStorageWritable())
+				{
+				
+					Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_LONG).show();
+				
+					String csv = "data.csv";
+					String FILENAME = "test.txt";
+					//String albumName = "Download";
+					String FILEDATA ="blabla";
+					//Get the directory for the user's public Download directory
+				   	File file =  new File(Environment.getExternalStoragePublicDirectory(
+							Environment.DIRECTORY_DOWNLOADS), albumName);
+					
+					Toast.makeText(getApplicationContext(), "Test2", Toast.LENGTH_LONG).show();
+					
+					//Si le fichier n'a pas été créer
+					if (!file.mkdirs())
+					{
+						 Toast.makeText(getApplicationContext(), "Directory not created", Toast.LENGTH_LONG).show();
+						 Log.e("Tag d'info", "Directory not created");
+					}
+					return file;
+				}
+				return null;
+	}
+    
+    
 }

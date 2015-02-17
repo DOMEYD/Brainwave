@@ -1,8 +1,11 @@
 package com.example.testapp;
 
 //IMPORTS
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
+
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -257,7 +260,4 @@ public class GestionBluetooth extends Activity
     		return super.onOptionsItemSelected(item);
     	}
     }
-	
-	
-	
 }
