@@ -1,7 +1,5 @@
 package com.example.testapp;
 
-// IMPORTS
-// Imports package android (divers)
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,10 +31,18 @@ import com.jjoe64.graphview.LineGraphView;
 import com.neurosky.thinkgear.TGDevice;
 import com.neurosky.thinkgear.TGEegPower;
 import com.neurosky.thinkgear.TGRawMulti;
-
+/**
+ * Permet l'affichage du graphique avec les diféfrentes données recueillies en temps réel :
+ * - Attention
+ * - Méditation
+ * - Clins d'oeil
+ * @author Robin, Chafik, Loïc, Cécile
+ *
+ */
 
 public class MainActivity extends Activity {
 
+	//Déclaration des variables
 	TGDevice tgDevice;
 	BluetoothAdapter btAdapter;
 	
@@ -78,6 +84,9 @@ public class MainActivity extends Activity {
     // Instanciation du GraphView
     GraphView graphView;
 	
+    /**
+	 * Permet de trouver les listes des devices appairés et ceux dans la portée du bluetooth
+	 */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,12 +103,18 @@ public class MainActivity extends Activity {
         createGraph();
 	}
     
+    /**
+     * Herite de la methode onResume() et lance la méthode gestionParametre()
+     */
     protected void onResume(){
     	super.onResume();
     	
     	gestionParametre();
     }
     
+    /**
+     * Permet de gérer les paramètres
+     */
     protected void gestionParametre(){
     	try{
 	    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -147,7 +162,10 @@ public class MainActivity extends Activity {
     		Log.e("errorResume", "Erreur : " +exc);
     	}
     }
-        
+    
+    /**
+     * Permet d'enregistrer les données recueillies dans un laps de temps
+     */
     private void startRecord() {
 		
     	Log.v("MsgRecordStart", "Passage");
@@ -184,8 +202,10 @@ public class MainActivity extends Activity {
     		}, timeRecord*1000);
 		
 	}
-
-	// Handler du ThinkGear Device (thread qui traite constamment les données reçus)
+    
+    /**
+     * Handler du ThinkGear Device (thread qui traite constamment les données reçus)
+     */
     @SuppressLint("HandlerLeak") private final Handler handler = new Handler() {
     	@SuppressWarnings("deprecation")
 		@Override
@@ -287,7 +307,9 @@ public class MainActivity extends Activity {
     	}
     };
 
-    // Création du graphique attention / meditation
+    /**
+     * Création du graphique attention / meditation
+     */
     public void createGraph(){
 
     	graphView = new LineGraphView(this, "Courbes EEG");
@@ -309,14 +331,23 @@ public class MainActivity extends Activity {
 		layout.addView(graphView);
     }
 
-
+    /**
+     * Ajoute des objets dans la barre d'action
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
+    
+    /**
+     * Ajoute des objets dans la barre d'action :
+     * - Paramètres : lance un nouvel intent de SettingsActivity
+     * - A propos : lance une boîte de dialogue avec les noms des développeurs de l'application
+     * - Aide : lance un nouvel intent avec une page de memo
+     * - quitter
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {

@@ -10,12 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-/** To do :
+/**
  * 
- *  Créer des menus propres
- *   
- *  */
-
+ * @author Robin, Chafik, Loïc, Cécile
+ *
+ */
 public class MenuApp extends Activity 
 {
 	
@@ -26,12 +25,17 @@ public class MenuApp extends Activity
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.menu); //Attribution du layout ( de la vue à utilserv)
+		setContentView(R.layout.menu); //Attribution du layout (de la vue à utilser)
 		
 		//Déclaration du bluetoothAdapter
 		BA = BluetoothAdapter.getDefaultAdapter();
 	}
-
+	
+	/**
+	 * Permet de tester si le bluetooth est activé
+	 * Lance un intent de MainActivity si il est actif, sinon il quitte l'activité du graph
+	 * @param view
+	 */
 	public void Graph(View view)
 	{
 		if (!BA.isEnabled())  //Test si le bluetooth est activé sinon quitte la méthode
@@ -45,6 +49,11 @@ public class MenuApp extends Activity
 		startActivity(intent);
 	}
 	
+	/**
+	 * Permet de gerer le bluetooth
+	 * Lance un intent de GestionBluetooth
+	 * @param view
+	 */
 	public void GestionBluetooth(View view)
 	{
 		Intent intent = new Intent();
@@ -52,12 +61,19 @@ public class MenuApp extends Activity
 		startActivity(intent);
 	}
 	
+	/**
+	 * Menu de la barre d'action
+	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menuapp, menu);
 		return true;
 	}
 	
+	/**
+	 * Permet d'afficher les boutons "à propos" et "quitter"
+	 * A propos : lance une boîte de dialogue avec les noms des développeurs de l'application
+	 */
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
