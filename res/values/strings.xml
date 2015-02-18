@@ -5,7 +5,7 @@
     
     <string name="app_name">Brain Waves</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Paramètres</string>
    
    <!-- Main Activity-->
    
@@ -19,13 +19,13 @@
     <string name="recherche"> La recherche est en cours &#8230;</string> <!-- &#8230; est le unicode de "..."   -->
     
 	    <!-- Buttons -->
-	    <string name="on">On</string>
-	    <string name="off">Turn Off</string>
-	    <string name="Visible">Get Visible</string>
-	    <string name="buttonPairedDevices">List Paired Devices</string>
-	    <string name="buttonAroundDevices">List Device(s) Around</string>
-	    <string name="ListPairedDevices">List of Paired Devices :</string>
-	    <string name="ListAroundDevices">List of the bluetooth devices around :</string>
+	    <string name="on">Activé</string>
+	    <string name="off">Désactivé</string>
+	    <string name="Visible">Rendre visible</string>
+	    <string name="buttonPairedDevices">Afficher les appareils appairés</string>
+	    <string name="buttonAroundDevices">Afficher les appareils environnants</string>
+	    <string name="ListPairedDevices">Liste des appareils appairés:</string>
+	    <string name="ListAroundDevices">Liste des appareils Bluetooth environnants :</string>
 
 	 <!-- Paramètres -->   
 	    
@@ -33,7 +33,7 @@
     <string name="aide">Aide</string>
     <string name="propos">A propos</string>
     <string name="quitter">Quitter</string>
-    <string name="title_activity_aide">AideActivity</string>
+    <string name="title_activity_aide">Explications</string>
     <string name="aideTitre1"><u>Méditation et Attention :</u></string>
     <string name="meditation_attention_content">
         Voici comment interpréter les données concernant la méditation et l\'attention :\n
