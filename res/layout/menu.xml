@@ -8,36 +8,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:orientation="vertical" >
-
         <Button
             android:id="@+id/buttonGraph"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="Graph"
             android:text="@string/buttonGraph"
-			android:drawableLeft="@drawable/grafic" />
-
-        <!-- <Button
-        	android:id="@+id/buttonGraph"
-        	style="@style/ButtonsTextMenu"
-        	android:background="@drawable/orange_button"
-        	android:layout_marginBottom="40sp"
-            android:onClick="Graph"
-            android:text="@string/buttonGraph" /> -->
-        
-         <!-- <Button
-        	android:id="@+id/buttonGestionBluetooth"
-          	style="@style/ButtonsTextMenu"
-          	android:background="@drawable/orange_button"
-            android:onClick="GestionBluetooth"
-            android:layout_marginTop="40sp"
-            android:text="@string/GestionBluetooth" /> -->
-
-    </LinearLayout>
+			android:drawableLeft="@drawable/grafic"
+			android:drawableStart="@drawable/grafic" />
 
 </RelativeLayout>

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import android.os.Environment;
-import android.util.Log;
 /**
  * Permet de créer un fichier CSV d'après les données recueillies
  * 

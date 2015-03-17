@@ -4,8 +4,6 @@ package fr.iut.brainwave;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 /**
  * Permet d'afficher le menu d'aide
  * 

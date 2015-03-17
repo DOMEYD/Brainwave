@@ -172,7 +172,6 @@ public class GestionBluetooth extends Activity
 			list.add(bt.getName());
 		}
 		Toast.makeText(getApplicationContext(),"Showing the " + list.size() + " paired device", Toast.LENGTH_SHORT).show();
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  list);
 
 //		lvPaired.setAdapter(adapter); //Affichage de la liste
 	}

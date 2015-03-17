@@ -124,7 +124,6 @@ public class MainActivity extends Activity {
 	    	boolean oldCourbeMeditation = courbeMeditation;
 	    	boolean oldCourbeBlink = courbeBlink;
 	    	boolean oldValuesRecord = valuesRecord;
-	    	int oldTimeRecord = timeRecord;
 	    	courbeAttention = prefs.getBoolean("graph_attention", true);
 	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
 	    	courbeBlink = prefs.getBoolean("graph_blink", true);
@@ -212,8 +211,7 @@ public class MainActivity extends Activity {
     /**
      * Handler du ThinkGear Device (thread qui traite constamment les données reçus)
      */
-    @SuppressLint("HandlerLeak") private final Handler handler = new Handler() {
-    	@SuppressWarnings("deprecation")
+    private final Handler handler = new Handler() {
 		@Override
     	public void handleMessage(Message msg) {
     		switch (msg.what) {
