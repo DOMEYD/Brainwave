@@ -1,6 +1,8 @@
 package com.example.testapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,6 +22,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
+
 // Imports api GraphView
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
@@ -64,22 +68,17 @@ public class MainActivity extends Activity {
     boolean getMeditation = false;
     boolean getBlink = false;
     boolean getRawData = false;
+   
+   //tableau contenant l'ensemble des valeurs 
     ArrayList<Integer> meditationValues = new ArrayList<Integer>();
     ArrayList<Integer> attentionValues = new ArrayList<Integer>();
 	
     // Courbe de l'attention (Couleur = rouge / Nom = Attention)
-    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {
-
-      });
+    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
     // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
-    GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {
-
-    });
-    
+    GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
     // Courbe des clins d'oeil (Couleur = vert / Nom = clins d'oeil)
-    GraphViewSeries seriesBlink = new GraphViewSeries("Clins d'oeil", new GraphViewSeriesStyle(Color.rgb(0, 200, 50), 3), new GraphViewData[] {
-
-    });
+    GraphViewSeries seriesBlink = new GraphViewSeries("Clins d'oeil", new GraphViewSeriesStyle(Color.rgb(0, 200, 50), 3), new GraphViewData[] {});
     
     // Instanciation du GraphView
     GraphView graphView;
@@ -156,7 +155,7 @@ public class MainActivity extends Activity {
 	    	if(valuesRecord){
 	    		startRecord();
 	    	}else if(!valuesRecord && oldValuesRecord){
-	    		
+	    		tgDevice.close();
 	    	}
     	}catch(Exception exc){
     		Log.e("errorResume", "Erreur : " +exc);
@@ -190,11 +189,16 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test1");
     			  ArrayList<String> entete = new ArrayList<String>();
     			  entete.add("Attention");
-    			  entete.add(",");
+    			  entete.add(";");
     			  entete.add("Meditation");
     			  entete.add("\n");
     			  Log.v("MsgRecordRun", "test2");
-    			  csvWriter csvFile = new csvWriter("recordFile"+ (int)Math.random()*(9999999-0000000)+1 +".csv");
+    			
+    			  Date d = new Date();
+    			  SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+    			  String s = f.format(d);
+    			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
+    			  
     			  Log.v("MsgRecordRun", "test5");
     			  csvFile.addCSVTwoList(meditationValues, attentionValues, entete);
     			  Log.v("MsgRecordRun", "test6");
@@ -226,6 +230,7 @@ public class MainActivity extends Activity {
 						break;
 						case TGDevice.STATE_DISCONNECTED:
 							Toast.makeText(getApplicationContext(), "Systeme déconnecté !", Toast.LENGTH_SHORT).show();
+					
 						break;
 						case TGDevice.STATE_NOT_FOUND:
 							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
@@ -374,6 +379,7 @@ public class MainActivity extends Activity {
     		startActivity(aideIntent);
     		return true;
     	case R.id.quitter:
+    		tgDevice.close();
     		// Comportement du bouton "Quitter"
     		finish();
     		return true;

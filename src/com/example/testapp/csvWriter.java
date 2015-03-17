@@ -50,11 +50,12 @@ public class csvWriter {
 			}
 			for(int i = 0; i < valeursAttention.size(); i++){
 				writer.write(Integer.toString(valeursAttention.get(i)));
-				writer.write(",");
+				writer.write(";");
 				if(i < listMeditationSize){
 					writer.write(Integer.toString(valeursMeditation.get(i)));
 				}
 				writer.append("\n");
+
 			}
 			writer.flush();
 			writer.close();
@@ -77,7 +78,7 @@ public class csvWriter {
 			 BufferedReader br = new BufferedReader(fr);
 			 String line = br.readLine();
 		       while( line != null) {
-		           temp= line.split(",");
+		           temp= line.split(";");
 		           mediation.add(Integer.parseInt(temp[1]));
 		           attention.add(Integer.parseInt(temp[0]));
 		        		   
