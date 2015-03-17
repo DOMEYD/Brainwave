@@ -1,26 +1,34 @@
 package com.example.testapp;
 
 //IMPORTS
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Switch;
+
 
 /** Activité de gestion des différentes option du bluetooth :
  * 
@@ -35,14 +43,17 @@ import android.widget.Toast;
  */
 public class GestionBluetooth extends Activity
 {
-	//Déclaration des variables
-	private Button listAround ;
 	private BluetoothAdapter BA;
 	private Set<BluetoothDevice>pairedDevices;
-	private ListView lvPaired , lvAround;
-	private TextView tvPaired , tvAround , tvRechercheEnCours;
-	private ArrayList<String> tab;
-	private boolean discoveryFinished  ;
+	private ListView lvAround;
+	private TextView listDeviceTitle;
+	private ProgressBar tvRechercheEnCours;
+
+	public ArrayAdapter<String> mesNewDevicesArrayAdapter;
+	public ArrayList<BluetoothDevice> listDevicesArround = new ArrayList<BluetoothDevice>();
+	public static String EXTRA_DEVICE_ADDRESS = "device_address";
+
+	static final int ENABLED_BTH = 1;
 
 	/**
 	 * Permet de trouver les listes des devices appairés et ceux dans la portée du bluetooth
@@ -53,32 +64,43 @@ public class GestionBluetooth extends Activity
 		setContentView(R.layout.gestionbluetooth);
 
 		//Les listes des devices appairés et ceux dans la portée du bluetooth
-		lvPaired = (ListView)findViewById(R.id.lvPairedDevices);
 		lvAround = (ListView)findViewById(R.id.lvAroundDevices);
 
 		//Titres des listes
-		tvPaired = (TextView)findViewById(R.id.tvListPairedDevices);
-		tvAround = (TextView)findViewById(R.id.tvListAroundDevices);
-
-
-
-		//Cache les titres, les titres apparaissent lorsque les listes sont demandées
-		tvPaired.setVisibility(View.GONE);
-		tvAround.setVisibility(View.GONE);
+		listDeviceTitle = (TextView)findViewById(R.id.listDeviceTitle);
 
 		//Message de charchement, affiché que lorsque la recherche est en cours
-		tvRechercheEnCours = (TextView)findViewById(R.id.tvRechercheEnCours);
-		tvRechercheEnCours.setVisibility(View.GONE); 
-
-		//Boolean qui déclare si la recherche est fini ou non
-		discoveryFinished = false;
+		tvRechercheEnCours = (ProgressBar) findViewById(R.id.tvRechercheEnCours);
+//		tvRechercheEnCours.setVisibility(View.GONE); 
 
 		//Déclaration du bluetoothAdapter
 		BA = BluetoothAdapter.getDefaultAdapter();
-
-		tab = new ArrayList<String>() ;
+		
+		// MANAGE list of peripheral
+		mesNewDevicesArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+		lvAround.setOnItemClickListener(mDeviceClickListener);
+		
+		// SET depending adapter
+		lvAround.setAdapter(mesNewDevicesArrayAdapter);
+		
+		// MANAGE if the Bluetooth adaptor is enable
+		if(BA.isEnabled()) ((Switch) findViewById(R.id.togglebth)).setChecked( true );
 	}
 
+	
+	public void onToggleClicked(View view) {
+	    // Is the toggle on?
+	    boolean on = ((Switch) view).isChecked();
+	    
+	    if (on) {
+	        // Enable vibrate
+	    	this.on( null );
+	    } else {
+	        // Disable vibrate
+	    	this.off( null );
+	    }
+	}
+	
 	/** 
 	 * Permet d'activer le bluetooth
 	 * Agit si il est déjà activé, non activé et demande l'accord de l'utilisateur
@@ -88,8 +110,7 @@ public class GestionBluetooth extends Activity
 		if (!BA.isEnabled()) //Si le bluetooth est désactivé
 		{
 			Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(turnOn, 0); //Active le bluetooth
-			Toast.makeText(getApplicationContext(),"Bluetooth turned on" ,Toast.LENGTH_LONG).show();
+			startActivityForResult(turnOn, ENABLED_BTH); //Active le bluetooth
 		}
 		else
 		{
@@ -113,6 +134,16 @@ public class GestionBluetooth extends Activity
 			Toast.makeText(getApplicationContext(),"Bluetooth already off",Toast.LENGTH_LONG).show();
 		}
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == ENABLED_BTH) {
+	        if (resultCode == RESULT_OK) {}
+	        else {
+				((Switch) findViewById(R.id.togglebth)).setChecked( false );
+	        }
+	    }
+	}
 
 	/** 
 	 * Permet la création et affichage de la liste des devices appairés avec notre appareil
@@ -126,9 +157,11 @@ public class GestionBluetooth extends Activity
 			return; //Sort de la méthode
 		}
 
-		tvPaired.setVisibility(View.VISIBLE); //Apparition du titre 
+		// SET list of device title
+		listDeviceTitle.setText(R.string.ListPairedDevices);
 
-		pairedDevices = BA.getBondedDevices(); //Recupération des devices appairés
+		// RETRIEVE all already paired devices
+		pairedDevices = BA.getBondedDevices();
 
 		ArrayList<String> list = new ArrayList<String>();
 
@@ -139,7 +172,7 @@ public class GestionBluetooth extends Activity
 		Toast.makeText(getApplicationContext(),"Showing the " + list.size() + " paired device", Toast.LENGTH_SHORT).show();
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  list);
 
-		lvPaired.setAdapter(adapter); //Affichage de la liste
+//		lvPaired.setAdapter(adapter); //Affichage de la liste
 	}
 
 	/**
@@ -152,70 +185,31 @@ public class GestionBluetooth extends Activity
 
 	}
 
-
-
 	/** 
 	 * Création et affichage de la liste des devices bluetooth dans la portée de notre appareil
 	 */
 	public void listAround(View view)
 	{
-
 		if (!BA.isEnabled())  //Test si le bluetooth est activé sinon quitte la méthode
 		{
 			Toast.makeText(getApplicationContext(),"The bluetooth is not on", Toast.LENGTH_LONG).show();
 			return; //Sort de la méthode
 		}
+		
+		// SET arround list title
+		listDeviceTitle.setText(R.string.ListAroundDevices);
+		
+		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND); 
 
+		// Ajoute des actions de début et de fin à la recherche 
+		filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); 
+		filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
 
-		if (discoveryFinished ) //Si la recherche de device a été effectuée
-		{
-
-			if (tab.size() <= 0) //Teste si il y a des appareils a afficher sinon quitte la méthode
-			{
-				Toast.makeText(getApplicationContext(),"There is not device around, retry later", Toast.LENGTH_LONG).show();
-				return; //Sort de la méthode
-			}
-
-			tvRechercheEnCours.setVisibility(View.GONE);//Cache le message de chargement
-
-			tvAround.setVisibility(View.VISIBLE); //Affiche le titre de la liste
-
-			ArrayList<String> list = new ArrayList<String>(); //Création de la liste
-
-
-
-			for (int i = 0 ;i<tab.size(); i++) //Ajoute des appareils trouvé à la liste
-			{
-				list.add(tab.get(i));
-			}
-			Toast.makeText(getApplicationContext(),"Showing the " + list.size() + " device(s) that are around", Toast.LENGTH_SHORT).show();
-
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,  list); //adaptation de la liste pour l'affichage
-
-			lvAround.setAdapter(adapter); //Affichage de la liste
-
-			discoveryFinished = false; //Remet le boolean a son état initial ( false )
-
-		}
-		else
-		{
-			tab.clear(); // Vide le tableau si une recherche a été faite précédement
-
-			//Cache la liste est son titre pour lancer une nouvelle recherche
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1); 
-			lvAround.setAdapter(adapter); //Affichage de la liste vide 
-			tvAround.setVisibility(View.GONE); //Cache le titre de la liste
-			IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND); 
-
-			// Ajoute des actions de début et de fin à la recherche 
-			filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED); 
-			filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
-
-			registerReceiver(bluetoothReceiver, filter);
-			BA.startDiscovery(); //Démarre la recherche
-			tvRechercheEnCours.setVisibility(View.VISIBLE); //Affiche le message de chargement
-		}	
+		registerReceiver(bluetoothReceiver, filter);
+		BA.startDiscovery(); //Démarre la recherche
+		tvRechercheEnCours.setVisibility(View.VISIBLE); //Affiche le message de chargement
 	}
+	
 	/**
 	 * Recherches les autres appareils bluetooth
 	 */
@@ -228,22 +222,50 @@ public class GestionBluetooth extends Activity
 			if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) //Début de la recherche
 			{
 				Toast.makeText(getApplicationContext(), "La recherche commence" , Toast.LENGTH_SHORT).show();
+				mesNewDevicesArrayAdapter.clear();
 			}
 
 			if (BluetoothDevice.ACTION_FOUND.equals(action))  //Lorsqu'un appareil est trouvé
 			{
 				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-				Toast.makeText(getApplicationContext(), "New Device = " + device.getName(), Toast.LENGTH_SHORT).show();
-				//Ajoute le nom de l'appareil au tableau
-				tab.add(device.getName());
+				mesNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+				listDevicesArround.add(device);
 			}
 
 			if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) //Lorsque la recherche est fini
 			{
-				discoveryFinished = true;
-				listAround(listAround);
-
+				if (mesNewDevicesArrayAdapter.getCount() == 0) {
+					mesNewDevicesArrayAdapter.add("Aucun peripherique trouvé");	
+				}
+				tvRechercheEnCours.setVisibility(View.GONE);
 			}
+		}
+	};
+	
+	public OnItemClickListener mDeviceClickListener = new OnItemClickListener()
+	{
+		@Override
+		public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
+		{
+			// Disable Bluetooth search device if ingage
+			if (BA.isDiscovering()) BA.cancelDiscovery();
+			
+			// Retrieve TextView content
+			String info = ((TextView) v).getText().toString();
+			String address = info.substring(info.length() - 17); // Device MAC addresse
+			
+			BluetoothDevice device = null;
+//			BluetoothSocket mmSocket = null;
+			for(int i = 0; i < listDevicesArround.size(); i++) {
+				if(listDevicesArround.get(i).getAddress().equals(address)) {
+					device = listDevicesArround.get(i);
+				}
+			}
+			
+			ConnectThread CT = new ConnectThread(device);
+			CT.run();
+	        			
+			finish();
 		}
 	};
 
@@ -283,4 +305,54 @@ public class GestionBluetooth extends Activity
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		BA.cancelDiscovery();
+		unregisterReceiver(bluetoothReceiver);
+	}
+}
+
+class ConnectThread extends Thread {
+    private final BluetoothSocket mmSocket;
+    public ConnectThread(BluetoothDevice device) {
+        // Use a temporary object that is later assigned to mmSocket,
+        // because mmSocket is final
+        BluetoothSocket tmp = null;
+        // Get a BluetoothSocket to connect with the given BluetoothDevice
+        try {
+            // MY_UUID is the app's UUID string, also used by the server code
+            tmp = device.createRfcommSocketToServiceRecord(UUID.randomUUID());
+        } catch (IOException e) { }
+        mmSocket = tmp;
+    }
+ 
+    public void run() {
+        // Cancel discovery because it will slow down the connection
+    	BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+ 
+        try {
+            // Connect the device through the socket. This will block
+            // until it succeeds or throws an exception
+            mmSocket.connect();
+        } catch (IOException connectException) {
+        	Log.e("mmSocket.connect()", connectException.getMessage());
+            // Unable to connect; close the socket and get out
+            try {
+                mmSocket.close();
+            } catch (IOException closeException) { }
+            return;
+        }
+ 
+        // Do work to manage the connection (in a separate thread)
+//        manageConnectedSocket(mmSocket);
+    }
+ 
+    /** Will cancel an in-progress connection, and close the socket */
+    public void cancel() {
+        try {
+            mmSocket.close();
+        } catch (IOException e) { }
+    }
 }

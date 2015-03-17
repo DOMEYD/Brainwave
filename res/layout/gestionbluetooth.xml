@@ -9,47 +9,33 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GestionBluetooth" >
 
-   <LinearLayout
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        
         android:orientation="vertical" >
 
         <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content" >
 
-         	<LinearLayout
-               android:gravity="center"
-               android:layout_width="match_parent"
-               android:layout_height="fill_parent"
-               
-               android:orientation="vertical" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/tvGestionBluetooth"
-                    android:layout_width="wrap_content"
+                <Switch
+                    android:id="@+id/togglebth"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:onClick="onToggleClicked"
+                    android:switchMinWidth="56dp"
                     android:text="@string/GestionBluetooth"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textSize="20sp" />
 
-                <Button
-                    android:id="@+id/buttonOn"
-                    style="@style/ButtonsTextMenuBluetooth"
-                    android:background="@drawable/green_button"
-                    android:onClick="on"
-                    
-                    android:text="@string/on" />
-                
-                 <Button
-                    android:id="@+id/buttonOff"
-                    style="@style/ButtonsTextMenuBluetooth"
-                    android:background="@drawable/red_button"
-                    android:onClick="off"
-                    android:text="@string/off" />
-
-                <Button
+                <!-- <Button
                     android:id="@+id/buttonVisible"
                     style="@style/ButtonsTextMenuBluetooth"
                     android:background="@drawable/blue_button"
@@ -58,60 +44,44 @@
 
                 <Button
                     android:id="@+id/buttonPairedDevices"
-                    android:background="@drawable/blue_button"
                     style="@style/ButtonsTextMenuBluetooth"
+                    android:background="@drawable/blue_button"
                     android:onClick="list"
-                    android:text="@string/buttonPairedDevices" />
-               
+                    android:text="@string/buttonPairedDevices" /> -->
+
                 <Button
                     android:id="@+id/buttonUnpairedDevices"
-                    style="@style/ButtonsTextMenuBluetooth"
-                    android:background="@drawable/blue_button"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
                     android:onClick="listAround"
                     android:text="@string/buttonAroundDevices" />
-                
             </LinearLayout>
         </ScrollView>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-           
-            <TextView
-                android:id="@+id/tvListPairedDevices"
-                style="@style/ListeTitle"
-                android:layout_marginTop="20sp"
-                android:text="@string/ListPairedDevices"/>
-
-            <ListView
-                android:id="@+id/lvPairedDevices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:visibility="visible" >
-            </ListView>
 
             <TextView
-                android:id="@+id/tvListAroundDevices"
-                style="@style/ListeTitle"
-                android:text="@string/ListAroundDevices" />
+                android:id="@+id/listDeviceTitle"
+                style="@style/ListeTitle" /> 
             
-             <TextView
-             	android:id="@+id/tvRechercheEnCours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/recherche"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
             <ListView
                 android:id="@+id/lvAroundDevices"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:visibility="visible" >
+                android:layout_height="0dp"
+                android:layout_weight="50" >
             </ListView>
             
+		    <ProgressBar
+		        android:id="@+id/tvRechercheEnCours"
+		        style="?android:attr/progressBarStyleLarge"
+		        android:layout_width="50dp"
+		        android:layout_height="50dp"
+        		android:layout_gravity="center"
+                android:visibility="gone" />
+       
         </LinearLayout>
     </LinearLayout>
 
