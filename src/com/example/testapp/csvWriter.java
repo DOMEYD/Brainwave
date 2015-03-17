@@ -1,7 +1,10 @@
 package com.example.testapp;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -60,5 +63,34 @@ public class csvWriter {
 		{
 		     e.printStackTrace();
 		}
+	}
+	
+	
+
+	public void ListerCSVFile (File file) throws IOException{
+		ArrayList<Integer> mediation = new ArrayList<Integer>();
+		ArrayList<Integer> attention = new ArrayList<Integer>();
+		String[] temp;
+		
+		try {
+			FileReader fr = new FileReader(file);
+			 BufferedReader br = new BufferedReader(fr);
+			 String line = br.readLine();
+		       while( line != null) {
+		           temp= line.split(",");
+		           mediation.add(Integer.parseInt(temp[1]));
+		           attention.add(Integer.parseInt(temp[0]));
+		        		   
+		        }
+
+		        br.close();
+		        fr.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	       
+		
 	}
 }
