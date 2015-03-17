@@ -309,8 +309,8 @@ public class GestionBluetooth extends Activity
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		BA.cancelDiscovery();
-		unregisterReceiver(bluetoothReceiver);
+		if (BA.isDiscovering()) BA.cancelDiscovery();
+//		unregisterReceiver(bluetoothReceiver);
 	}
 }
 
