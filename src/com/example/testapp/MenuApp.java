@@ -67,7 +67,7 @@ public class MenuApp extends Activity
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.menuapp, menu);
-		return true;
+        return super.onCreateOptionsMenu(menu);
 	}
 	
 	/**
@@ -92,6 +92,10 @@ public class MenuApp extends Activity
     	case R.id.quitter:
     		// Comportement du bouton "Quitter"
     		finish();
+    		return true;
+    	case R.id.action_params:
+    		// Comportement du bouton "Quitter"
+    		this.GestionBluetooth(null);
     		return true;
     	default:
     		return super.onOptionsItemSelected(item);

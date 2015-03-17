@@ -9,10 +9,8 @@ package com.example.testapp;
 
 public final class R {
     public static final class array {
-        public static final int pref_example_list_titles=0x7f070000;
-        public static final int pref_example_list_values=0x7f070001;
-        public static final int pref_sync_frequency_titles=0x7f070002;
-        public static final int pref_sync_frequency_values=0x7f070003;
+        public static final int pref_sync_frequency_titles=0x7f070000;
+        public static final int pref_sync_frequency_values=0x7f070001;
     }
     public static final class attr {
     }
@@ -36,6 +34,7 @@ public final class R {
         public static final int red_button=0x7f020005;
     }
     public static final class id {
+        public static final int action_params=0x7f0a0013;
         public static final int aide=0x7f0a0012;
         public static final int buttonGestionBluetooth=0x7f0a000e;
         public static final int buttonGraph=0x7f0a000d;
@@ -95,49 +94,26 @@ public final class R {
         public static final int on=0x7f060007;
         /**  Example settings for Data & Sync 
          */
-<<<<<<< HEAD
-        public static final int pref_header_data_sync=0x7f06001c;
+        public static final int pref_header_data_sync=0x7f06001d;
         /**  Strings related to Settings 
  Example General settings 
          */
         public static final int pref_header_general=0x7f060016;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f06001f;
-        public static final int pref_ringtone_silent=0x7f060022;
-        public static final int pref_title_add_friends_to_messages=0x7f06001b;
-        public static final int pref_title_freqRawData=0x7f06001a;
-        public static final int pref_title_graph_attention=0x7f060018;
-        public static final int pref_title_graph_blink=0x7f060017;
-        public static final int pref_title_graph_meditation=0x7f060019;
-        public static final int pref_title_new_message_notifications=0x7f060020;
-        public static final int pref_title_ringtone=0x7f060021;
-        public static final int pref_title_sync_frequency=0x7f06001d;
-        public static final int pref_title_system_sync_settings=0x7f06001e;
-        public static final int pref_title_vibrate=0x7f060023;
-=======
-        public static final int pref_header_data_sync=0x7f06001e;
-        /**  Strings related to Settings 
- Example General settings 
-         */
-        public static final int pref_header_general=0x7f060016;
-        /**  Example settings for Notifications 
-         */
-        public static final int pref_header_notifications=0x7f060021;
-        public static final int pref_ringtone_silent=0x7f060024;
-        public static final int pref_title_add_friends_to_messages=0x7f06001d;
+        public static final int pref_header_notifications=0x7f060020;
+        public static final int pref_ringtone_silent=0x7f060023;
         public static final int pref_title_freqRawData=0x7f06001c;
         public static final int pref_title_graph_attention=0x7f060018;
         public static final int pref_title_graph_blink=0x7f060017;
         public static final int pref_title_graph_meditation=0x7f060019;
-        public static final int pref_title_new_message_notifications=0x7f060022;
-        public static final int pref_title_ringtone=0x7f060023;
-        public static final int pref_title_sync_frequency=0x7f06001f;
-        public static final int pref_title_system_sync_settings=0x7f060020;
+        public static final int pref_title_new_message_notifications=0x7f060021;
+        public static final int pref_title_ringtone=0x7f060022;
+        public static final int pref_title_sync_frequency=0x7f06001e;
+        public static final int pref_title_system_sync_settings=0x7f06001f;
         public static final int pref_title_time_record=0x7f06001a;
         public static final int pref_title_values_record=0x7f06001b;
-        public static final int pref_title_vibrate=0x7f060025;
->>>>>>> refs/remotes/origin/robin
+        public static final int pref_title_vibrate=0x7f060024;
         public static final int propos=0x7f060010;
         public static final int quitter=0x7f060011;
         public static final int recherche=0x7f060006;
@@ -162,6 +138,12 @@ public final class R {
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
  API 11 theme customizations can go here. 
+
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    
+ API 14 theme customizations can go here. 
 
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and

@@ -1,6 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.testapp.MenuApp" >
+      xmlns:yourapp="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.testapp.MenuApp" >
+    	
+    
+    	<item 	android:id="@+id/action_params"
+				android:icon="@drawable/ic_settings"
+          		android:title="@string/action_settings"
+          		android:showAsAction="ifRoom"  />
     	
 	    <item android:id="@+id/propos" 
 	      	android:title="@string/propos"/>
