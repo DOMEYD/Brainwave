@@ -1,10 +1,12 @@
-package com.example.testapp;
+package fr.iut.brainwave;
 
 //IMPORTS
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
+
+//import com.example.testapp.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -1,4 +1,4 @@
-package com.example.testapp;
+package fr.iut.brainwave;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +24,8 @@ import android.graphics.Color;
 import android.util.Log;
 
 
+
+//import com.example.testapp.R;
 // Imports api GraphView
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;

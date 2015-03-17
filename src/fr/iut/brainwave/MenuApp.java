@@ -1,4 +1,6 @@
-package com.example.testapp;
+package fr.iut.brainwave;
+
+//import com.example.testapp.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

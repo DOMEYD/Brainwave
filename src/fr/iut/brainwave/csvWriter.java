@@ -1,4 +1,4 @@
-package com.example.testapp;
+package fr.iut.brainwave;
 
 import java.io.File;
 import java.io.FileNotFoundException;
