@@ -124,9 +124,10 @@ public class MainActivity extends Activity {
         try {
         	Log.d("Device", device.getName());        
             
-        	tgDevice = new TGDevice(btAdapter, handler); 
+        	tgDevice = new TGDevice(btAdapter, handler);
             
             tgDevice.connect(device);
+ 
             createGraph();
         } catch(NullPointerException e) {
         	Toast.makeText(getApplicationContext(), getString(R.string.NoBTAppair), Toast.LENGTH_LONG).show();
@@ -255,10 +256,11 @@ public class MainActivity extends Activity {
     			case TGDevice.MSG_STATE_CHANGE:
     				switch (msg.arg1) {
     					case TGDevice.STATE_IDLE:
+							Log.d("DEBUG", "STATE_IDLE");
     					break;
     					case TGDevice.STATE_CONNECTING:
-    						Log.v("Statut", "Connection en cours ...");
     						Toast.makeText(getApplicationContext(), "Connection en cours ...", Toast.LENGTH_SHORT).show();
+    						Log.v("Statut", "Connection en cours ...");
 						break;
 						case TGDevice.STATE_CONNECTED:
 							Log.v("Statut", "Connecté");
@@ -266,10 +268,11 @@ public class MainActivity extends Activity {
 							tgDevice.start();
 						break;
 						case TGDevice.STATE_DISCONNECTED:
-							Toast.makeText(getApplicationContext(), "Systeme déconnecté !", Toast.LENGTH_SHORT).show();
-					
+							Log.d("DEBUG", "STATE_DISCONNECTED");
+							Toast.makeText(getApplicationContext(), "Systeme déconnecté !", Toast.LENGTH_SHORT).show();					
 						break;
 						case TGDevice.STATE_NOT_FOUND:
+							Log.d("DEBUG", "STATE_NOT_FOUND");
 							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
 							finish(); //Nous renvoie sur le menu
 						break;
@@ -443,6 +446,11 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
     	super.onDestroy();
-		tgDevice.close();
+    	Log.d("DEBUG", "onDestroy");
+//    	try {
+    		tgDevice.close();
+//    	} catch() {
+//    		
+//    	}
     }
 }
