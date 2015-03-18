@@ -133,29 +133,35 @@ public class MainActivity extends Activity {
     	
 	    	if(!courbeAttention){
 	    		graphView.removeSeries(seriesAttention);
-	    	}else if(courbeAttention != oldCourbeAttention){
+	    	}
+	    	else if(courbeAttention != oldCourbeAttention){
 	    		graphView.addSeries(seriesAttention);
 	    	}
 	    	
 	    	if(!courbeMeditation){
 	    		graphView.removeSeries(seriesMeditation);
-	    	}else if(courbeMeditation != oldCourbeMeditation){
+	    	}
+	    	else if(courbeMeditation != oldCourbeMeditation){
 	    		graphView.addSeries(seriesMeditation);
 	    	}
 	    	
 	    	if(!courbeBlink){
 	    		graphView.removeSeries(seriesBlink);
-	    	}else if(courbeBlink != oldCourbeBlink){
+	    	}
+	    	else if(courbeBlink != oldCourbeBlink){
 	    		graphView.addSeries(seriesBlink);
 	    	}
 	    	
 	    	if(!courbeAttention && !courbeBlink && !courbeMeditation){
 	    		Toast.makeText(getApplicationContext(), "Aucune courbe sélectionné, sélectionnez en une dans les paramètres de l\'application", Toast.LENGTH_LONG).show();
 	    	}
+	    	
 	    	Log.v("MsgRecordParam", "ValuesRecord : "+valuesRecord);
+	    	
 	    	if(valuesRecord){
 	    		startRecord();
-	    	}else if(!valuesRecord && oldValuesRecord){
+	    	}
+	    	else if(!valuesRecord && oldValuesRecord){
 	    		tgDevice.close();
 	    	}
     	}catch(Exception exc){
