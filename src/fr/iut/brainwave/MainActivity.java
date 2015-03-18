@@ -448,10 +448,10 @@ public class MainActivity extends Activity {
     public void onDestroy() {
     	super.onDestroy();
     	Log.d("DEBUG", "onDestroy");
-//    	try {
+    	try {
     		tgDevice.close();
-//    	} catch() {
-//    		
-//    	}
+    	} catch(RuntimeException e) {
+    		Log.e("ERROR", "Device close connection");
+    	}
     }
 }

@@ -16,6 +16,8 @@
    <!-- Gestion Bluetooth -->
       
     <string name="GestionBluetooth">Gestion Bluetooth</string>
+    <string name="TRYAppair">Tentative d\'appairage</string>
+    <string name="BTAppair">Le syst&#232;me a bien &#233;t&#233; appair&#233;</string>
     
     <string name="recherche"> La recherche est en cours &#8230;</string> <!-- &#8230; est le unicode de "..."   -->
     

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
+
 //import com.example.testapp.R;
 import com.jjoe64.graphview.GraphViewData;
 import com.neurosky.thinkgear.TGDevice;
@@ -293,12 +294,12 @@ public class GestionBluetooth extends Activity
     					case TGDevice.STATE_IDLE:
     					break;
     					case TGDevice.STATE_CONNECTING:
-    						Log.v("Statut", "Connexion en cours ...");
-    						Toast.makeText(getApplicationContext(), "Connection en cours ...", Toast.LENGTH_SHORT).show();
+    						Log.v("Statut", getString(R.string.TRYAppair));
+    						Toast.makeText(getApplicationContext(), getString(R.string.TRYAppair), Toast.LENGTH_SHORT).show();
 						break;
 						case TGDevice.STATE_CONNECTED:
-							Log.v("Statut", "Connecté");
-							Toast.makeText(getApplicationContext(), "Connecté !", Toast.LENGTH_SHORT).show();
+							Log.v("Statut", getString(R.string.BTAppair));
+							Toast.makeText(getApplicationContext(), getString(R.string.BTAppair), Toast.LENGTH_SHORT).show();
 							
 							// SAVE mac address in prefs
 							SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
@@ -311,8 +312,7 @@ public class GestionBluetooth extends Activity
 							finish();
 						break;
 						case TGDevice.STATE_DISCONNECTED:
-							Toast.makeText(getApplicationContext(), "Systeme déconnecté !", Toast.LENGTH_SHORT).show();
-					
+//							Toast.makeText(getApplicationContext(), "Systeme déconnecté !", Toast.LENGTH_SHORT).show();
 						break;
 						case TGDevice.STATE_NOT_FOUND:
 							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
