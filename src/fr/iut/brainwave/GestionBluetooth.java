@@ -8,6 +8,14 @@ import java.util.UUID;
 
 //import com.example.testapp.R;
 
+
+
+
+import com.jjoe64.graphview.GraphViewData;
+import com.neurosky.thinkgear.TGDevice;
+import com.neurosky.thinkgear.TGEegPower;
+import com.neurosky.thinkgear.TGRawMulti;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -17,7 +25,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,8 +65,13 @@ public class GestionBluetooth extends Activity
 	public ArrayAdapter<String> mesNewDevicesArrayAdapter;
 	public ArrayList<BluetoothDevice> listDevicesArround = new ArrayList<BluetoothDevice>();
 	public static String EXTRA_DEVICE_ADDRESS = "device_address";
+	
+	private boolean isRegisterReceiver = false;
 
 	static final int ENABLED_BTH = 1;
+	
+	private TGDevice tgDevice;
+	private String macAdd;
 
 	/**
 	 * Permet de trouver les listes des devices appairés et ceux dans la portée du bluetooth
@@ -219,6 +235,7 @@ public class GestionBluetooth extends Activity
 		public void onReceive(Context context, Intent intent)
 		{
 			String action = intent.getAction();
+			isRegisterReceiver = true;
 
 			if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) //Début de la recherche
 			{
@@ -254,6 +271,7 @@ public class GestionBluetooth extends Activity
 			// Retrieve TextView content
 			String info = ((TextView) v).getText().toString();
 			String address = info.substring(info.length() - 17); // Device MAC addresse
+			macAdd = address;
 			
 			BluetoothDevice device = null;
 //			BluetoothSocket mmSocket = null;
@@ -263,12 +281,58 @@ public class GestionBluetooth extends Activity
 				}
 			}
 			
-			ConnectThread CT = new ConnectThread(device);
-			CT.run();
-	        			
-			finish();
+//			ConnectThread CT = new ConnectThread(device);
+//			CT.run();
+			tgDevice = new TGDevice(BA, handler); 
+        	tgDevice.connect(device);
 		}
 	};
+	
+	private final Handler handler = new Handler() {
+		@Override
+    	public void handleMessage(Message msg) {
+    		switch (msg.what) {
+    			case TGDevice.MSG_STATE_CHANGE:
+    				switch (msg.arg1) {
+    					case TGDevice.STATE_IDLE:
+    					break;
+    					case TGDevice.STATE_CONNECTING:
+    						Log.v("Statut", "Connexion en cours ...");
+    						Toast.makeText(getApplicationContext(), "Connection en cours ...", Toast.LENGTH_SHORT).show();
+						break;
+						case TGDevice.STATE_CONNECTED:
+							Log.v("Statut", "Connecté");
+							Toast.makeText(getApplicationContext(), "Connecté !", Toast.LENGTH_SHORT).show();
+							
+							// SAVE mac address in prefs
+							SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
+							SharedPreferences.Editor editor = settings.edit();
+							editor.putString("MAC-Address", macAdd);
+							editor.commit();							
+				        	
+							// CLOSE device connexion and close prefs
+							tgDevice.close();
+							finish();
+						break;
+						case TGDevice.STATE_DISCONNECTED:
+							Toast.makeText(getApplicationContext(), "Systeme déconnecté !", Toast.LENGTH_SHORT).show();
+					
+						break;
+						case TGDevice.STATE_NOT_FOUND:
+							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
+							finish(); //Nous renvoie sur le menu
+						break;
+						case TGDevice.STATE_NOT_PAIRED:
+							Log.v("Statut", "Not paired");
+						default:
+						break;
+    				}
+    			break;
+    			default:
+    			break;
+    		}
+    	}
+    };
 
 	/**
 	 * Ajoute des objets sur la barre d'action
@@ -311,49 +375,6 @@ public class GestionBluetooth extends Activity
 	protected void onDestroy() {
 		super.onDestroy();
 		if (BA.isDiscovering()) BA.cancelDiscovery();
-//		unregisterReceiver(bluetoothReceiver);
+		if(isRegisterReceiver) unregisterReceiver(bluetoothReceiver);
 	}
-}
-
-class ConnectThread extends Thread {
-    private final BluetoothSocket mmSocket;
-    public ConnectThread(BluetoothDevice device) {
-        // Use a temporary object that is later assigned to mmSocket,
-        // because mmSocket is final
-        BluetoothSocket tmp = null;
-        // Get a BluetoothSocket to connect with the given BluetoothDevice
-        try {
-            // MY_UUID is the app's UUID string, also used by the server code
-            tmp = device.createRfcommSocketToServiceRecord(UUID.randomUUID());
-        } catch (IOException e) { }
-        mmSocket = tmp;
-    }
- 
-    public void run() {
-        // Cancel discovery because it will slow down the connection
-    	BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
- 
-        try {
-            // Connect the device through the socket. This will block
-            // until it succeeds or throws an exception
-            mmSocket.connect();
-        } catch (IOException connectException) {
-        	Log.e("mmSocket.connect()", connectException.getMessage());
-            // Unable to connect; close the socket and get out
-            try {
-                mmSocket.close();
-            } catch (IOException closeException) { }
-            return;
-        }
- 
-        // Do work to manage the connection (in a separate thread)
-//        manageConnectedSocket(mmSocket);
-    }
- 
-    /** Will cancel an in-progress connection, and close the socket */
-    public void cancel() {
-        try {
-            mmSocket.close();
-        } catch (IOException e) { }
-    }
 }
