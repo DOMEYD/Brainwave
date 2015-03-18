@@ -76,7 +76,7 @@ public class MainActivity extends Activity {
     boolean getMeditation = false;
     boolean getBlink = false;
     boolean getRawData = false;
-   
+
    //tableau contenant l'ensemble des valeurs 
     ArrayList<Integer> meditationValues = new ArrayList<Integer>();
     ArrayList<Integer> attentionValues = new ArrayList<Integer>();
@@ -320,6 +320,7 @@ public class MainActivity extends Activity {
   				    if(getMeditation){
 					    meditationValues.add(msg.arg1);
 				    }
+  				  
     			break;
     			case TGDevice.MSG_RAW_DATA:
     				int rawValue = msg.arg1;
