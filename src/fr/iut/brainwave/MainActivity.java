@@ -3,6 +3,7 @@ package fr.iut.brainwave;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,10 +19,12 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
 
 
 
@@ -94,14 +97,39 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         btAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(btAdapter != null) 
-        { 
-        	tgDevice = new TGDevice(btAdapter, handler); 
+        if(btAdapter == null) { 
+        	finish();
         }
         
+        // RETRIEVE mac address
+		SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
+		String macAdd = settings.getString("MAC-Address", null);
+		
+		Log.d("MAC ADDRESS", macAdd);
+		
+		// TO-DO if mac address == null go BTassociate
+		if(macAdd == null) finish();
+		
+		BluetoothDevice device = null;
+
+        for(BluetoothDevice bt : btAdapter.getBondedDevices()) {
+        	if(bt.getAddress().equals(macAdd)) {
+        		device = bt;
+        	}
+		}
+                
+        try {
+        	Log.d("Device", device.getName());        
+            
+        	tgDevice = new TGDevice(btAdapter, handler); 
+            
+            tgDevice.connect(device);
+            createGraph();
+        } catch(NullPointerException e) {
+        	Toast.makeText(getApplicationContext(), getString(R.string.NoBTAppair), Toast.LENGTH_LONG).show();
+        	finish();
+        }
         
-        tgDevice.connect(true);
-        createGraph();
 	}
     
     /**
@@ -386,5 +414,11 @@ public class MainActivity extends Activity {
     	default:
     		return super.onOptionsItemSelected(item);
     	}
+    }
+    
+    @Override
+    public void onDestroy() {
+    	super.onDestroy();
+		tgDevice.close();
     }
 }
