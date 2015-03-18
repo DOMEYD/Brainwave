@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.testapp.MainActivity" >
     
-    	<item 	android:id="@+id/action_params"
+    	<!-- <item 	android:id="@+id/action_params"
 				android:icon="@drawable/ic_action_bluetooth"
           		android:title="@string/action_settings"
-          		android:showAsAction="ifRoom"/>
+          		android:showAsAction="ifRoom"/> -->
     	
     	<item	android:id="@+id/launch"
     	    	android:icon="@drawable/ic_action_pause"
