@@ -8,7 +8,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Environment;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 /**
  * Permet de créer un fichier CSV d'après les données recueillies
  * 
@@ -21,6 +28,10 @@ public class csvWriter {
 	String fileName;
 	File root;
 	File monFichier;
+	
+	// Ajout Diana
+	
+	// Ajout Diana
 	
 	/**
 	 * Permet de créer le fichier CSV
@@ -64,8 +75,6 @@ public class csvWriter {
 		     e.printStackTrace();
 		}
 	}
-	
-	
 
 	public void ListerCSVFile (File file) throws IOException{
 		ArrayList<Integer> mediation = new ArrayList<Integer>();
@@ -90,7 +99,5 @@ public class csvWriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	       
-		
 	}
 }

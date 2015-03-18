@@ -7,9 +7,6 @@ import java.util.Set;
 import java.util.UUID;
 
 //import com.example.testapp.R;
-
-
-
 import com.jjoe64.graphview.GraphViewData;
 import com.neurosky.thinkgear.TGDevice;
 import com.neurosky.thinkgear.TGEegPower;

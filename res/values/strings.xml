@@ -44,6 +44,7 @@
         - 60 à 80 -> état d\'attention ou de méditation partiellement élevé\n
         - 80 à 100 -> état d\'attention ou de méditation élevé   
     </string>
+    <string name="saveCSV">saveCSV</string>
 
 
 </resources>
