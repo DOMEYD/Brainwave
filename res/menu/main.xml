@@ -2,23 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.testapp.MainActivity" >
     
-    	<item android:id="@+id/saveCSV"
-    	    android:icon="@drawable/ic_action_save"
-    	    android:showAsAction="ifRoom" 
-    	    android:title="@string/saveCSV"
-    	    android:onClick="HandleClick"/>
+    	<item 	android:id="@+id/action_params"
+				android:icon="@drawable/ic_action_bluetooth"
+          		android:title="@string/action_settings"
+          		android:showAsAction="ifRoom"/>
+    	
+    	<item	android:id="@+id/launch"
+    	    	android:icon="@drawable/ic_action_pause"
+    	    	android:title="@string/action_pause"
+    	    	android:showAsAction="ifRoom"/>
+    	
+    	<item 	android:id="@+id/time"
+    	    	android:icon="@drawable/ic_action_time"
+    	    	android:title="@string/action_time"
+    	    	android:showAsAction="ifRoom"/>
+    	
+    	<item 	android:id="@+id/importCSV"
+    	    	android:icon="@drawable/ic_action_upload"
+    	    	android:title="@string/action_upload"
+    	    	android:showAsAction="ifRoom"/>
+    
+    	<item 	android:id="@+id/saveCSV"
+    	    	android:icon="@drawable/ic_action_save"
+    	    	android:showAsAction="ifRoom" 
+    	   	 	android:title="@string/action_save"/>
 
-    	<item android:id="@+id/settings" 
-			android:icon="@drawable/ic_settings"
-		    android:title="@string/settings"/>
+    	<item 	android:id="@+id/settings" 
+				android:icon="@drawable/ic_settings"
+		    	android:title="@string/settings"/>
     		
-	    <item android:id="@+id/propos" 
-	      	android:title="@string/propos"/>
+	    <item 	android:id="@+id/propos" 
+	      		android:title="@string/propos"/>
 	 
-		<item android:id="@+id/aide" 
-		    android:title="@string/aide"/>
+		<item 	android:id="@+id/aide" 
+		    	android:title="@string/aide"/>
 		
-		<item android:id="@+id/quitter" 
-		    android:title="@string/quitter"/>
+		<item 	android:id="@+id/quitter" 
+		    	android:title="@string/quitter"/>
 
 </menu>

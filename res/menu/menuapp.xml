@@ -2,16 +2,15 @@
       xmlns:yourapp="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.example.testapp.MenuApp" >
-    	
     
     	<item 	android:id="@+id/action_params"
 				android:icon="@drawable/ic_action_bluetooth"
           		android:title="@string/action_settings"
           		android:showAsAction="ifRoom"  />
     	
-	    <item android:id="@+id/propos" 
-	      	android:title="@string/propos"/>
+	    <item 	android:id="@+id/propos" 
+	      		android:title="@string/propos"/>
 		
-		<item android:id="@+id/quitter" 
-		    android:title="@string/quitter"/>
+		<item 	android:id="@+id/quitter" 
+		   		android:title="@string/quitter"/>
 </menu>

@@ -395,6 +395,7 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
     
+    
     /**
      * Ajoute des objets dans la barre d'action :
      * - Paramètres : lance un nouvel intent de SettingsActivity
