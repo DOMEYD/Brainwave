@@ -3,6 +3,7 @@ package fr.iut.brainwave;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,10 +20,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
+
 
 
 
@@ -96,14 +100,39 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         btAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(btAdapter != null) 
-        { 
-        	tgDevice = new TGDevice(btAdapter, handler); 
+        if(btAdapter == null) { 
+        	finish();
         }
         
+        // RETRIEVE mac address
+		SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
+		String macAdd = settings.getString("MAC-Address", null);
+		
+		Log.d("MAC ADDRESS", macAdd);
+		
+		// TO-DO if mac address == null go BTassociate
+		if(macAdd == null) finish();
+		
+		BluetoothDevice device = null;
+
+        for(BluetoothDevice bt : btAdapter.getBondedDevices()) {
+        	if(bt.getAddress().equals(macAdd)) {
+        		device = bt;
+        	}
+		}
+                
+        try {
+        	Log.d("Device", device.getName());        
+            
+        	tgDevice = new TGDevice(btAdapter, handler); 
+            
+            tgDevice.connect(device);
+            createGraph();
+        } catch(NullPointerException e) {
+        	Toast.makeText(getApplicationContext(), getString(R.string.NoBTAppair), Toast.LENGTH_LONG).show();
+        	finish();
+        }
         
-        tgDevice.connect(true);
-        createGraph();
 	}
     
     /**
@@ -135,29 +164,35 @@ public class MainActivity extends Activity {
     	
 	    	if(!courbeAttention){
 	    		graphView.removeSeries(seriesAttention);
-	    	}else if(courbeAttention != oldCourbeAttention){
+	    	}
+	    	else if(courbeAttention != oldCourbeAttention){
 	    		graphView.addSeries(seriesAttention);
 	    	}
 	    	
 	    	if(!courbeMeditation){
 	    		graphView.removeSeries(seriesMeditation);
-	    	}else if(courbeMeditation != oldCourbeMeditation){
+	    	}
+	    	else if(courbeMeditation != oldCourbeMeditation){
 	    		graphView.addSeries(seriesMeditation);
 	    	}
 	    	
 	    	if(!courbeBlink){
 	    		graphView.removeSeries(seriesBlink);
-	    	}else if(courbeBlink != oldCourbeBlink){
+	    	}
+	    	else if(courbeBlink != oldCourbeBlink){
 	    		graphView.addSeries(seriesBlink);
 	    	}
 	    	
 	    	if(!courbeAttention && !courbeBlink && !courbeMeditation){
 	    		Toast.makeText(getApplicationContext(), "Aucune courbe sélectionné, sélectionnez en une dans les paramètres de l\'application", Toast.LENGTH_LONG).show();
 	    	}
+	    	
 	    	Log.v("MsgRecordParam", "ValuesRecord : "+valuesRecord);
+	    	
 	    	if(valuesRecord){
 	    		startRecord();
-	    	}else if(!valuesRecord && oldValuesRecord){
+	    	}
+	    	else if(!valuesRecord && oldValuesRecord){
 	    		tgDevice.close();
 	    	}
     	}catch(Exception exc){
@@ -349,6 +384,18 @@ public class MainActivity extends Activity {
     }
     
     /**
+	 * Permet de gerer le bluetooth
+	 * Lance un intent de GestionBluetooth
+	 * @param view
+	 */
+	public void csvWriter(View view)
+	{
+		Intent intent = new Intent();
+		intent.setClass(this, csvWriter.class);
+		startActivity(intent);
+	}
+    
+    /**
      * Ajoute des objets dans la barre d'action :
      * - Paramètres : lance un nouvel intent de SettingsActivity
      * - A propos : lance une boîte de dialogue avec les noms des développeurs de l'application
@@ -358,6 +405,9 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
+    	case R.id.saveCSV:
+    		this.csvWriter(null);
+    		return true;
     	case R.id.settings:
     		// Comportement du bouton "Paramètres"
     		Intent settingsIntent = new Intent(this,SettingsActivity.class);
@@ -388,5 +438,11 @@ public class MainActivity extends Activity {
     	default:
     		return super.onOptionsItemSelected(item);
     	}
+    }
+    
+    @Override
+    public void onDestroy() {
+    	super.onDestroy();
+		tgDevice.close();
     }
 }

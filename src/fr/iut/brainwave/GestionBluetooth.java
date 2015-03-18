@@ -21,6 +21,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -60,10 +61,13 @@ public class GestionBluetooth extends Activity
 	public ArrayAdapter<String> mesNewDevicesArrayAdapter;
 	public ArrayList<BluetoothDevice> listDevicesArround = new ArrayList<BluetoothDevice>();
 	public static String EXTRA_DEVICE_ADDRESS = "device_address";
+	
+	private boolean isRegisterReceiver = false;
 
 	static final int ENABLED_BTH = 1;
 	
 	private TGDevice tgDevice;
+	private String macAdd;
 
 	/**
 	 * Permet de trouver les listes des devices appairés et ceux dans la portée du bluetooth
@@ -227,6 +231,7 @@ public class GestionBluetooth extends Activity
 		public void onReceive(Context context, Intent intent)
 		{
 			String action = intent.getAction();
+			isRegisterReceiver = true;
 
 			if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)) //Début de la recherche
 			{
@@ -262,6 +267,7 @@ public class GestionBluetooth extends Activity
 			// Retrieve TextView content
 			String info = ((TextView) v).getText().toString();
 			String address = info.substring(info.length() - 17); // Device MAC addresse
+			macAdd = address;
 			
 			BluetoothDevice device = null;
 //			BluetoothSocket mmSocket = null;
@@ -293,7 +299,14 @@ public class GestionBluetooth extends Activity
 						case TGDevice.STATE_CONNECTED:
 							Log.v("Statut", "Connecté");
 							Toast.makeText(getApplicationContext(), "Connecté !", Toast.LENGTH_SHORT).show();
+							
+							// SAVE mac address in prefs
+							SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
+							SharedPreferences.Editor editor = settings.edit();
+							editor.putString("MAC-Address", macAdd);
+							editor.commit();							
 				        	
+							// CLOSE device connexion and close prefs
 							tgDevice.close();
 							finish();
 						break;
@@ -358,6 +371,6 @@ public class GestionBluetooth extends Activity
 	protected void onDestroy() {
 		super.onDestroy();
 		if (BA.isDiscovering()) BA.cancelDiscovery();
-		unregisterReceiver(bluetoothReceiver);
+		if(isRegisterReceiver) unregisterReceiver(bluetoothReceiver);
 	}
 }
