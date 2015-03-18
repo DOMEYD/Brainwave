@@ -108,13 +108,15 @@ public class MainActivity extends Activity {
 		SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
 		String macAdd = settings.getString("MAC-Address", null);
 		
-		Log.d("MAC ADDRESS", macAdd);
+		try {
+			Log.d("MAC ADDRESS", macAdd);			
+		} catch(RuntimeException e) {}
 		
 		// TO-DO if mac address == null go BTassociate
 		if(macAdd == null) finish();
 		
 		BluetoothDevice device = null;
-
+		
         for(BluetoothDevice bt : btAdapter.getBondedDevices()) {
         	if(bt.getAddress().equals(macAdd)) {
         		device = bt;
