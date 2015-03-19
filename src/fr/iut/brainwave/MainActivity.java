@@ -101,35 +101,32 @@ public class MainActivity extends Activity {
         
         // RETRIEVE mac address
 		SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
-		String macAdd = settings.getString("MAC-Address", null);
+		String macAdd = settings.getString("MAC-Address", "NO_MACADDRESS");
 		
-		try {
-			Log.d("MAC ADDRESS", macAdd);			
-		} catch(RuntimeException e) {}
+    	tgDevice = new TGDevice(btAdapter, handler);
 		
-		// TO-DO if mac address == null go BTassociate
-		if(macAdd == null) finish();
-		
-		BluetoothDevice device = null;
-		
-        for(BluetoothDevice bt : btAdapter.getBondedDevices()) {
-        	if(bt.getAddress().equals(macAdd)) {
-        		device = bt;
-        	}
+		if(macAdd.equals("NO_MACADDRESS")) {
+			tgDevice.connect( true );
 		}
-                
-        try {
-        	Log.d("Device", device.getName());        
-            
-        	tgDevice = new TGDevice(btAdapter, handler);
-            
-            tgDevice.connect(device, true);
- 
-            createGraph();
-        } catch(NullPointerException e) {
-        	Toast.makeText(getApplicationContext(), getString(R.string.NoBTAppair), Toast.LENGTH_LONG).show();
-        	finish();
-        }
+		else {
+			BluetoothDevice device = null;
+			
+	        for(BluetoothDevice bt : btAdapter.getBondedDevices()) {
+	        	if(bt.getAddress().equals(macAdd)) {
+	        		device = bt;
+	        	}
+			}
+	                
+	        try {
+	        	Log.d("Device", device.getName());
+	            
+	            tgDevice.connect(device, true);
+	        } catch(NullPointerException e) {
+	        	Toast.makeText(getApplicationContext(), getString(R.string.NoBTAppair), Toast.LENGTH_LONG).show();
+	        	finish();
+	        }
+		}
+        createGraph();
         
 	}
     
@@ -191,7 +188,7 @@ public class MainActivity extends Activity {
 	    		startRecord();
 	    	}
 	    	else if(!valuesRecord && oldValuesRecord){
-	    		tgDevice.close();
+	    		
 	    	}
     	}catch(Exception exc){
     		Log.e("errorResume", "Erreur : " +exc);
@@ -224,15 +221,25 @@ public class MainActivity extends Activity {
     			  editor.commit();
     			  Log.v("MsgRecordRun", "test1");
     			  ArrayList<String> entete = new ArrayList<String>();
+    			  Date d = new Date();
+    			  SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy'-'HH:mm:ss");
+    			  String s = f.format(d);
+    			  entete.add("Enregistrement BrainWaves du "+ s);
+    			  entete.add("\n");
+    			  entete.add("Durée de l'enregistrement : "+ timeRecord +" secondes");
+    			  entete.add("\n");
+    			  entete.add("\n");
+    			  entete.add("Valeurs des courbes");
+    			  entete.add("\n");
     			  entete.add("Attention");
     			  entete.add(";");
     			  entete.add("Meditation");
     			  entete.add("\n");
     			  Log.v("MsgRecordRun", "test2");
     			
-    			  Date d = new Date();
-    			  SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
-    			  String s = f.format(d);
+    			
+    			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+    			  s = f.format(d);
     			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
     			  
     			  Log.v("MsgRecordRun", "test5");

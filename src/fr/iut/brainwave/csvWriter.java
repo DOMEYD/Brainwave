@@ -28,8 +28,6 @@ public class csvWriter {
 	 */
 	csvWriter(String fileName){
 		this.fileName = fileName;
-		/*root = Environment.getExternalStoragePublicDirectory(
-	            Environment.DIRECTORY_DOWNLOADS);*/
 		root=Environment.getExternalStoragePublicDirectory("org.BrainWaves");
 		if(!root.exists())
 		{
