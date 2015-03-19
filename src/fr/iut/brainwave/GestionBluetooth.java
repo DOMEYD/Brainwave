@@ -109,6 +109,7 @@ public class GestionBluetooth extends Activity
 	    
 	    if (on) {
 	        // Enable vibrate
+	    	
 	    	this.on( null );
 	    } else {
 	        // Disable vibrate
@@ -318,7 +319,7 @@ public class GestionBluetooth extends Activity
 							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
 							finish(); //Nous renvoie sur le menu
 						break;
-						case TGDevice.STATE_NOT_PAIRED:
+						case TGDevice.STATE_ERR_NO_DEVICE:
 							Log.v("Statut", "Not paired");
 						default:
 						break;
