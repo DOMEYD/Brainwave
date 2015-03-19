@@ -188,7 +188,7 @@ public class MainActivity extends Activity {
 	    		startRecord();
 	    	}
 	    	else if(!valuesRecord && oldValuesRecord){
-	    		tgDevice.close();
+	    		
 	    	}
     	}catch(Exception exc){
     		Log.e("errorResume", "Erreur : " +exc);
@@ -221,15 +221,25 @@ public class MainActivity extends Activity {
     			  editor.commit();
     			  Log.v("MsgRecordRun", "test1");
     			  ArrayList<String> entete = new ArrayList<String>();
+    			  Date d = new Date();
+    			  SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy'-'HH:mm:ss");
+    			  String s = f.format(d);
+    			  entete.add("Enregistrement BrainWaves du "+ s);
+    			  entete.add("\n");
+    			  entete.add("Durée de l'enregistrement : "+ timeRecord +" secondes");
+    			  entete.add("\n");
+    			  entete.add("\n");
+    			  entete.add("Valeurs des courbes");
+    			  entete.add("\n");
     			  entete.add("Attention");
     			  entete.add(";");
     			  entete.add("Meditation");
     			  entete.add("\n");
     			  Log.v("MsgRecordRun", "test2");
     			
-    			  Date d = new Date();
-    			  SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
-    			  String s = f.format(d);
+    			
+    			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+    			  s = f.format(d);
     			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
     			  
     			  Log.v("MsgRecordRun", "test5");
