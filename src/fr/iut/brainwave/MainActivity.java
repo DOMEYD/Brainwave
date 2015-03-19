@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
             
         	tgDevice = new TGDevice(btAdapter, handler);
             
-            tgDevice.connect(device);
+            tgDevice.connect(device, true);
  
             createGraph();
         } catch(NullPointerException e) {
