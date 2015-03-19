@@ -11,11 +11,19 @@
     	    	android:title="@string/action_bt"
 			    android:background="@drawable/play_btn" /> -->    	
     	
-    	<item 	android:id="@+id/launch"
+    	<!-- <item 	android:id="@+id/launch"
     	    	android:showAsAction="ifRoom"
     	    	android:icon="@drawable/ic_action_pause"
     	   		android:title="@string/action_pause"
-    	    	style="@style/PlayPause"/>
+    	   		android:state_selected="false"
+    	   		android:state_pressed="false"
+    	    	style="@style/PlayPause"/>  -->
+    	    	
+    	<item	android:id="@+id/launch"
+    	    	android:title="@string/action_pause"
+    	    	android:icon="@drawable/ic_action_pause"
+    	    	android:showAsAction="ifRoom"
+    	    	android:onClick="MenuItem" />
     	
     	<item 	android:id="@+id/time"
     	    	android:icon="@drawable/ic_action_time"
