@@ -7,25 +7,33 @@
           		android:title="@string/action_settings"
           		android:showAsAction="ifRoom"/> -->
     	
-    	<item	android:id="@+id/launch"
+    	<!-- <item	android:background="@drawable/play_btn"
+    	    	android:showAsAction="ifRoom"/> -->
+    	    	
+    	<!-- <item	android:showAsAction="ifRoom"
+    	    	android:title="@string/action_bt"
+			    android:background="@drawable/play_btn" /> -->    	
+    	
+    	<item 	android:id="@+id/launch"
+    	    	android:showAsAction="ifRoom"
     	    	android:icon="@drawable/ic_action_pause"
-    	    	android:title="@string/action_pause"
-    	    	android:showAsAction="ifRoom"/>
+    	   		android:title="@string/action_pause"
+    	    	android:src="@drawable/play_btn"/>
     	
     	<item 	android:id="@+id/time"
     	    	android:icon="@drawable/ic_action_time"
     	    	android:title="@string/action_time"
     	    	android:showAsAction="ifRoom"/>
     	
+    	<item 	android:id="@+id/saveCSV"
+    	    	android:icon="@drawable/ic_action_save"
+    	    	android:title="@string/action_save"
+    	    	android:showAsAction="ifRoom"/>
+    	
     	<item 	android:id="@+id/importCSV"
     	    	android:icon="@drawable/ic_action_upload"
     	    	android:title="@string/action_upload"
     	    	android:showAsAction="ifRoom"/>
-    
-    	<item 	android:id="@+id/saveCSV"
-    	    	android:icon="@drawable/ic_action_save"
-    	    	android:showAsAction="ifRoom" 
-    	   	 	android:title="@string/action_save"/>
 
     	<item 	android:id="@+id/settings" 
 				android:icon="@drawable/ic_settings"
