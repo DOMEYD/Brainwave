@@ -15,7 +15,7 @@
     	    	android:showAsAction="ifRoom"
     	    	android:icon="@drawable/ic_action_pause"
     	   		android:title="@string/action_pause"
-    	    	android:src="@drawable/play_btn"/>
+    	    	style="@style/PlayPause"/>
     	
     	<item 	android:id="@+id/time"
     	    	android:icon="@drawable/ic_action_time"
