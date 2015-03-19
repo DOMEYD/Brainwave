@@ -42,7 +42,7 @@ public class csvWriter {
 	 * @param valeursAttention
 	 * @param entete
 	 */
-	public void addCSVTwoList(ArrayList<Integer> valeursMeditation, ArrayList<Integer> valeursAttention, ArrayList<String> entete){
+	public void addCSVTwoList(ArrayList<Integer[]> ValeursData, ArrayList<Integer> valeursMeditation, ArrayList<Integer> valeursAttention, ArrayList<String> entete){
 		try
 		{
 			int listMeditationSize = valeursMeditation.size();
@@ -51,6 +51,15 @@ public class csvWriter {
 				writer.write(element);
 			}
 			
+			for(int i=0;i<ValeursData.size();i++){
+				writer.write(Integer.toString(ValeursData.get(i)[0]));
+				writer.write(";");
+				writer.write(Integer.toString(ValeursData.get(i)[1]));
+				writer.write(";");
+				writer.write(Integer.toString(ValeursData.get(i)[2]));
+				writer.append("\n");
+			}
+			/*
 			for(int i = 0; i < valeursAttention.size(); i++){
 				writer.write(Integer.toString(valeursAttention.get(i)));
 				writer.write(";");
@@ -59,7 +68,7 @@ public class csvWriter {
 				}
 				writer.append("\n");
 
-			}
+			}*/
 			writer.flush();
 			writer.close();
 		}

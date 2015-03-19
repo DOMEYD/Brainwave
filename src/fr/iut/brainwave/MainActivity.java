@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +27,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
 
 
 //import com.example.testapp.R;
@@ -273,7 +275,7 @@ public class MainActivity extends Activity {
     			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
     			  
     			  Log.v("MsgRecordRun", "test5");
-    			  csvFile.addCSVTwoList(meditationValues, attentionValues, entete);
+    			  csvFile.addCSVTwoList(dataValues, meditationValues, attentionValues, entete);
     			  Log.v("MsgRecordRun", "test6");
     			 // Toast.makeText(getApplicationContext(),"Fichier CSV Sauvegardé",Toast.LENGTH_LONG).show();
     		  }
