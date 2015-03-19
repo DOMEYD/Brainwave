@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
 	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
 	    	courbeBlink = prefs.getBoolean("graph_blink", true);
 	    	valuesRecord = prefs.getBoolean("values_record", false);
-	    	timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
+	    	//timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
 	    	
     	
 	    	if(!courbeAttention){
@@ -415,7 +415,11 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.saveCSV:
-    		this.csvWriter(null);
+    		startRecord();
+    		return true;
+    	case R.id.time:
+    		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		//timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
     		return true;
     	case R.id.settings:
     		// Comportement du bouton "Paramètres"
