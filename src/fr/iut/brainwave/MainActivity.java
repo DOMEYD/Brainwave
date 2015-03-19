@@ -101,35 +101,32 @@ public class MainActivity extends Activity {
         
         // RETRIEVE mac address
 		SharedPreferences settings = getSharedPreferences("Bluetooth", MODE_PRIVATE);
-		String macAdd = settings.getString("MAC-Address", null);
+		String macAdd = settings.getString("MAC-Address", "NO_MACADDRESS");
 		
-		try {
-			Log.d("MAC ADDRESS", macAdd);			
-		} catch(RuntimeException e) {}
+    	tgDevice = new TGDevice(btAdapter, handler);
 		
-		// TO-DO if mac address == null go BTassociate
-		if(macAdd == null) finish();
-		
-		BluetoothDevice device = null;
-		
-        for(BluetoothDevice bt : btAdapter.getBondedDevices()) {
-        	if(bt.getAddress().equals(macAdd)) {
-        		device = bt;
-        	}
+		if(macAdd.equals("NO_MACADDRESS")) {
+			tgDevice.connect( true );
 		}
-                
-        try {
-        	Log.d("Device", device.getName());        
-            
-        	tgDevice = new TGDevice(btAdapter, handler);
-            
-            tgDevice.connect(device, true);
- 
-            createGraph();
-        } catch(NullPointerException e) {
-        	Toast.makeText(getApplicationContext(), getString(R.string.NoBTAppair), Toast.LENGTH_LONG).show();
-        	finish();
-        }
+		else {
+			BluetoothDevice device = null;
+			
+	        for(BluetoothDevice bt : btAdapter.getBondedDevices()) {
+	        	if(bt.getAddress().equals(macAdd)) {
+	        		device = bt;
+	        	}
+			}
+	                
+	        try {
+	        	Log.d("Device", device.getName());
+	            
+	            tgDevice.connect(device, true);
+	        } catch(NullPointerException e) {
+	        	Toast.makeText(getApplicationContext(), getString(R.string.NoBTAppair), Toast.LENGTH_LONG).show();
+	        	finish();
+	        }
+		}
+        createGraph();
         
 	}
     
