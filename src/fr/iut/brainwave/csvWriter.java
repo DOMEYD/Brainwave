@@ -50,6 +50,7 @@ public class csvWriter {
 			for(String element: entete){
 				writer.write(element);
 			}
+			
 			for(int i = 0; i < valeursAttention.size(); i++){
 				writer.write(Integer.toString(valeursAttention.get(i)));
 				writer.write(";");

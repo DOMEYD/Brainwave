@@ -23,7 +23,7 @@
     	    	android:title="@string/action_pause"
     	    	android:icon="@drawable/ic_action_pause"
     	    	android:showAsAction="ifRoom"
-    	    	android:onClick="MenuItem" />
+    	    	 />
     	
     	<item 	android:id="@+id/time"
     	    	android:icon="@drawable/ic_action_time"

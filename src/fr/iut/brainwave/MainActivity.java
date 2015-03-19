@@ -21,10 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
 
 //import com.example.testapp.R;
 // Imports api GraphView
@@ -72,6 +74,8 @@ public class MainActivity extends Activity {
     boolean getBlink = false;
     boolean getRawData = false;
 
+    ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
+    Integer[] tempValues ={0,0,0};
    //tableau contenant l'ensemble des valeurs 
     ArrayList<Integer> meditationValues = new ArrayList<Integer>();
     ArrayList<Integer> attentionValues = new ArrayList<Integer>();
@@ -154,7 +158,7 @@ public class MainActivity extends Activity {
 	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
 	    	courbeBlink = prefs.getBoolean("graph_blink", true);
 	    	valuesRecord = prefs.getBoolean("values_record", false);
-	    	timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
+	    	
 	    	
     	
 	    	if(!courbeAttention){
@@ -195,6 +199,27 @@ public class MainActivity extends Activity {
     	}
     }
     
+    
+    private void TimeBox(){
+    	AlertDialog.Builder timeBox;
+    	timeBox = new AlertDialog.Builder(this);
+    	timeBox.setTitle("timebox");
+    	timeBox.setIcon(R.drawable.ic_action_time);
+    	timeBox.setMessage("Durée de l'enregistrement");
+    	timeBox.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+				
+			}
+    	});
+    	timeBox.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+    		@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();				
+			}
+    	});
+    }
     /**
      * Permet d'enregistrer les données recueillies dans un laps de temps
      */
@@ -203,6 +228,10 @@ public class MainActivity extends Activity {
     	Log.v("MsgRecordStart", "Passage");
     	getAttention = true;
     	getMeditation = true;
+    	
+    	dataValues = new ArrayList<Integer[]>();
+        meditationValues = new ArrayList<Integer>();
+        attentionValues = new ArrayList<Integer>();
     	
     	Timer timer = new Timer();
     	
@@ -245,6 +274,7 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test5");
     			  csvFile.addCSVTwoList(meditationValues, attentionValues, entete);
     			  Log.v("MsgRecordRun", "test6");
+    			 // Toast.makeText(getApplicationContext(),"Fichier CSV Sauvegardé",Toast.LENGTH_LONG).show();
     		  }
     		}, timeRecord*1000);
 		
@@ -304,6 +334,11 @@ public class MainActivity extends Activity {
     				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true);
     				  if(getAttention){
     					  attentionValues.add(msg.arg1);
+    					  Date d = new Date();
+    	    			  SimpleDateFormat f = new SimpleDateFormat("HHmmss");
+    	    			  String s = f.format(d);
+    	    			  tempValues[0]=Integer.parseInt(s);
+    					  tempValues[1]=msg.arg1;
     				  }
     				  passage++;
     			break;
@@ -321,7 +356,10 @@ public class MainActivity extends Activity {
     				seriesMeditation.appendData( new GraphViewData(passage, msg.arg1), true);
   				    if(getMeditation){
 					    meditationValues.add(msg.arg1);
+					    tempValues[2]=msg.arg1;
 				    }
+  				  
+  				  dataValues.add(tempValues);
   				  
     			break;
     			case TGDevice.MSG_RAW_DATA:
@@ -415,7 +453,12 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.saveCSV:
-    		this.csvWriter(null);
+    		startRecord();
+    		return true;
+    	case R.id.time:
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
+    		Toast.makeText(getApplicationContext(),"TEST TIME",Toast.LENGTH_LONG).show();
     		return true;
     	case R.id.settings:
     		// Comportement du bouton "Paramètres"
