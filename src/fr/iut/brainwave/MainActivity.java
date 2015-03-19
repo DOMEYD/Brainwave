@@ -219,6 +219,7 @@ public class MainActivity extends Activity {
 				dialog.dismiss();				
 			}
     	});
+    	timeBox.show();
     }
     /**
      * Permet d'enregistrer les données recueillies dans un laps de temps
@@ -456,9 +457,10 @@ public class MainActivity extends Activity {
     		startRecord();
     		return true;
     	case R.id.time:
-    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-    		timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
-    		Toast.makeText(getApplicationContext(),"TEST TIME",Toast.LENGTH_LONG).show();
+    		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		//timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
+    		//Toast.makeText(getApplicationContext(),"TEST TIME",Toast.LENGTH_LONG).show();
+    		TimeBox();
     		return true;
     	case R.id.settings:
     		// Comportement du bouton "Paramètres"
