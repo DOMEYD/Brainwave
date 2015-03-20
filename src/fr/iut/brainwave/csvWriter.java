@@ -80,9 +80,11 @@ public class csvWriter {
 	
 	
 
-	public void ListerCSVFile (File file) throws IOException{
-		ArrayList<Integer> mediation = new ArrayList<Integer>();
-		ArrayList<Integer> attention = new ArrayList<Integer>();
+	public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException{
+		
+		ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
+		Integer[] tempValues={0,0,0};
+	
 		String[] temp;
 		
 		try {
@@ -91,9 +93,10 @@ public class csvWriter {
 			 String line = br.readLine();
 		       while( line != null) {
 		           temp= line.split(";");
-		           mediation.add(Integer.parseInt(temp[1]));
-		           attention.add(Integer.parseInt(temp[0]));
-		        		   
+		           tempValues[0]=Integer.parseInt(temp[0]);
+		           tempValues[1]=Integer.parseInt(temp[1]);
+		           tempValues[2]= Integer.parseInt(temp[2]);
+		           dataValues.add(tempValues);		        		   
 		        }
 
 		        br.close();
@@ -103,7 +106,8 @@ public class csvWriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	       
 		
+		return dataValues;
+	      
 	}
 }
