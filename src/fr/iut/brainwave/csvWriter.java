@@ -95,7 +95,7 @@ public class csvWriter {
 		           temp= line.split(";");
 		           tempValues[0]=Integer.parseInt(temp[0]);
 		           tempValues[1]=Integer.parseInt(temp[1]);
-		           tempValues[2]=Integer.parseInt(temp[2]);
+		           tempValues[2]= Integer.parseInt(temp[2]);
 		           dataValues.add(tempValues);		        		   
 		        }
 
