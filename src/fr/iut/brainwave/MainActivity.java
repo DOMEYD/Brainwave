@@ -11,6 +11,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -27,6 +31,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
+
+
+
+
 
 
 
@@ -200,8 +209,20 @@ public class MainActivity extends Activity {
     	}
     }
     
+    /*TimePickerDialog tpd = new TimePickerDialog(this,
+            new TimePickerDialog.OnTimeSetListener() {
+     
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay,
+                        int minute) {
+                    txtTime.setText(hourOfDay + ":" + minute);
+                }
+            }, mHour, mMinute, false);
+    tpd.show();*/
     
     private void TimeBox(){
+    	// Changer le type ALertDialog en TimePickerDialog
+    	
     	AlertDialog.Builder timeBox;
     	timeBox = new AlertDialog.Builder(this);
     	timeBox.setTitle("timebox");
@@ -222,7 +243,8 @@ public class MainActivity extends Activity {
     	});
     	timeBox.show();
     }
-    /**
+
+	/**
      * Permet d'enregistrer les données recueillies dans un laps de temps
      */
     private void startRecord() {
@@ -281,7 +303,6 @@ public class MainActivity extends Activity {
     			 // Toast.makeText(getApplicationContext(),"Fichier CSV Sauvegardé",Toast.LENGTH_LONG).show();
     		  }
     		}, timeRecord*1000);
-		
 	}
     
     /**
@@ -444,7 +465,53 @@ public class MainActivity extends Activity {
 		intent.setClass(this, csvWriter.class);
 		startActivity(intent);
 	}
-    
+	
+// AJout DIana
+	
+	private TextView tvDisplayTime;
+	private TimePicker timePicker1;
+ 
+	private int hour;
+	private int minute;
+ 
+	static final int TIME_DIALOG_ID = 999;
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case TIME_DIALOG_ID:
+			// set time picker as current time
+			return new TimePickerDialog(this, 
+                                        timePickerListener, hour, minute,false);
+ 
+		}
+		return null;
+	}
+ 
+	private TimePickerDialog.OnTimeSetListener timePickerListener = 
+            new TimePickerDialog.OnTimeSetListener() {
+		public void onTimeSet(TimePicker view, int selectedHour,
+				int selectedMinute) {
+			hour = selectedHour;
+			minute = selectedMinute;
+ 
+			// set current time into textview
+			tvDisplayTime.setText(new StringBuilder().append(pad(hour))
+					.append(":").append(pad(minute)));
+ 
+			// set current time into timepicker
+			timePicker1.setCurrentHour(hour);
+			timePicker1.setCurrentMinute(minute);
+ 
+		}
+	};
+ 
+	private static String pad(int c) {
+		if (c >= 10)
+		   return String.valueOf(c);
+		else
+		   return "0" + String.valueOf(c);
+	}
+ // Fin Ajout Diana   
     
     /**
      * Ajoute des objets dans la barre d'action :
@@ -453,7 +520,8 @@ public class MainActivity extends Activity {
      * - Aide : lance un nouvel intent avec une page de memo
      * - quitter
      */
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.saveCSV:
@@ -463,7 +531,10 @@ public class MainActivity extends Activity {
     		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     		//timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
     		//Toast.makeText(getApplicationContext(),"TEST TIME",Toast.LENGTH_LONG).show();
-    		TimeBox();
+    		
+    		// A voir pour le time picker : http://www.mkyong.com/android/android-time-picker-example/
+    		showDialog(TIME_DIALOG_ID);
+    		//TimeBox();
     		return true;
     	case R.id.settings:
     		// Comportement du bouton "Paramètres"
