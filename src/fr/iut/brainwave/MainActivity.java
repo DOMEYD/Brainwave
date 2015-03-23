@@ -300,7 +300,7 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test5");
     			  csvFile.addCSVTwoList(dataValues, meditationValues, attentionValues, entete);
     			  Log.v("MsgRecordRun", "test6");
-    			 // Toast.makeText(getApplicationContext(),"Fichier CSV Sauvegardé",Toast.LENGTH_LONG).show();
+    			 // Toast.makeText(getApplicationContext(),"Fichier CSV Sauvegarde",Toast.LENGTH_LONG).show();
     		  }
     		}, timeRecord*1000);
 	}
@@ -466,13 +466,14 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
-// AJout DIana
+// Ajout Diana
 	
 	private TextView tvDisplayTime;
 	private TimePicker timePicker1;
  
 	private int hour;
 	private int minute;
+	private int second;
  
 	static final int TIME_DIALOG_ID = 999;
 	@Override
@@ -481,27 +482,29 @@ public class MainActivity extends Activity {
 		case TIME_DIALOG_ID:
 			// set time picker as current time
 			return new TimePickerDialog(this, 
-                                        timePickerListener, hour, minute,false);
+                                        timePickerListener, minute, second, true);
  
 		}
 		return null;
 	}
  
+	/*private TimePickerDialog.OnTimeSetListener timePickerListener = 
+            new TimePickerDialog.OnTimeSetListener() {*/
 	private TimePickerDialog.OnTimeSetListener timePickerListener = 
-            new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int selectedHour,
-				int selectedMinute) {
-			hour = selectedHour;
+			new TimePickerDialog.OnTimeSetListener() {
+		public void onTimeSet(TimePicker view, int selectedMinute,
+				int selectedSecond) {
+			//hour = selectedHour;
 			minute = selectedMinute;
+			second = selectedSecond;
  
 			// set current time into textview
-			tvDisplayTime.setText(new StringBuilder().append(pad(hour))
-					.append(":").append(pad(minute)));
+			tvDisplayTime.setText(new StringBuilder().append(pad(minute)).append(":").append(pad(second)));
  
 			// set current time into timepicker
-			timePicker1.setCurrentHour(hour);
-			timePicker1.setCurrentMinute(minute);
- 
+			timePicker1.setCurrentHour(minute);
+			timePicker1.setCurrentMinute(second);
+			//timePicker1.setCurrentMinute(second);
 		}
 	};
  
@@ -512,6 +515,20 @@ public class MainActivity extends Activity {
 		   return "0" + String.valueOf(c);
 	}
  // Fin Ajout Diana   
+	
+// Ajout 2 Diana
+	/*MyTimePickerDialog mTimePicker = new MyTimePickerDialog(this, new MyTimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute, int seconds) {
+            // TODO Auto-generated method stub
+            //time.setText(getString(R.string.time) + String.format("%02d", hourOfDay)+
+              //      ":" + String.format("%02d", minute) + 
+              //      ":" + String.format("%02d", seconds));  *         
+        }
+    }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), true);
+    mTimePicker.show();*/
+    // Fin ajout 2 Diana
     
     /**
      * Ajoute des objets dans la barre d'action :

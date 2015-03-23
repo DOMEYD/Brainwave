@@ -77,8 +77,6 @@ public class csvWriter {
 		     e.printStackTrace();
 		}
 	}
-	
-	
 
 	public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException{
 		
