@@ -50,8 +50,8 @@ public class csvWriter {
 			for(String element: entete){
 				writer.write(element);
 			}
-			
-			for(int i=0;i<time_record;i++){
+			int i=0;
+			for(i=0;i<time_record;i++){
 				writer.write(Integer.toString(ValeursData.get(i)[0]));
 				writer.write(";");
 				writer.write(Integer.toString(ValeursData.get(i)[1]));
