@@ -13,6 +13,11 @@
    <string name="menu">Menu</string>
    <string name="NoBTAppair">Vous n\'avez pas appair&#233; le BrainWave !</string>
    
+   <!-- Graphic -->
+   <string name="cancel">annuler</string>
+   <string name="set">configurer</string>
+   <string name="second">sec.</string>
+   
    <!-- Gestion Bluetooth -->
       
     <string name="GestionBluetooth">Gestion Bluetooth</string>

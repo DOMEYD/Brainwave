@@ -20,7 +20,11 @@ import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -31,6 +35,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
+
+
+
 
 
 
@@ -220,28 +228,32 @@ public class MainActivity extends Activity {
             }, mHour, mMinute, false);
     tpd.show();*/
     
-    private void TimeBox(){
-    	// Changer le type ALertDialog en TimePickerDialog
-    	
-    	AlertDialog.Builder timeBox;
-    	timeBox = new AlertDialog.Builder(this);
-    	timeBox.setTitle("timebox");
-    	timeBox.setIcon(R.drawable.ic_action_time);
-    	timeBox.setMessage("Durée de l'enregistrement");
-    	timeBox.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-				
-			}
-    	});
-    	timeBox.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-    		@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();				
-			}
-    	});
-    	timeBox.show();
+    private void TimeBox(){    	
+    	final Dialog d = new Dialog(MainActivity.this);
+        d.setTitle("NumberPicker");
+        d.setContentView(R.layout.dialog);
+        Button b1 = (Button) d.findViewById(R.id.button1);
+        Button b2 = (Button) d.findViewById(R.id.button2);
+        
+        final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
+        np.setMaxValue(180);
+        np.setMinValue(0);
+        np.setWrapSelectorWheel(false);
+
+        b1.setOnClickListener(new OnClickListener() {
+	         @Override
+	         public void onClick(View v) {
+	             d.dismiss();
+	          }    
+        });
+        b2.setOnClickListener(new OnClickListener() {
+	         @Override
+	         public void onClick(View v) {
+	            d.dismiss(); // dismiss the dialog
+	         }    
+        });
+        
+        d.show();
     }
 
 	/**
@@ -468,52 +480,52 @@ public class MainActivity extends Activity {
 	
 // Ajout Diana
 	
-	private TextView tvDisplayTime;
-	private TimePicker timePicker1;
- 
-	private int hour;
-	private int minute;
-	private int second;
- 
+//	private TextView tvDisplayTime;
+//	private TimePicker timePicker1;
+// 
+//	private int hour;
+//	private int minute;
+//	private int second;
+// 
 	static final int TIME_DIALOG_ID = 999;
-	@Override
-	protected Dialog onCreateDialog(int id) {
-		switch (id) {
-		case TIME_DIALOG_ID:
-			// set time picker as current time
-			return new TimePickerDialog(this, 
-                                        timePickerListener, minute, second, true);
+//	@Override
+//	protected Dialog onCreateDialog(int id) {
+//		switch (id) {
+//		case TIME_DIALOG_ID:
+//			// set time picker as current time
+////			return new TimePickerDialog(this, 
+////                                        timePickerListener, minute, second, true);
+//			return new NumberPicker(this);			
+//		}
+//		return null;
+//	}
  
-		}
-		return null;
-	}
- 
-	/*private TimePickerDialog.OnTimeSetListener timePickerListener = 
-            new TimePickerDialog.OnTimeSetListener() {*/
-	private TimePickerDialog.OnTimeSetListener timePickerListener = 
-			new TimePickerDialog.OnTimeSetListener() {
-		public void onTimeSet(TimePicker view, int selectedMinute,
-				int selectedSecond) {
-			//hour = selectedHour;
-			minute = selectedMinute;
-			second = selectedSecond;
- 
-			// set current time into textview
-			tvDisplayTime.setText(new StringBuilder().append(pad(minute)).append(":").append(pad(second)));
- 
-			// set current time into timepicker
-			timePicker1.setCurrentHour(minute);
-			timePicker1.setCurrentMinute(second);
-			//timePicker1.setCurrentMinute(second);
-		}
-	};
- 
-	private static String pad(int c) {
-		if (c >= 10)
-		   return String.valueOf(c);
-		else
-		   return "0" + String.valueOf(c);
-	}
+//	/*private TimePickerDialog.OnTimeSetListener timePickerListener = 
+//            new TimePickerDialog.OnTimeSetListener() {*/
+//	private TimePickerDialog.OnTimeSetListener timePickerListener = 
+//			new TimePickerDialog.OnTimeSetListener() {
+//		public void onTimeSet(TimePicker view, int selectedMinute,
+//				int selectedSecond) {
+//			//hour = selectedHour;
+//			minute = selectedMinute;
+//			second = selectedSecond;
+// 
+//			// set current time into textview
+//			tvDisplayTime.setText(new StringBuilder().append(pad(minute)).append(":").append(pad(second)));
+// 
+//			// set current time into timepicker
+//			timePicker1.setCurrentHour(minute);
+//			timePicker1.setCurrentMinute(second);
+//			//timePicker1.setCurrentMinute(second);
+//		}
+//	};
+// 
+//	private static String pad(int c) {
+//		if (c >= 10)
+//		   return String.valueOf(c);
+//		else
+//		   return "0" + String.valueOf(c);
+//	}
  // Fin Ajout Diana   
 	
 // Ajout 2 Diana
@@ -550,8 +562,8 @@ public class MainActivity extends Activity {
     		//Toast.makeText(getApplicationContext(),"TEST TIME",Toast.LENGTH_LONG).show();
     		
     		// A voir pour le time picker : http://www.mkyong.com/android/android-time-picker-example/
-    		showDialog(TIME_DIALOG_ID);
-    		//TimeBox();
+//    		showDialog(TIME_DIALOG_ID);
+    		TimeBox();
     		return true;
     	case R.id.settings:
     		// Comportement du bouton "Paramètres"
