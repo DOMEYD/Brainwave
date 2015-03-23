@@ -42,16 +42,16 @@ public class csvWriter {
 	 * @param valeursAttention
 	 * @param entete
 	 */
-	public void addCSVTwoList(ArrayList<Integer[]> ValeursData, ArrayList<Integer> valeursMeditation, ArrayList<Integer> valeursAttention, ArrayList<String> entete){
+	public void addCSVTwoList(ArrayList<Integer[]> ValeursData, Integer time_record, /*ArrayList<Integer> valeursMeditation, ArrayList<Integer> valeursAttention,*/ ArrayList<String> entete){
 		try
 		{
-			int listMeditationSize = valeursMeditation.size();
+			//int listMeditationSize = valeursMeditation.size();
 			FileWriter writer = new FileWriter(monFichier);
 			for(String element: entete){
 				writer.write(element);
 			}
 			
-			for(int i=0;i<ValeursData.size();i++){
+			for(int i=0;i<time_record;i++){
 				writer.write(Integer.toString(ValeursData.get(i)[0]));
 				writer.write(";");
 				writer.write(Integer.toString(ValeursData.get(i)[1]));

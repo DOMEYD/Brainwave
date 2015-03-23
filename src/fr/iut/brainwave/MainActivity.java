@@ -72,6 +72,7 @@ public class MainActivity extends Activity {
 
     ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
     Integer[] tempValues ={0,0,0};
+    Integer time_record=0;
    //tableau contenant l'ensemble des valeurs 
     ArrayList<Integer> meditationValues = new ArrayList<Integer>();
     ArrayList<Integer> attentionValues = new ArrayList<Integer>();
@@ -230,7 +231,7 @@ public class MainActivity extends Activity {
     	Log.v("MsgRecordStart", "Passage");
     	getAttention = true;
     	getMeditation = true;
-    	
+    	time_record=0;
     	dataValues = new ArrayList<Integer[]>();
         meditationValues = new ArrayList<Integer>();
         attentionValues = new ArrayList<Integer>();
@@ -257,7 +258,7 @@ public class MainActivity extends Activity {
     			  String s = f.format(d);
     			  entete.add("Enregistrement BrainWaves du "+ s);
     			  entete.add("\n");
-    			  entete.add("Durée de l'enregistrement : "+ timeRecord +" secondes");
+    			  entete.add("Durée de l'enregistrement : "+ time_record +" secondes");
     			  entete.add("\n");
     			  entete.add("\n");
     			  entete.add("Valeurs des courbes");
@@ -276,7 +277,7 @@ public class MainActivity extends Activity {
     			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
     			  
     			  Log.v("MsgRecordRun", "test5");
-    			  csvFile.addCSVTwoList(dataValues, meditationValues, attentionValues, entete);
+    			  csvFile.addCSVTwoList(dataValues, time_record, entete);
     			  Log.v("MsgRecordRun", "test6");
     			 // Toast.makeText(getApplicationContext(),"CSV Sauvegardé",Toast.LENGTH_LONG).show();
     		  }
@@ -338,7 +339,7 @@ public class MainActivity extends Activity {
     				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true);
     				  if(getAttention){
     					  attentionValues.add(msg.arg1);
-    					  tempValues[0]=passage;
+    					  tempValues[0]=time_record;
     					  tempValues[1]=msg.arg1;
     				  }
     				  
@@ -359,9 +360,9 @@ public class MainActivity extends Activity {
 					    meditationValues.add(msg.arg1);
 					    tempValues[2]=msg.arg1;
 					    dataValues.add(tempValues);
+					    time_record ++;
 				    }
-  				  
-  				 
+  				    
   				  passage++;
     			break;
     			case TGDevice.MSG_RAW_DATA:
