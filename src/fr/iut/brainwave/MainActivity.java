@@ -278,7 +278,7 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test5");
     			  csvFile.addCSVTwoList(dataValues, meditationValues, attentionValues, entete);
     			  Log.v("MsgRecordRun", "test6");
-    			  
+    			 // Toast.makeText(getApplicationContext(),"CSV Sauvegardé",Toast.LENGTH_LONG).show();
     		  }
     		}, timeRecord*1000);
     	
@@ -338,10 +338,7 @@ public class MainActivity extends Activity {
     				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true);
     				  if(getAttention){
     					  attentionValues.add(msg.arg1);
-    					  Date d = new Date();
-    	    			  SimpleDateFormat f = new SimpleDateFormat("HHmmss");
-    	    			  String s = f.format(d);
-    	    			  tempValues[0]=Integer.parseInt(s);
+    					  tempValues[0]=passage;
     					  tempValues[1]=msg.arg1;
     				  }
     				  
