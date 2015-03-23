@@ -234,7 +234,7 @@ public class MainActivity extends Activity {
     	dataValues = new ArrayList<Integer[]>();
         meditationValues = new ArrayList<Integer>();
         attentionValues = new ArrayList<Integer>();
-    	
+        Toast.makeText(getApplicationContext(),"Début de l'enregistrement",Toast.LENGTH_LONG).show();
     	Timer timer = new Timer();
     	
     	timer.schedule(new TimerTask() {
@@ -278,9 +278,10 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test5");
     			  csvFile.addCSVTwoList(dataValues, meditationValues, attentionValues, entete);
     			  Log.v("MsgRecordRun", "test6");
-    			 // Toast.makeText(getApplicationContext(),"Fichier CSV Sauvegarde",Toast.LENGTH_LONG).show();
+    			  
     		  }
     		}, timeRecord*1000);
+    	
 	}
     
     /**
@@ -343,7 +344,7 @@ public class MainActivity extends Activity {
     	    			  tempValues[0]=Integer.parseInt(s);
     					  tempValues[1]=msg.arg1;
     				  }
-    				  passage++;
+    				  
     			break;
     			case TGDevice.MSG_MEDITATION:
     				/*
@@ -360,10 +361,11 @@ public class MainActivity extends Activity {
   				    if(getMeditation){
 					    meditationValues.add(msg.arg1);
 					    tempValues[2]=msg.arg1;
+					    dataValues.add(tempValues);
 				    }
   				  
-  				  dataValues.add(tempValues);
-  				  
+  				 
+  				  passage++;
     			break;
     			case TGDevice.MSG_RAW_DATA:
     				int rawValue = msg.arg1;
