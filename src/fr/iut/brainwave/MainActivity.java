@@ -3,16 +3,11 @@ package fr.iut.brainwave;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -24,41 +19,23 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-import android.widget.NumberPicker.OnValueChangeListener;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
-
-
-
-
-
-
-
-
-
-
-
-
-//import com.example.testapp.R;
-// Imports api GraphView
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
 import com.jjoe64.graphview.GraphViewSeries.GraphViewSeriesStyle;
 import com.jjoe64.graphview.LineGraphView;
-// Imports api ThinkGear
 import com.neurosky.thinkgear.TGDevice;
 import com.neurosky.thinkgear.TGEegPower;
 import com.neurosky.thinkgear.TGRawMulti;
+
 /**
  * Permet l'affichage du graphique avec les différentes données recueillies en temps réel :
  * - Attention
@@ -216,17 +193,6 @@ public class MainActivity extends Activity {
     		Log.e("errorResume", "Erreur : " +exc);
     	}
     }
-    
-    /*TimePickerDialog tpd = new TimePickerDialog(this,
-            new TimePickerDialog.OnTimeSetListener() {
-     
-                @Override
-                public void onTimeSet(TimePicker view, int hourOfDay,
-                        int minute) {
-                    txtTime.setText(hourOfDay + ":" + minute);
-                }
-            }, mHour, mMinute, false);
-    tpd.show();*/
     
     private void TimeBox(){    	
     	final Dialog d = new Dialog(MainActivity.this);
@@ -477,70 +443,6 @@ public class MainActivity extends Activity {
 		intent.setClass(this, csvWriter.class);
 		startActivity(intent);
 	}
-	
-// Ajout Diana
-	
-//	private TextView tvDisplayTime;
-//	private TimePicker timePicker1;
-// 
-//	private int hour;
-//	private int minute;
-//	private int second;
-// 
-	static final int TIME_DIALOG_ID = 999;
-//	@Override
-//	protected Dialog onCreateDialog(int id) {
-//		switch (id) {
-//		case TIME_DIALOG_ID:
-//			// set time picker as current time
-////			return new TimePickerDialog(this, 
-////                                        timePickerListener, minute, second, true);
-//			return new NumberPicker(this);			
-//		}
-//		return null;
-//	}
- 
-//	/*private TimePickerDialog.OnTimeSetListener timePickerListener = 
-//            new TimePickerDialog.OnTimeSetListener() {*/
-//	private TimePickerDialog.OnTimeSetListener timePickerListener = 
-//			new TimePickerDialog.OnTimeSetListener() {
-//		public void onTimeSet(TimePicker view, int selectedMinute,
-//				int selectedSecond) {
-//			//hour = selectedHour;
-//			minute = selectedMinute;
-//			second = selectedSecond;
-// 
-//			// set current time into textview
-//			tvDisplayTime.setText(new StringBuilder().append(pad(minute)).append(":").append(pad(second)));
-// 
-//			// set current time into timepicker
-//			timePicker1.setCurrentHour(minute);
-//			timePicker1.setCurrentMinute(second);
-//			//timePicker1.setCurrentMinute(second);
-//		}
-//	};
-// 
-//	private static String pad(int c) {
-//		if (c >= 10)
-//		   return String.valueOf(c);
-//		else
-//		   return "0" + String.valueOf(c);
-//	}
- // Fin Ajout Diana   
-	
-// Ajout 2 Diana
-	/*MyTimePickerDialog mTimePicker = new MyTimePickerDialog(this, new MyTimePickerDialog.OnTimeSetListener() {
-
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute, int seconds) {
-            // TODO Auto-generated method stub
-            //time.setText(getString(R.string.time) + String.format("%02d", hourOfDay)+
-              //      ":" + String.format("%02d", minute) + 
-              //      ":" + String.format("%02d", seconds));  *         
-        }
-    }, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), true);
-    mTimePicker.show();*/
-    // Fin ajout 2 Diana
     
     /**
      * Ajoute des objets dans la barre d'action :
@@ -549,7 +451,6 @@ public class MainActivity extends Activity {
      * - Aide : lance un nouvel intent avec une page de memo
      * - quitter
      */
-    @SuppressWarnings("deprecation")
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
@@ -557,12 +458,6 @@ public class MainActivity extends Activity {
     		startRecord();
     		return true;
     	case R.id.time:
-    		//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-    		//timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
-    		//Toast.makeText(getApplicationContext(),"TEST TIME",Toast.LENGTH_LONG).show();
-    		
-    		// A voir pour le time picker : http://www.mkyong.com/android/android-time-picker-example/
-//    		showDialog(TIME_DIALOG_ID);
     		TimeBox();
     		return true;
     	case R.id.settings:
