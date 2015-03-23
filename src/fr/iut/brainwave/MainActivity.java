@@ -3,8 +3,10 @@ package fr.iut.brainwave;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,6 +28,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewData;
@@ -233,8 +236,8 @@ public class MainActivity extends Activity {
     	getMeditation = true;
     	time_record=0;
     	dataValues = new ArrayList<Integer[]>();
-        meditationValues = new ArrayList<Integer>();
-        attentionValues = new ArrayList<Integer>();
+       // meditationValues = new ArrayList<Integer>();
+       // attentionValues = new ArrayList<Integer>();
         Toast.makeText(getApplicationContext(),"Début de l'enregistrement",Toast.LENGTH_LONG).show();
     	Timer timer = new Timer();
     	
@@ -254,7 +257,7 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test1");
     			  ArrayList<String> entete = new ArrayList<String>();
     			  Date d = new Date();
-    			  SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy'-'HH:mm:ss");
+    			  SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy'-'HH:mm:ss", Locale.FRANCE);
     			  String s = f.format(d);
     			  entete.add("Enregistrement BrainWaves du "+ s);
     			  entete.add("\n");
@@ -272,7 +275,7 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test2");
     			
     			
-    			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+    			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.FRANCE);
     			  s = f.format(d);
     			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
     			  
@@ -289,6 +292,7 @@ public class MainActivity extends Activity {
      * Handler du ThinkGear Device (thread qui traite constamment les données reçus)
      */
     private final Handler handler = new Handler() {
+		@SuppressWarnings("deprecation")
 		@Override
     	public void handleMessage(Message msg) {
     		switch (msg.what) {
@@ -338,8 +342,7 @@ public class MainActivity extends Activity {
     				Log.v("MsgEEG", "Attention: " + msg.arg1);
     				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true);
     				  if(getAttention){
-    					  attentionValues.add(msg.arg1);
-    					  tempValues[0]=time_record;
+    					  //attentionValues.add(msg.arg1);
     					  tempValues[1]=msg.arg1;
     				  }
     				  
@@ -357,10 +360,17 @@ public class MainActivity extends Activity {
     				Log.v("MsgEEG","Meditation: " +msg.arg1);
     				seriesMeditation.appendData( new GraphViewData(passage, msg.arg1), true);
   				    if(getMeditation){
-					    meditationValues.add(msg.arg1);
+					  //  meditationValues.add(msg.arg1);
+  				    	tempValues[0] = null;
+  				    	tempValues[0]=time_record;
 					    tempValues[2]=msg.arg1;
 					    dataValues.add(tempValues);
+					    tempValues = new Integer[3];
 					    time_record ++;
+					    if(time_record>=timeRecord)
+					    {
+					    	 Toast.makeText(getApplicationContext(),"CSV enregistré",Toast.LENGTH_LONG).show();
+					    }
 				    }
   				    
   				  passage++;
@@ -456,6 +466,7 @@ public class MainActivity extends Activity {
     	switch (item.getItemId()) {
     	case R.id.saveCSV:
     		startRecord();
+    		
     		return true;
     	case R.id.time:
     		TimeBox();
