@@ -4,7 +4,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="254dp"
+        android:layout_width="313dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -13,23 +13,14 @@
         android:layout_marginTop="14dp"
         android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/radioButton_meditation"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:text="@string/courbe_meditation" />
-
-        <RadioButton
-            android:id="@+id/radioButton_attention"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/courbe_attention" />
-
-        <RadioButton
-            android:id="@+id/radioButton_clindoeil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/courbe_clindoeil" />
+            android:ems="10"
+            android:inputType="numberSigned" >
+            <requestFocus />
+        </EditText>
 
     </LinearLayout>
 
