@@ -19,10 +19,10 @@
     	   		android:state_pressed="false"
     	    	style="@style/PlayPause"/>  -->
     	    	
-    	<item	android:id="@+id/launch"
+    	<!-- <item	android:id="@+id/launch"
     	    	android:title="@string/action_pause"
     	    	android:icon="@drawable/ic_action_pause"
-    	    	android:showAsAction="ifRoom" />
+    	    	android:showAsAction="ifRoom" /> -->
     	
     	<item 	android:id="@+id/time"
     	    	android:icon="@drawable/ic_action_time"
@@ -40,7 +40,6 @@
     	    	android:showAsAction="ifRoom"/>
 
     	<item 	android:id="@+id/settings" 
-				android:icon="@drawable/ic_settings"
 		    	android:title="@string/settings"/>
     		
 	    <item 	android:id="@+id/propos" 
