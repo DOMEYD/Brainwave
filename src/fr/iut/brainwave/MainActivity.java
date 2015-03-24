@@ -284,7 +284,7 @@ public class MainActivity extends Activity {
     			  Log.v("MsgRecordRun", "test6");
     			 // Toast.makeText(getApplicationContext(),"CSV Sauvegardé",Toast.LENGTH_LONG).show();
     		  }
-    		}, timeRecord*1000);
+    		}, (timeRecord+1)*1000);
     	
 	}
     
@@ -367,7 +367,7 @@ public class MainActivity extends Activity {
 					    dataValues.add(tempValues);
 					    tempValues = new Integer[3];
 					    time_record ++;
-					    if(time_record>=timeRecord)
+					    if(time_record>timeRecord)
 					    {
 					    	 Toast.makeText(getApplicationContext(),"CSV enregistré",Toast.LENGTH_LONG).show();
 					    }
