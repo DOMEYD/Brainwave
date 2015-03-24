@@ -231,57 +231,45 @@ public class MainActivity extends Activity {
      */
     private void startRecord() {
 		
-    	Log.v("MsgRecordStart", "Passage");
+    	Log.v("Statut", "Lancement Record");
+    	
     	getAttention = true;
     	getMeditation = true;
     	time_record=0;
     	dataValues = new ArrayList<Integer[]>();
-       // meditationValues = new ArrayList<Integer>();
-       // attentionValues = new ArrayList<Integer>();
+       
         Toast.makeText(getApplicationContext(),"Début de l'enregistrement",Toast.LENGTH_LONG).show();
     	Timer timer = new Timer();
     	
     	timer.schedule(new TimerTask() {
     		  @Override
     		  public void run() {
-    			  Log.v("MsgRecordRun", "Passage run");
-    			  Log.v("MsgRecordRun", "ALM : "+meditationValues);
-    		    //Code pour insertion dans le csv puis arret
+    			  Log.v("Statut", "Fin du timer");
+
     			  valuesRecord = false;
     			  getAttention = false;
     			  getMeditation = false;
+
     			  SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     			  SharedPreferences.Editor editor = prefs.edit();
     			  editor.putBoolean("values_record", false);
     			  editor.commit();
-    			  Log.v("MsgRecordRun", "test1");
+    			  
     			  ArrayList<String> entete = new ArrayList<String>();
+    			  
     			  Date d = new Date();
     			  SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy'-'HH:mm:ss", Locale.FRANCE);
     			  String s = f.format(d);
-    			  entete.add("Enregistrement BrainWaves du "+ s);
-    			  entete.add("\n");
-    			  entete.add("Durée de l'enregistrement : "+ time_record +" secondes");
-    			  entete.add("\n");
-    			  entete.add("\n");
-    			  entete.add("Valeurs des courbes");
-    			  entete.add("\n");
-    			  entete.add("Time");
-    			  entete.add(";");
-    			  entete.add("Attention");
-    			  entete.add(";");
-    			  entete.add("Meditation");
-    			  entete.add("\n");
-    			  Log.v("MsgRecordRun", "test2");
-    			
+    			  entete.add("Enregistrement BrainWaves du "+ s+"\n");
+    			  entete.add("Durée de l'enregistrement : "+ time_record +" secondes\n\n");
+    			  entete.add("Valeurs des courbes\n");
+    			  entete.add("Time;Attention;Meditation\n");			
     			
     			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.FRANCE);
     			  s = f.format(d);
     			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
     			  
-    			  Log.v("MsgRecordRun", "test5");
     			  csvFile.addCSVTwoList(dataValues, time_record, entete);
-    			  Log.v("MsgRecordRun", "test6");
     			 // Toast.makeText(getApplicationContext(),"CSV Sauvegardé",Toast.LENGTH_LONG).show();
     		  }
     		}, (timeRecord+1)*1000);
@@ -341,8 +329,9 @@ public class MainActivity extends Activity {
     				 */
     				Log.v("MsgEEG", "Attention: " + msg.arg1);
     				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true);
+    				  
     				  if(getAttention){
-    					  //attentionValues.add(msg.arg1);
+    					  tempValues = new Integer[3];
     					  tempValues[1]=msg.arg1;
     				  }
     				  
@@ -360,19 +349,17 @@ public class MainActivity extends Activity {
     				Log.v("MsgEEG","Meditation: " +msg.arg1);
     				seriesMeditation.appendData( new GraphViewData(passage, msg.arg1), true);
   				    if(getMeditation){
-					  //  meditationValues.add(msg.arg1);
-  				    	tempValues[0] = null;
+  				    	
   				    	tempValues[0]=time_record;
 					    tempValues[2]=msg.arg1;
 					    dataValues.add(tempValues);
-					    tempValues = new Integer[3];
 					    time_record ++;
+					   
 					    if(time_record>timeRecord)
 					    {
 					    	 Toast.makeText(getApplicationContext(),"CSV enregistré",Toast.LENGTH_LONG).show();
 					    }
 				    }
-  				    
   				  passage++;
     			break;
     			case TGDevice.MSG_RAW_DATA:
@@ -464,42 +451,35 @@ public class MainActivity extends Activity {
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-    	case R.id.saveCSV:
-    		startRecord();
-    		
-    		return true;
-    	case R.id.time:
-    		TimeBox();
-    		return true;
-    	case R.id.settings:
-    		// Comportement du bouton "Paramètres"
-    		Intent settingsIntent = new Intent(this,SettingsActivity.class);
-    		startActivity(settingsIntent);
-    		return true;
-    	case R.id.propos:
-    		// Comportement du bouton "A propos"
-    		new AlertDialog.Builder(this)
-    	    .setTitle("A propos")
-    	    .setMessage("Application réalisé dans le cadre du projet BrainWaves de Licence Pro Dev Web et Mobile d'Orleans.\n" +
-    	    		"- Robin Hayart \n" +
-    	    		"- Loic Dieudonné \n" +
-    	    		"- Chafik Daggag \n" +
-    	    		"- Cecile Kergall")
-    	    .setIcon(android.R.drawable.ic_dialog_alert)
-    	     .show();
-    		return true;
-    	case R.id.aide:
-    		// Comportement du bouton "Aide"
-    		Intent aideIntent = new Intent(this,AideActivity.class);
-    		startActivity(aideIntent);
-    		return true;
-    	case R.id.quitter:
-    		tgDevice.close();
-    		// Comportement du bouton "Quitter"
-    		finish();
-    		return true;
-    	default:
-    		return super.onOptionsItemSelected(item);
+    	case R.id.saveCSV: startRecord();
+    					   return true;
+    					   
+    	case R.id.time:	TimeBox();
+    					return true;
+    	
+    	case R.id.settings:	Intent settingsIntent = new Intent(this,SettingsActivity.class);
+    						startActivity(settingsIntent);
+    						return true;
+    						
+    	case R.id.propos: new AlertDialog.Builder(this)
+    					  .setTitle("A propos")
+    					  .setMessage("Application réalisé dans le cadre du projet BrainWaves de Licence Pro Dev Web et Mobile d'Orleans.\n" +
+    							  	  "- Dimitri DOMEY \n" +
+    	    		                  "- Diana GRATADE \n" +
+    	    		                  "- Benjamin TUILARD ")
+    	    		      .setIcon(android.R.drawable.ic_dialog_alert)
+    	    		      .show();
+    					  return true;
+    					  
+    	case R.id.aide:	Intent aideIntent = new Intent(this,AideActivity.class);
+    					startActivity(aideIntent);
+    					return true;
+    					
+    	case R.id.quitter:	tgDevice.close();
+    						finish();
+    						return true;
+    	
+    	default: return super.onOptionsItemSelected(item);
     	}
     }
     
