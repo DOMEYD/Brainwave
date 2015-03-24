@@ -4,43 +4,39 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="254dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginLeft="31dp"
-        android:layout_marginTop="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.84"
         android:orientation="vertical" >
 
-        <RadioButton
-            android:id="@+id/radioButton_meditation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/courbe_meditation" />
+        <TextView
+            android:id="@+id/listDeviceTitle"
+            style="@style/ListeTitle" />
 
-        <RadioButton
-            android:id="@+id/radioButton_attention"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/courbe_attention" />
+        <ListView
+            android:id="@+id/lvAroundDevices"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="34.51" >
+        </ListView>
 
-        <RadioButton
-            android:id="@+id/radioButton_clindoeil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/courbe_clindoeil" />
-
+        <ProgressBar
+            android:id="@+id/tvRechercheEnCours"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
         style="@android:style/ButtonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true" >
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="14dp" >
 
         <Button
             android:id="@+id/button_cancel"

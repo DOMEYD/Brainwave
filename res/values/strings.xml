@@ -19,11 +19,15 @@
    <string name="cancel">annuler</string>
    <string name="set">configurer</string>
    <string name="second">sec.</string>
-   <string name="paramsTimeDialogTitle">Temps d\enregistrement :</string>
+   <string name="paramsTimeDialogTitle">Temps d\'enregistrement :</string>
    <string name="validation">Valider</string>
    <string name="courbe_meditation">Courbe de m&#233;ditation</string>
 	<string name="courbe_attention">Courbe d\'attention</string>
 	<string name="courbe_clindoeil">Courbe de clin d\'oeil</string>
+	
+	<!-- Compare -->
+	<string name="addCurve">Ajouter une courbe</string>
+	<string name="addSave">Importer un enregistrement</string>
    
    <!-- Gestion Bluetooth -->
       
