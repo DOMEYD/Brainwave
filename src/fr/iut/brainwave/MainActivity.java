@@ -480,7 +480,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.importCSV:
-    		
+    		ImportBox();
     		return true;
     	case R.id.saveCSV: 
     		startRecord();
