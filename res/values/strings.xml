@@ -17,6 +17,7 @@
    <string name="cancel">annuler</string>
    <string name="set">configurer</string>
    <string name="second">sec.</string>
+   <string name="paramsTimeDialogTitle">Temps d\enregistrement :</string>
    
    <!-- Gestion Bluetooth -->
       

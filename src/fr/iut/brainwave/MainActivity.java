@@ -200,7 +200,7 @@ public class MainActivity extends Activity {
     
     private void TimeBox(){    	
     	final Dialog d = new Dialog(MainActivity.this);
-        d.setTitle("NumberPicker");
+        d.setTitle(getString(R.string.paramsTimeDialogTitle));
         d.setContentView(R.layout.dialog);
         Button b1 = (Button) d.findViewById(R.id.button1);
         Button b2 = (Button) d.findViewById(R.id.button2);
