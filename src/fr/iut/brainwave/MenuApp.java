@@ -64,6 +64,18 @@ public class MenuApp extends Activity
 	}
 	
 	/**
+	 * Permet de gerer le bluetooth
+	 * Lance un intent de GestionBluetooth
+	 * @param view
+	 */
+	public void CompareGraph(View view)
+	{
+		Intent intent = new Intent();
+		intent.setClass(this, CompareActivity.class);
+		startActivity(intent);
+	}
+	
+	/**
 	 * Menu de la barre d'action
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {

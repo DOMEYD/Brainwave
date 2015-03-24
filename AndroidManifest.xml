@@ -38,6 +38,14 @@
             </intent-filter>
         </activity>
         
+        <!-- L'activité du graphique -->
+         <activity android:name="CompareActivity" 
+                  android:label="@string/app_name"> <!-- L'activité secondaire un Intent -->
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
         <!-- Le menu de gestion du bluetooth -->
           <activity android:name="GestionBluetooth" 
                   android:label="@string/GestionBluetooth"> 

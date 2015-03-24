@@ -2,17 +2,12 @@ package fr.iut.brainwave;
 
 import android.app.Activity;
 import android.os.Bundle;
-/**
- * Permet d'afficher le menu d'aide
- * 
- * @author Robin, Chafik, Loïc, Cécile
- *
- */
-public class AideActivity extends Activity {
 
+public class CompareActivity extends Activity {
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_aide);
+		setContentView(R.layout.activity_compare);
 	}
 }
