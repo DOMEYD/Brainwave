@@ -24,6 +24,9 @@
    <string name="courbe_meditation">Courbe de m&#233;ditation</string>
 	<string name="courbe_attention">Courbe d\'attention</string>
 	<string name="courbe_clindoeil">Courbe de clin d\'oeil</string>
+	
+	<!-- Compare -->
+	<string name="addCurve">Ajouter une courbe</string>
    
    <!-- Gestion Bluetooth -->
       
