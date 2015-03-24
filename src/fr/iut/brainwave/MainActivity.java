@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -90,6 +91,8 @@ public class MainActivity extends Activity {
     
     // Instanciation du GraphView
     GraphView graphView;
+    
+    MenuItem MenuBatteryItem;
 	
     /**
 	 * Permet de trouver les listes des devices appairés et ceux dans la portée du bluetooth
@@ -411,6 +414,7 @@ public class MainActivity extends Activity {
     			break;
                 case TGDevice.MSG_LOW_BATTERY:
                 	Toast.makeText(getApplicationContext(), "Batterie faible !", Toast.LENGTH_SHORT).show();
+                	MenuBatteryItem.setIcon(R.drawable.ic_battery_low);
                 break;
     			case TGDevice.MSG_EEG_POWER:
     				TGEegPower ep = (TGEegPower)msg.obj;
@@ -454,6 +458,7 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuBatteryItem = menu.findItem(R.id.battery);
         return super.onCreateOptionsMenu(menu);
     }
     
