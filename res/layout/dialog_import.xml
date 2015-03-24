@@ -14,19 +14,19 @@
         android:orientation="vertical" >
 
         <RadioButton
-            android:id="@+id/radioButton1"
+            android:id="@+id/radioButton_meditation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/courbe_meditation" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioButton_attention"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/courbe_attention" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioButton_clindoeil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/courbe_clindoeil" />
@@ -39,11 +39,10 @@
         android:layout_marginTop="14dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/numberPicker1" >
+        android:layout_alignParentStart="true" >
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_cancel"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,12 +50,12 @@
             android:text="@string/cancel" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_validation"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/set" />
+            android:text="@string/validation" />
     </LinearLayout>
 
 </LinearLayout>

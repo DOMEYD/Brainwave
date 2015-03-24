@@ -18,6 +18,10 @@
    <string name="set">configurer</string>
    <string name="second">sec.</string>
    <string name="paramsTimeDialogTitle">Temps d\enregistrement :</string>
+   <string name="validation">Valider</string>
+   <string name="courbe_meditation">Courbe de m&#233;ditation</string>
+	<string name="courbe_attention">Courbe d\'attention</string>
+	<string name="courbe_clindoeil">Courbe de clin d\'oeil</string>
    
    <!-- Gestion Bluetooth -->
       
@@ -58,8 +62,5 @@
 	<string name="action_time">Temps</string>
 	<string name="action_upload">Import</string>
 	<string name="action_play">Play</string>
-	<string name="courbe_meditation">Courbe de méditation</string>
-	<string name="courbe_attention">Courbe d'attention</string>
-	<string name="courbe_clindoeil">Courbe de clin d'oeil</string>
 
 </resources>

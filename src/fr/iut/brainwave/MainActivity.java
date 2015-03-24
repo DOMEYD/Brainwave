@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -209,6 +210,33 @@ public class MainActivity extends Activity {
         np.setMaxValue(180);
         np.setMinValue(0);
         np.setWrapSelectorWheel(false);
+
+        b1.setOnClickListener(new OnClickListener() {
+	         @Override
+	         public void onClick(View v) {
+	             d.dismiss();
+	          }    
+        });
+        b2.setOnClickListener(new OnClickListener() {
+	         @Override
+	         public void onClick(View v) {
+	            d.dismiss(); // dismiss the dialog
+	         }    
+        });
+        
+        d.show();
+    }
+    
+    private void ImportBox(){    	
+    	final Dialog d = new Dialog(MainActivity.this);
+        d.setTitle(getString(R.string.paramsTimeDialogTitle));
+        d.setContentView(R.layout.dialog_import);
+        Button b1 = (Button) d.findViewById(R.id.button_validation);
+        Button b2 = (Button) d.findViewById(R.id.button_cancel);
+        
+        final RadioButton RB_meditaton = (RadioButton) d.findViewById(R.id.radioButton_meditation);
+        final RadioButton RB_attention = (RadioButton) d.findViewById(R.id.radioButton_attention);
+        final RadioButton RB_clindoeil = (RadioButton) d.findViewById(R.id.radioButton_clindoeil);
 
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
@@ -451,35 +479,39 @@ public class MainActivity extends Activity {
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-    	case R.id.saveCSV: startRecord();
-    					   return true;
-    					   
-    	case R.id.time:	TimeBox();
-    					return true;
-    	
-    	case R.id.settings:	Intent settingsIntent = new Intent(this,SettingsActivity.class);
-    						startActivity(settingsIntent);
-    						return true;
-    						
-    	case R.id.propos: new AlertDialog.Builder(this)
-    					  .setTitle("A propos")
-    					  .setMessage("Application réalisé dans le cadre du projet BrainWaves de Licence Pro Dev Web et Mobile d'Orleans.\n" +
-    							  	  "- Dimitri DOMEY \n" +
-    	    		                  "- Diana GRATADE \n" +
-    	    		                  "- Benjamin TUILARD ")
-    	    		      .setIcon(android.R.drawable.ic_dialog_alert)
-    	    		      .show();
-    					  return true;
-    					  
-    	case R.id.aide:	Intent aideIntent = new Intent(this,AideActivity.class);
-    					startActivity(aideIntent);
-    					return true;
-    					
-    	case R.id.quitter:	tgDevice.close();
-    						finish();
-    						return true;
-    	
-    	default: return super.onOptionsItemSelected(item);
+    	case R.id.importCSV:
+    		
+    		return true;
+    	case R.id.saveCSV: 
+    		startRecord();
+    		return true;  
+    	case R.id.time:	
+    		TimeBox();
+    		return true;
+    	case R.id.settings:	
+    		Intent settingsIntent = new Intent(this,SettingsActivity.class);
+    		startActivity(settingsIntent);
+    		return true;			
+    	case R.id.propos:
+    		new AlertDialog.Builder(this)
+	    		.setTitle("A propos")
+	    		.setMessage("Application réalisé dans le cadre du projet BrainWaves de Licence Pro Dev Web et Mobile d'Orleans.\n" +
+	    				"- Dimitri DOMEY \n" +
+    	    		    "- Diana GRATADE \n" +
+	    				"- Benjamin TUILARD ")
+    	    	.setIcon(android.R.drawable.ic_dialog_alert)
+    	    	.show();
+    			return true;  
+    	case R.id.aide:	
+    		Intent aideIntent = new Intent(this,AideActivity.class);
+    		startActivity(aideIntent);
+    		return true;
+    	case R.id.quitter:	
+    		tgDevice.close();
+    		finish();
+    		return true;
+    	default: 
+    		return super.onOptionsItemSelected(item);
     	}
     }
     
