@@ -2,6 +2,7 @@ package fr.iut.brainwave;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,10 +13,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.NumberPicker;
@@ -28,24 +31,39 @@ public class CompareActivity extends Activity {
 	
 	/*************************PARTIE CODE EN TEST********************************/
 	
-	public ArrayList<File> listCsvFiles = new ArrayList<File>();
-	private ListView FilesAround;
-	private TextView listFilesTitle;
+	public ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
+	private ListView LvAllCsvFiles;
+	private TextView TvFilesTitle;
+	public ArrayAdapter<File> AdaptateurFiles;
+
+	private void getListFiles() {
+		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
+		File[] filesCSV = parentDir.listFiles();
+		
+		ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
+		for (File file : filesCSV) {
+			ArrayListCsvFiles.add(file);
+		}   
+		AdaptateurFiles = new ArrayAdapter<File>(this, android.R.layout.simple_list_item_1,ArrayListCsvFiles);
+	//	LvAllCsvFiles.setAdapter(AdaptateurFiles);
+		
+	}
 	
-	
-	  private void FilesBox(){
+	 private void FilesBox(){
 	    	final Dialog d = new Dialog(CompareActivity.this);
 	        d.setTitle(getString(R.string.paramsFilesDialogTitle));
 	        d.setContentView(R.layout.dialog_list);
 	        Button b1 = (Button) d.findViewById(R.id.button_validation);
 	        Button b2 = (Button) d.findViewById(R.id.button_cancel);
+			
+
 	        //Les listes des devices appairés et ceux dans la portée du bluetooth
-			FilesAround = (ListView)findViewById(R.id.lvAroundFiles);
+			LvAllCsvFiles = (ListView)findViewById(R.id.lvCSVFiles);
 
 			//Titres des listes
-			listFilesTitle = (TextView)findViewById(R.id.listFilesTitles);
+			TvFilesTitle = (TextView)findViewById(R.id.listFilesTitles);
 	
-	      
+			getListFiles();
 	        b1.setOnClickListener(new OnClickListener() {
 		         @Override
 		         public void onClick(View v) {
@@ -73,8 +91,6 @@ public class CompareActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compare);
 		
-		
-		
 	}
 
     /**
@@ -90,8 +106,13 @@ public class CompareActivity extends Activity {
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+			case R.id.addSave:
+				FilesBox();
+				return true;
 			default: 
 	    		return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	
 }

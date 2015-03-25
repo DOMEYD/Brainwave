@@ -14,7 +14,7 @@
             style="@style/ListeTitle" />
 
         <ListView
-            android:id="@+id/lvAroundFiles"
+            android:id="@+id/lvCSVFiles"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="34.51" >
