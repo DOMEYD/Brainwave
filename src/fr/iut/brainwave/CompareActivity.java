@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.neurosky.thinkgear.TGDevice;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -19,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -65,6 +69,7 @@ public class CompareActivity extends Activity {
 			AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 			
 			LvAllCsvFiles = (ListView) d.findViewById(R.id.lvCSVFiles);	
+			LvAllCsvFiles.setOnItemClickListener(mCSVClickListener);
 			        
 			getListFiles();
 			
@@ -82,8 +87,23 @@ public class CompareActivity extends Activity {
 	        });
 	        
 	        d.show();
-	    }
+	}
 	
+	 public OnItemClickListener mCSVClickListener = new OnItemClickListener() {
+		 @Override
+			public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
+			{			
+				String info = ((TextView) v).getText().toString();
+				String fileName = info.substring(25); // Device MAC addresse
+				
+				BluetoothDevice device = null;
+				for(int i = 0; i < ArrayListCsvFiles.size(); i++) {
+					if(ArrayListCsvFiles.get(i).getName().equals(fileName)) {
+//						jetedetestecordialement(ArrayListCsvFiles.get(i));
+					}
+				}
+			}
+	 };
 	
 	
 	
