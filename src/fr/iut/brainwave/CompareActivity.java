@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewData;
@@ -28,6 +29,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,10 +68,8 @@ public class CompareActivity extends Activity {
 
 		AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 		LvAllCsvFiles.setAdapter(AdaptateurFiles);
-
-		ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 		
-		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
 		
 		for (File file : filesCSV) {			
 			AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
@@ -115,9 +115,13 @@ public class CompareActivity extends Activity {
 			public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
 			{			
 				String info = ((TextView) v).getText().toString();
-				String fileName = info.substring(25);
+				String fileName = info.substring(0, 29);
+				Log.v("FILENAME", fileName);
+				
+				Log.d("Nbr CSV",  ArrayListCsvFiles.size()+"");
 				
 				for(int i = 0; i < ArrayListCsvFiles.size(); i++) {
+					Log.d("TEST", "TURN");
 					if(ArrayListCsvFiles.get(i).getName().equals(fileName)) {
 						
 						ArrayDataImportFile = new ArrayList<Integer[]>();
