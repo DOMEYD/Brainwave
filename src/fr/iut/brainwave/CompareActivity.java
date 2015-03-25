@@ -60,7 +60,8 @@ public class CompareActivity extends Activity {
    
     // Instanciation du GraphView
     GraphView graphView;
-	
+	double max = 100 ;
+	double min = 0;
 
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
@@ -126,6 +127,7 @@ public class CompareActivity extends Activity {
 						
 						ArrayDataImportFile = new ArrayList<Integer[]>();
 						try {
+							Log.d("TEST", "try");
 							ArrayDataImportFile = ReaderCSVFile(ArrayListCsvFiles.get(i));
 							dessiner_graph();
 							d.dismiss();
@@ -143,39 +145,57 @@ public class CompareActivity extends Activity {
 	 /***lecture du fichier CSV
 	 * @throws IOException ***/
 	 public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException{
-			
+			Log.v("READER", "test1");
 			ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
-			Integer[] tempValues={0,0,0};
+			Integer[] tempValues = new Integer[3];
 		
 			String[] temp;
 			
 			try {
+				
 				FileReader fr = new FileReader(file);
 				 BufferedReader br = new BufferedReader(fr);
 				 String line = br.readLine();
+				 line = br.readLine();
+				 line = br.readLine();
+				line = br.readLine();
+				line = br.readLine();
+				 line = br.readLine();
+				 line = br.readLine();
+				
 			       while( line != null) {
+			    	  
 			           temp= line.split(";");
-			           tempValues[0]=Integer.parseInt(temp[0]);
-			           tempValues[1]=Integer.parseInt(temp[1]);
-			           tempValues[2]= Integer.parseInt(temp[2]);
-			           dataValues.add(tempValues);		        		   
-			        }
+			           for(int i=0;i<temp.length;i++)
+			           {
+			        	   try{
+				        	   tempValues[i]=Integer.parseInt(temp[i]);
+			        	   }catch(NumberFormatException e){
+			        		   
+			        	   }
 
+			           }
+			                  
+			           dataValues.add(tempValues);		
+			         
+			           tempValues = new Integer[3];
+			           line = br.readLine();
+			        }
+			       
 			        br.close();
 			        fr.close();
-
+			        
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+		
 			return dataValues;
 		      
 		}
 	
 	    public void createGraph(){
-	    	double max = 100 ;
-	    	double min = 0;
+
 	    	graphView = new LineGraphView(this, "Courbes EEG");
 	    	
 	    	graphView.addSeries(seriesMeditation);
@@ -199,12 +219,13 @@ public class CompareActivity extends Activity {
 	public void dessiner_graph()
 	{
 		int i=0;
-		
-		for(i=0;i<=ArrayDataImportFile.size();i++)
+		Log.v("GRAPH", "amont");
+		for(i=0;i<ArrayDataImportFile.size();i++)
 		{
 			seriesAttention.appendData( new GraphViewData(ArrayDataImportFile.get(i)[0], ArrayDataImportFile.get(i)[1]), true);
 			seriesMeditation.appendData( new GraphViewData(ArrayDataImportFile.get(i)[0], ArrayDataImportFile.get(i)[2]), true);
 		}
+		Log.v("GRAPH", "aval");
 	}
 	
 	@Override
