@@ -78,9 +78,7 @@ public class MainActivity extends Activity {
     ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
     Integer[] tempValues ={0,0,0};
     Integer time_record=0;
-   //tableau contenant l'ensemble des valeurs 
-    ArrayList<Integer> meditationValues = new ArrayList<Integer>();
-    ArrayList<Integer> attentionValues = new ArrayList<Integer>();
+
 	
     // Courbe de l'attention (Couleur = rouge / Nom = Attention)
     GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});

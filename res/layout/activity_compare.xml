@@ -2,14 +2,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <LinearLayout
+        android:id="@+id/layout1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp"
-        android:text="Compare Activty WORK !"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+    </LinearLayout>
 
 </RelativeLayout>
