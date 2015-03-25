@@ -440,13 +440,14 @@ public class MainActivity extends Activity {
     	
 		graphView.setManualYAxisBounds((double) max, (double) min);
 		graphView.setShowLegend(true);
-		graphView.setViewPort(1,25);
+		graphView.setViewPort(1,19);
 		graphView.setScrollable(true);
-		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.WHITE);
+		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.BLACK);
 		graphView.getGraphViewStyle().setLegendWidth(200);
 		graphView.setLegendAlign(LegendAlign.TOP);
 		graphView.getGraphViewStyle().setNumVerticalLabels(5);
-		graphView.getGraphViewStyle().setNumHorizontalLabels(25);
+		graphView.getGraphViewStyle().setNumHorizontalLabels(20);
+		graphView.getGraphViewStyle().setTextSize(14);
 		LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
 		layout.addView(graphView);
     }
