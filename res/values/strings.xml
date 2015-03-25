@@ -28,7 +28,8 @@
 	<!-- Compare -->
 	<string name="addCurve">Ajouter une courbe</string>
 	<string name="addSave">Importer un enregistrement</string>
-   
+   	<string name="paramsFilesDialogTitle">S&#233;lection fichier</string>
+	
    <!-- Gestion Bluetooth -->
       
     <string name="GestionBluetooth">Gestion Bluetooth</string>

@@ -10,11 +10,11 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/listDeviceTitle"
+            android:id="@+id/listFilesTitles"
             style="@style/ListeTitle" />
 
         <ListView
-            android:id="@+id/lvAroundDevices"
+            android:id="@+id/lvAroundFiles"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="34.51" >
