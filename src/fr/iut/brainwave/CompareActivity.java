@@ -1,6 +1,7 @@
 package fr.iut.brainwave;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,15 +40,18 @@ public class CompareActivity extends Activity {
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
 		File[] filesCSV = parentDir.listFiles();
-		
+
+		AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+		LvAllCsvFiles.setAdapter(AdaptateurFiles);
+
 		ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
-		for (File file : filesCSV) {
-			AdaptateurFiles.add(file.getName()+"\n"+file.lastModified());
+		
+		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		
+		for (File file : filesCSV) {			
+			AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
 			ArrayListCsvFiles.add(file);
 		}   
-		
-	//	LvAllCsvFiles.setAdapter(AdaptateurFiles);
-		
 	}
 	
 	 private void FilesBox(){
@@ -57,16 +61,13 @@ public class CompareActivity extends Activity {
 	        Button b1 = (Button) d.findViewById(R.id.button_validation);
 	        Button b2 = (Button) d.findViewById(R.id.button_cancel);
 
-	        //Les listes des devices appairés et ceux dans la portée du bluetooth
-			LvAllCsvFiles = (ListView)findViewById(R.id.lvCSVFiles);
-
 			//Titres des listes
-			TvFilesTitle = (TextView)findViewById(R.id.listFilesTitles);
 			AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-			//lvAround.setOnItemClickListener(mDeviceClickListener);
-			//LvAllCsvFiles.setAdapter(AdaptateurFiles);
 			
+			LvAllCsvFiles = (ListView) d.findViewById(R.id.lvCSVFiles);	
+			        
 			getListFiles();
+			
 	        b1.setOnClickListener(new OnClickListener() {
 		         @Override
 		         public void onClick(View v) {

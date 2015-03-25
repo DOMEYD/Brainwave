@@ -3,31 +3,25 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.84"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:layout_weight="0.84" >
 
-        <TextView
-            android:id="@+id/listFilesTitles"
-            style="@style/ListeTitle" />
-
-        <ListView
-            android:id="@+id/lvCSVFiles"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="34.51" >
-        </ListView>
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <ProgressBar
-            android:id="@+id/tvRechercheEnCours"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-    </LinearLayout>
+	        <ListView
+	            android:id="@+id/lvCSVFiles"
+	            android:layout_width="match_parent"
+	            android:layout_height="300dp" >
+
+	        </ListView>
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         style="@android:style/ButtonBar"
