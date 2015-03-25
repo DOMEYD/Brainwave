@@ -34,7 +34,7 @@ public class CompareActivity extends Activity {
 	public ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 	private ListView LvAllCsvFiles;
 	private TextView TvFilesTitle;
-	public ArrayAdapter<File> AdaptateurFiles;
+	public ArrayAdapter<String> AdaptateurFiles;
 
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
@@ -42,9 +42,10 @@ public class CompareActivity extends Activity {
 		
 		ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 		for (File file : filesCSV) {
+			AdaptateurFiles.add(file.getName()+"\n"+file.lastModified());
 			ArrayListCsvFiles.add(file);
 		}   
-		AdaptateurFiles = new ArrayAdapter<File>(this, android.R.layout.simple_list_item_1,ArrayListCsvFiles);
+		
 	//	LvAllCsvFiles.setAdapter(AdaptateurFiles);
 		
 	}
@@ -55,14 +56,16 @@ public class CompareActivity extends Activity {
 	        d.setContentView(R.layout.dialog_list);
 	        Button b1 = (Button) d.findViewById(R.id.button_validation);
 	        Button b2 = (Button) d.findViewById(R.id.button_cancel);
-			
 
 	        //Les listes des devices appairés et ceux dans la portée du bluetooth
 			LvAllCsvFiles = (ListView)findViewById(R.id.lvCSVFiles);
 
 			//Titres des listes
 			TvFilesTitle = (TextView)findViewById(R.id.listFilesTitles);
-	
+			AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+			//lvAround.setOnItemClickListener(mDeviceClickListener);
+			//LvAllCsvFiles.setAdapter(AdaptateurFiles);
+			
 			getListFiles();
 	        b1.setOnClickListener(new OnClickListener() {
 		         @Override
