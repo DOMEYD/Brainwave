@@ -396,7 +396,7 @@ public class MainActivity extends Activity {
     			case TGDevice.MSG_RAW_DATA:
     				int rawValue = msg.arg1;
     				int test = msg.arg2;
-    				Log.v("MsgRawData", "Raw Data : " +rawValue + " / " +test);
+//    				Log.v("MsgRawData", "Raw Data : " +rawValue + " / " +test);
     			break;
     			case TGDevice.MSG_HEART_RATE:
     				Log.v("MsgEEG","Heart Rate " +msg.arg1);
@@ -419,6 +419,13 @@ public class MainActivity extends Activity {
     			case TGDevice.MSG_EEG_POWER:
     				TGEegPower ep = (TGEegPower)msg.obj;
     				Log.v("MsgEEGD", "Delta: " + ep.delta);
+    				
+    				Log.v("MsgEEGD", "Alpha low : " + ep.highAlpha);
+    				Log.v("MsgEEGD", "Alpha high : " + ep.highAlpha);
+
+    				Log.v("MsgEEGD", "Beta low : " + ep.lowBeta);
+    				Log.v("MsgEEGD", "Beta High : " + ep.highBeta);
+    				
     				Log.v("MsgEEGGL","Gamma Low : " + ep.lowGamma);
     				Log.v("MsgEEGGM","Gamma Mid : " + ep.midGamma);
     			default:
