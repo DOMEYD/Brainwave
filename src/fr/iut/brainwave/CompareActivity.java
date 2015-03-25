@@ -219,8 +219,15 @@ public class CompareActivity extends Activity {
 	public void dessiner_graph()
 	{
 		int i=0;
-		Log.v("GRAPH", "amont");
-		for(i=0;i<ArrayDataImportFile.size();i++)
+		
+	   	graphView.removeSeries(seriesMeditation);
+    	graphView.removeSeries(seriesAttention);
+		seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
+	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
+	   	graphView.addSeries(seriesMeditation);
+    	graphView.addSeries(seriesAttention);
+    	
+	    for(i=0;i<ArrayDataImportFile.size();i++)
 		{
 			seriesAttention.appendData( new GraphViewData(ArrayDataImportFile.get(i)[0], ArrayDataImportFile.get(i)[1]), true);
 			seriesMeditation.appendData( new GraphViewData(ArrayDataImportFile.get(i)[0], ArrayDataImportFile.get(i)[2]), true);
