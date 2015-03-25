@@ -225,9 +225,9 @@ public class CompareActivity extends Activity {
 						if(i==0)
 						{
 							ArrayDataImportFile2=ArrayDataImportFile;
-							ArrayDataImportFile = new ArrayList<Integer[]>();
+							ArrayDataImportFile2 = new ArrayList<Integer[]>();
 						}
-						if(i==1)
+						else if(i==1)
 						{
 							ArrayDataImportFile2 = new ArrayList<Integer[]>();
 						}
