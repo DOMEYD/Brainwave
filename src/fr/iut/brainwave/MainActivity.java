@@ -419,6 +419,7 @@ public class MainActivity extends Activity {
     			case TGDevice.MSG_EEG_POWER:
     				TGEegPower ep = (TGEegPower)msg.obj;
     				Log.v("MsgEEGD", "Delta: " + ep.delta);
+    				Log.v("MsgEEGGM","Theta : " + ep.theta);
     				
     				Log.v("MsgEEGD", "Alpha low : " + ep.highAlpha);
     				Log.v("MsgEEGD", "Alpha high : " + ep.highAlpha);
