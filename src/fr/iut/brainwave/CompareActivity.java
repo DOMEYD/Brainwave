@@ -44,7 +44,7 @@ import android.widget.Toast;
 
 public class CompareActivity extends Activity {
 
-	
+	private	Dialog d = null;
 	public ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 	private ListView LvAllCsvFiles;
 	private TextView TvFilesTitle;
@@ -80,7 +80,7 @@ public class CompareActivity extends Activity {
 
 	
 	private void FilesBox(){
-			final Dialog d = new Dialog(CompareActivity.this);
+			d = new Dialog(CompareActivity.this);
 	        d.setTitle(getString(R.string.paramsFilesDialogTitle));
 	        d.setContentView(R.layout.dialog_list);
 	        Button b1 = (Button) d.findViewById(R.id.button_validation);
@@ -115,9 +115,8 @@ public class CompareActivity extends Activity {
 			public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
 			{			
 				String info = ((TextView) v).getText().toString();
-				String fileName = info.substring(25); // Device MAC addresse
+				String fileName = info.substring(25);
 				
-				BluetoothDevice device = null;
 				for(int i = 0; i < ArrayListCsvFiles.size(); i++) {
 					if(ArrayListCsvFiles.get(i).getName().equals(fileName)) {
 						
@@ -125,7 +124,7 @@ public class CompareActivity extends Activity {
 						try {
 							ArrayDataImportFile = ReaderCSVFile(ArrayListCsvFiles.get(i));
 							dessiner_graph();
-							
+							d.dismiss();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
