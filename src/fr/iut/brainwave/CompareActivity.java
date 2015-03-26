@@ -78,6 +78,8 @@ public class CompareActivity extends Activity {
     GraphView graphView;
 	double max = 100 ;
 	double min = 0;
+	
+	 int flagInit = 0;
 
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
@@ -170,6 +172,9 @@ public class CompareActivity extends Activity {
 	        final RadioButton RB_clindoeil = (RadioButton) gd.findViewById(R.id.radioButton_clindoeil);
 
 	        RB_meditaton.setChecked(true);
+	       
+	        
+	        
 	        
 	        RB_meditaton.setOnClickListener( new View.OnClickListener() {
 	    		@Override
@@ -177,6 +182,7 @@ public class CompareActivity extends Activity {
 	    		    RB_meditaton.setChecked(true);
 	    		    RB_attention.setChecked(false);
 	    		    RB_clindoeil.setChecked(false);
+	    		    flagInit = 1;	    		    
 	    		}
 	    	});
 	        RB_attention.setOnClickListener( new View.OnClickListener() {
@@ -185,6 +191,7 @@ public class CompareActivity extends Activity {
 	    		    RB_meditaton.setChecked(false);
 	    		    RB_attention.setChecked(true);
 	    		    RB_clindoeil.setChecked(false);
+	    		    flagInit = 2;
 	    		}
 	    	});
 	        RB_clindoeil.setOnClickListener( new View.OnClickListener() {
@@ -193,12 +200,31 @@ public class CompareActivity extends Activity {
 	    		    RB_meditaton.setChecked(false);
 	    		    RB_attention.setChecked(false);
 	    		    RB_clindoeil.setChecked(true);
+	    		    flagInit = 3;
 	    		}
 	    	});
 	        b1.setOnClickListener(new OnClickListener() {
 		         @Override
 		         public void onClick(View v) {
-		             gd.dismiss();
+		        	 graphView.removeSeries(seriesMeditation);
+		     		    graphView.removeSeries(seriesAttention);
+		     		    graphView.removeSeries(seriesMeditation2);
+		     		    graphView.removeSeries(seriesAttention2);
+		        	 
+		        	 if(RB_meditaton.isChecked()==true){
+		 	        	graphView.addSeries(seriesMeditation);
+		     		    graphView.addSeries(seriesMeditation2);
+		 	        	flagInit = 0;
+		 	        }
+		        	 else if(RB_attention.isChecked()==true){
+		 	        	graphView.addSeries(seriesAttention);
+		     		    graphView.addSeries(seriesAttention2);
+		 	        	flagInit = 0;
+		 	        }
+		        	 else if(RB_clindoeil.isChecked()==true){
+		 	        	flagInit = 0;
+		 	        }
+		        	 gd.dismiss();
 		          }    
 	        });
 	        b2.setOnClickListener(new OnClickListener() {
@@ -361,12 +387,12 @@ public class CompareActivity extends Activity {
 	   	seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
 	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
 		graphView.addSeries(seriesMeditation);
-	    graphView.addSeries(seriesAttention);
+
 	    graphView.removeSeries(seriesMeditation2);
 	    graphView.removeSeries(seriesAttention2);
 	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 3), new GraphViewData[] {});
 	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 3), new GraphViewData[] {});
-		
+	    graphView.addSeries(seriesMeditation2);
 	    if(ArrayDataImport.size()>0){
 	    	for(i=0;i<ArrayDataImport.get(0).size();i++)
 			{
@@ -374,9 +400,6 @@ public class CompareActivity extends Activity {
 				seriesMeditation.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[2]), true);
 			}	    
 	    	if(ArrayDataImport.size()>1){
-	    	
-		    	graphView.addSeries(seriesMeditation2);
-			    graphView.addSeries(seriesAttention2);
 		    	
 			    for(i=0;i<ArrayDataImport.get(1).size();i++)
 				{
