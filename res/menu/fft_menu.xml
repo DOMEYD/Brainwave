@@ -7,7 +7,7 @@
      <item android:id="@+id/removeSave" 
          android:title="@string/removeSave" 
          android:showAsAction="ifRoom" 
-         android:icon="@drawable/ic_remove"></item>
+         android:icon="@drawable/ic_fft"></item>
      
      <item android:id="@+id/selectCurve" 
          android:title="@string/selectCurve" 

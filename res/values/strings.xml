@@ -11,6 +11,7 @@
    
    <string name="buttonGraph">Lancer le graphique</string>
    <string name="buttonGraphCompare">Comparer les graphiques</string>
+   <string name="buttonGraphFFT">Analyse FTT d\'un graphique</string>
    <string name="menu">Menu</string>
    <string name="NoBTAppair">Vous n\'avez pas appair&#233; le BrainWave !</string>
    <string name="battery">Batterie</string>

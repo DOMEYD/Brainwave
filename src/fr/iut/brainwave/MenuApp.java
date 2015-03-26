@@ -75,6 +75,13 @@ public class MenuApp extends Activity
 		startActivity(intent);
 	}
 	
+	public void FFTGraph(View view)
+	{
+		Intent intent = new Intent();
+		intent.setClass(this, FFTActivity.class);
+		startActivity(intent);
+	}
+	
 	/**
 	 * Menu de la barre d'action
 	 */

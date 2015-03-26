@@ -24,4 +24,11 @@
             android:onClick="CompareGraph"
             android:text="@string/buttonGraphCompare" />
 
+        <Button
+            android:id="@+id/buttonFFT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="FFTGraph"
+            android:text="@string/buttonGraphFFT" />
+
 </LinearLayout>
