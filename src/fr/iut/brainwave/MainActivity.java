@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,7 +28,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
-
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewData;
@@ -161,7 +159,7 @@ public class MainActivity extends Activity {
 	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
 	    	courbeBlink = prefs.getBoolean("graph_blink", true);
 	    	valuesRecord = prefs.getBoolean("values_record", false);
-	    	//timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
+	    	timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
 
 	    	if(!courbeAttention){
 	    		graphView.removeSeries(seriesAttention);
@@ -209,13 +207,34 @@ public class MainActivity extends Activity {
         Button b2 = (Button) d.findViewById(R.id.button2);
         
         final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-        np.setMaxValue(180);
+        final int step = 5;
+        np.setMaxValue(180/step);
         np.setMinValue(0);
-        np.setWrapSelectorWheel(false);
+        np.setWrapSelectorWheel(false); // prevent 360 selector
+        Log.d("TIMERECORD", ""+timeRecord);
+        np.setValue(timeRecord / step);
+        np.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int i) {
+            	return String.valueOf(i*step);
+            }
+        });
+        np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); // DISABLE keyboard
+        np.setFocusable(false);
 
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
+	        	 // SET new value
+	        	 timeRecord = np.getValue() * step;
+	        	 
+	        	 // SETting default value
+	        	 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	        	 SharedPreferences.Editor editor = prefs.edit();
+	        	 editor.putString("time_record", "" +timeRecord);
+	        	 editor.commit();
+	        	 
+	        	 // CLOSE dialog box
 	             d.dismiss();
 	          }    
         });
@@ -229,6 +248,7 @@ public class MainActivity extends Activity {
         d.show();
     }
     
+	// TODO : Change name + manage
     private void ImportBox(){    	
     	final Dialog d = new Dialog(MainActivity.this);
         d.setTitle(getString(R.string.paramsTimeDialogTitle));
@@ -307,8 +327,7 @@ public class MainActivity extends Activity {
     			  csvWriter rawCSVFile = new csvWriter("rawRecord" + s + ".csv");
     			  rawCSVFile.createCSV(rawDataValues, entete);
     		  }
-    		}, (timeRecord+1)*1000);
-    	
+    	}, (timeRecord+1)*1000);
 	}
     
     /**
@@ -479,18 +498,6 @@ public class MainActivity extends Activity {
         MenuBatteryItem = menu.findItem(R.id.battery);
         return super.onCreateOptionsMenu(menu);
     }
-    
-    /**
-	 * Permet de gerer le bluetooth
-	 * Lance un intent de GestionBluetooth
-	 * @param view
-	 */
-	public void csvWriter(View view)
-	{
-		Intent intent = new Intent();
-		intent.setClass(this, csvWriter.class);
-		startActivity(intent);
-	}
     
     /**
      * Ajoute des objets dans la barre d'action :
