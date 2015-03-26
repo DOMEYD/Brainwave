@@ -26,7 +26,7 @@
 	<string name="courbe_clindoeil">Courbe de clin d\'oeil</string>
 	
 	<!-- Compare -->
-	<string name="addCurve">Selectionner une courbe</string>
+	<string name="selectCurve">Selectionner une courbe</string>
 	<string name="addSave">Importer un enregistrement</string>
 	<string name="removeSave">Des&#233;lectionner un enregistrement</string>
    	<string name="paramsFilesDialogTitle">S&#233;lection fichier</string>

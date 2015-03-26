@@ -41,6 +41,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class CompareActivity extends Activity {
 
 	private	Dialog ad = null;
 	private	Dialog rd = null;
+	private	Dialog gd = null;
 	public ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 	public ArrayList<File> ArrayFilesCharging = new ArrayList<File>();
 	private ListView LvAllCsvFiles;
@@ -156,6 +158,32 @@ public class CompareActivity extends Activity {
         ad.show();
 	}
 	
+	 private void SelectGraphBox(){    	
+	    	final Dialog gd = new Dialog(CompareActivity.this);
+	        gd.setTitle(getString(R.string.paramsTimeDialogTitle));
+	        gd.setContentView(R.layout.dialog_import);
+	        Button b1 = (Button) gd.findViewById(R.id.button_validation);
+	        Button b2 = (Button) gd.findViewById(R.id.button_cancel);
+	        
+	        final RadioButton RB_meditaton = (RadioButton) gd.findViewById(R.id.radioButton_meditation);
+	        final RadioButton RB_attention = (RadioButton) gd.findViewById(R.id.radioButton_attention);
+	        final RadioButton RB_clindoeil = (RadioButton) gd.findViewById(R.id.radioButton_clindoeil);
+
+	        b1.setOnClickListener(new OnClickListener() {
+		         @Override
+		         public void onClick(View v) {
+		             gd.dismiss();
+		          }    
+	        });
+	        b2.setOnClickListener(new OnClickListener() {
+		         @Override
+		         public void onClick(View v) {
+		            gd.dismiss(); // dismiss the dialog
+		         }    
+	        });
+	        
+	        gd.show();
+	    }
 	
 	 public OnItemClickListener mCSVClickListener = new OnItemClickListener() {
 		 @Override
@@ -354,6 +382,17 @@ public class CompareActivity extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
     
+   /* public int GestionRadioButton(){
+    	findViewById(R.id.buttonEng).setOnClickListener( new View.OnClickListener() {
+    		@Override
+    		public void onClick(View v) {
+    		    Button btnEng=(Button)findviewById(R.id.btnEng);
+    		    btnEng.setEnabled(false);
+    		}
+    		});
+    	return
+    }*/
+    
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -379,6 +418,10 @@ public class CompareActivity extends Activity {
 					}
 					
 					return true;
+			case R.id.selectCurve:
+				SelectGraphBox();
+				
+				return true;
 			default: 
 	    		return super.onOptionsItemSelected(item);
 		}
