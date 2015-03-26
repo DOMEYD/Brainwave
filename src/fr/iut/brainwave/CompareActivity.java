@@ -55,9 +55,13 @@ public class CompareActivity extends Activity {
 
 	public ArrayAdapter<String> AdaptateurFiles;
 	public ArrayAdapter<String> AdaptateurFilesCharging;
-	public ArrayList<Integer[]> ArrayDataImportFile = new ArrayList<Integer[]>();
-	public ArrayList<Integer[]> ArrayDataImportFile2 = new ArrayList<Integer[]>();
 	
+	public ArrayList<ArrayList<Integer[]>> ArrayDataImport = new ArrayList<ArrayList<Integer[]>>();
+	
+	public ArrayList<Integer[]> ArrayDataImportFile = new ArrayList<Integer[]>();
+//	public ArrayList<Integer[]> ArrayDataImportFile2 = new ArrayList<Integer[]>();
+	
+	public Integer importFiles_max =2;
 	
     // Courbe de l'attention (Couleur = rouge / Nom = Attention)
     GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
@@ -167,25 +171,28 @@ public class CompareActivity extends Activity {
 					Log.d("TEST", "TURN");
 					if(ArrayListCsvFiles.get(i).getName().equals(fileName)) {
 						
-						ArrayDataImportFile = new ArrayList<Integer[]>();
-						try {
-							Log.d("TEST", "try");
-							if(ArrayFilesCharging.size()==0)
-							{
-								ArrayDataImportFile = ReaderCSVFile(ArrayListCsvFiles.get(i));
+						if(!ArrayFilesCharging.contains(ArrayListCsvFiles.get(i)))
+						{
+							ArrayDataImportFile = new ArrayList<Integer[]>();
+							try {
+								Log.d("TEST", "try");
+								
+								ArrayDataImport.add(ReaderCSVFile(ArrayListCsvFiles.get(i)));
 								ArrayFilesCharging.add(ArrayListCsvFiles.get(i));
+							
+								dessiner_graph();
+								ad.dismiss();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
 							}
-							else if(ArrayFilesCharging.size()==1)
-							{
-								ArrayDataImportFile2 = ReaderCSVFile(ArrayListCsvFiles.get(i));
-								ArrayFilesCharging.add(ArrayListCsvFiles.get(i));
-							}
-							dessiner_graph();
-							ad.dismiss();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
 						}
+						else
+						{
+							Toast.makeText(getApplicationContext(),"Le fichier sélectionné est déjà chargé !",Toast.LENGTH_LONG).show();
+							ad.dismiss();
+						}
+						break;
 					
 					}
 				}
@@ -207,19 +214,13 @@ public class CompareActivity extends Activity {
 				for(int i = 0; i < ArrayFilesCharging.size(); i++) {
 					
 					if(ArrayFilesCharging.get(i).getName().equals(fileName)) {						
+					
 						ArrayFilesCharging.remove(ArrayFilesCharging.get(i));
-						if(i==0)
-						{
-							ArrayDataImportFile2=ArrayDataImportFile;
-							ArrayDataImportFile2 = new ArrayList<Integer[]>();
-						}
-						else if(i==1)
-						{
-							ArrayDataImportFile2 = new ArrayList<Integer[]>();
-						}
+						ArrayDataImport.remove(ArrayDataImport.get(i));
 						dessiner_graph();
 						rd.dismiss();
 					}
+					break;
 				}
 				
 			}
@@ -305,33 +306,28 @@ public class CompareActivity extends Activity {
 	public void dessiner_graph()
 	{
 		int i=0;
-		
+		int j=0;
 	   	graphView.removeSeries(seriesMeditation);
     	graphView.removeSeries(seriesAttention);
 	   	seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
 	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
 	    graphView.addSeries(seriesMeditation);
     	graphView.addSeries(seriesAttention);
-    	
-    	 for(i=0;i<ArrayDataImportFile.size();i++)
-   		{
-   			seriesAttention.appendData( new GraphViewData(ArrayDataImportFile.get(i)[0], ArrayDataImportFile.get(i)[1]), true);
-   			seriesMeditation.appendData( new GraphViewData(ArrayDataImportFile.get(i)[0], ArrayDataImportFile.get(i)[2]), true);
-   		}
-    	
-	    graphView.removeSeries(seriesMeditation2);
+   	  /*  graphView.removeSeries(seriesMeditation2);
     	graphView.removeSeries(seriesAttention2);
 	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
 	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
 	    graphView.addSeries(seriesMeditation2);
-    	graphView.addSeries(seriesAttention2);
+    	graphView.addSeries(seriesAttention2);*/
     	
+    	for(j=0;j<ArrayDataImport.size();j++){
 	 
-	    for(i=0;i<ArrayDataImportFile2.size();i++)
-		{
-			seriesAttention2.appendData( new GraphViewData(ArrayDataImportFile2.get(i)[0], ArrayDataImportFile2.get(i)[1]), true);
-			seriesMeditation2.appendData( new GraphViewData(ArrayDataImportFile2.get(i)[0], ArrayDataImportFile2.get(i)[2]), true);
-		}
+		    for(i=0;i<ArrayDataImport.get(j).size();i++)
+			{
+				seriesAttention.appendData( new GraphViewData(ArrayDataImport.get(j).get(i)[0], ArrayDataImport.get(j).get(i)[1]), true);
+				seriesMeditation.appendData( new GraphViewData(ArrayDataImport.get(j).get(i)[0], ArrayDataImport.get(j).get(i)[2]), true);
+			}
+    	}
 
 	}
 	
@@ -358,7 +354,7 @@ public class CompareActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.addSave:
-				if(ArrayFilesCharging.size()<2)
+				if(ArrayFilesCharging.size()<importFiles_max)
 				{
 					AddFilesBox();
 				}
