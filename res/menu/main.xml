@@ -39,8 +39,8 @@
     	    	android:title="@string/battery"
     	    	android:showAsAction="ifRoom"/>
     	
-    	<item 	android:id="@+id/importCSV"
-    	    	android:icon="@drawable/ic_action_upload"
+    	<item 	android:id="@+id/selectCurve"
+    	    	android:icon="@drawable/ic_add_curve"
     	    	android:title="@string/action_upload"
     	    	android:showAsAction="ifRoom"/>
 

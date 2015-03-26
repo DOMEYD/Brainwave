@@ -72,7 +72,7 @@
     <string name="action_save">Télécharger</string>
 	<string name="action_pause">Pause</string>
 	<string name="action_time">Temps</string>
-	<string name="action_upload">Import</string>
+	<string name="action_upload">Affichage des Courbes</string>
 	<string name="action_play">Play</string>
 
 </resources>

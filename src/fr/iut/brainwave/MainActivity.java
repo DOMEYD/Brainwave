@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
     boolean getMeditation = false;
     boolean getBlink = false;
     boolean getRawData = false;
-
+    int flag_courbe = 0;
     ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
     ArrayList<Integer[]> rawDataValues = new ArrayList<Integer[]>();
     Integer[] tempValues ={0,0,0};
@@ -154,41 +155,13 @@ public class MainActivity extends Activity {
     	try{
 	    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 	    	
-	    	boolean oldCourbeAttention = courbeAttention;
-	    	boolean oldCourbeMeditation = courbeMeditation;
-	    	boolean oldCourbeBlink = courbeBlink;
+	
 	    	boolean oldValuesRecord = valuesRecord;
-	    	courbeAttention = prefs.getBoolean("graph_attention", true);
-	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
-	    	courbeBlink = prefs.getBoolean("graph_blink", true);
+	    
 	    	valuesRecord = prefs.getBoolean("values_record", false);
 	    	timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
 
-	    	if(!courbeAttention){
-	    		graphView.removeSeries(seriesAttention);
-	    	}
-	    	else if(courbeAttention != oldCourbeAttention){
-	    		graphView.addSeries(seriesAttention);
-	    	}
-	    	
-	    	if(!courbeMeditation){
-	    		graphView.removeSeries(seriesMeditation);
-	    	}
-	    	else if(courbeMeditation != oldCourbeMeditation){
-	    		graphView.addSeries(seriesMeditation);
-	    	}
-	    	
-	    	if(!courbeBlink){
-	    		graphView.removeSeries(seriesBlink);
-	    	}
-	    	else if(courbeBlink != oldCourbeBlink){
-	    		graphView.addSeries(seriesBlink);
-	    	}
-	    	
-	    	if(!courbeAttention && !courbeBlink && !courbeMeditation){
-	    		Toast.makeText(getApplicationContext(), "Aucune courbe sélectionné, sélectionnez en une dans les paramètres de l\'application", Toast.LENGTH_LONG).show();
-	    	}
-	    	
+	    		    	
 	    	Log.v("MsgRecordParam", "ValuesRecord : "+valuesRecord);
 	    	
 	    	if(valuesRecord){
@@ -252,20 +225,64 @@ public class MainActivity extends Activity {
     }
     
 	// TODO : Change name + manage
-    private void ImportBox(){    	
+    private void selectBox(){    	
     	final Dialog d = new Dialog(MainActivity.this);
         d.setTitle(getString(R.string.paramsTimeDialogTitle));
-        d.setContentView(R.layout.dialog_import);
+        d.setContentView(R.layout.dialog_select);
         Button b1 = (Button) d.findViewById(R.id.button_validation);
         Button b2 = (Button) d.findViewById(R.id.button_cancel);
         
-        final RadioButton RB_meditaton = (RadioButton) d.findViewById(R.id.radioButton_meditation);
-        final RadioButton RB_attention = (RadioButton) d.findViewById(R.id.radioButton_attention);
-        final RadioButton RB_clindoeil = (RadioButton) d.findViewById(R.id.radioButton_clindoeil);
-
+        final CheckBox CB_meditation = ( CheckBox) d.findViewById(R.id.CB_meditation);
+        final CheckBox CB_attention = ( CheckBox) d.findViewById(R.id.CB_attention);
+        final CheckBox CB_clindoeil = ( CheckBox) d.findViewById(R.id.CB_clindoeil);
+        
+        switch (flag_courbe){
+	        case 1: CB_meditation.setChecked(true);
+	            break;
+	        case 2: CB_attention.setChecked(true);
+	            break;
+	        case 3: CB_attention.setChecked(true);
+	        		CB_meditation.setChecked(true);
+	            break;
+	        case 4: CB_clindoeil.setChecked(true);
+	            break;
+	        case 5: CB_clindoeil.setChecked(true);
+	        		CB_meditation.setChecked(true);
+	            break;
+	        case 6: CB_attention.setChecked(true);
+	        		CB_clindoeil.setChecked(true);
+	            break;
+	        case 7:  CB_meditation.setChecked(true);
+	        	CB_attention.setChecked(true);
+	        		CB_clindoeil.setChecked(true);
+	            break;
+            
+        }
+        
+        
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
+	        	 flag_courbe=0;
+	        	 graphView.removeSeries(seriesMeditation);
+	        	 graphView.removeSeries(seriesAttention);
+	        	 graphView.removeSeries(seriesBlink);
+	        	 if(CB_meditation.isChecked())
+	        	 {
+	        		 graphView.addSeries(seriesMeditation);
+	        		 flag_courbe= flag_courbe+1;
+	        	 }
+	        	 if(CB_attention.isChecked())
+	        	 {
+	        		 graphView.addSeries(seriesAttention);
+	        		 flag_courbe= flag_courbe+2;
+	        	 }
+	        	 if(CB_clindoeil.isChecked())
+	        	 {
+	        		 graphView.addSeries(seriesBlink);
+	        		 flag_courbe= flag_courbe+4;
+	        	 }
+	        	 
 	             d.dismiss();
 	          }    
         });
@@ -513,8 +530,8 @@ public class MainActivity extends Activity {
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-    	case R.id.importCSV:
-    		ImportBox();
+    	case R.id.selectCurve:
+    		selectBox();
     		return true;
     	case R.id.saveCSV: 
     		startRecord();

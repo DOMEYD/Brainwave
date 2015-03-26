@@ -66,13 +66,13 @@ public class CompareActivity extends Activity {
 	public Integer importFiles_max =2;
 	
     // Courbe de l'attention (Couleur = rouge / Nom = Attention)
-    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
+    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
     // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
-    GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
+    GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
  // Courbe de l'attention (Couleur = rouge / Nom = Attention)
-    GraphViewSeries seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 3), new GraphViewData[] {});
+    GraphViewSeries seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
     // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
-    GraphViewSeries seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 3), new GraphViewData[] {});
+    GraphViewSeries seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100),2), new GraphViewData[] {});
    
     // Instanciation du GraphView
     GraphView graphView;
@@ -372,7 +372,7 @@ public class CompareActivity extends Activity {
 			graphView.setLegendAlign(LegendAlign.TOP);
 			graphView.getGraphViewStyle().setNumVerticalLabels(5);
 			graphView.getGraphViewStyle().setNumHorizontalLabels(20);
-			graphView.getGraphViewStyle().setTextSize(14);
+			graphView.getGraphViewStyle().setTextSize(15);
 			LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
 			layout.addView(graphView);
 	    }
@@ -384,14 +384,14 @@ public class CompareActivity extends Activity {
 		int j=0;
 	    graphView.removeSeries(seriesMeditation);
 	    graphView.removeSeries(seriesAttention);
-	   	seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
-	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
+	   	seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
+	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200),2), new GraphViewData[] {});
 		graphView.addSeries(seriesMeditation);
 
 	    graphView.removeSeries(seriesMeditation2);
 	    graphView.removeSeries(seriesAttention2);
-	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 3), new GraphViewData[] {});
-	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 3), new GraphViewData[] {});
+	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 2), new GraphViewData[] {});
 	    graphView.addSeries(seriesMeditation2);
 	    if(ArrayDataImport.size()>0){
 	    	for(i=0;i<ArrayDataImport.get(0).size();i++)
