@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -28,6 +29,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
+
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewData;
@@ -90,6 +92,7 @@ public class MainActivity extends Activity {
     GraphView graphView;
     
     MenuItem MenuBatteryItem;
+    MenuItem MenuSaveItem;
 	
     /**
 	 * Permet de trouver les listes des devices appairés et ceux dans la portée du bluetooth
@@ -345,22 +348,22 @@ public class MainActivity extends Activity {
 							Log.d("DEBUG", "STATE_IDLE");
     					break;
     					case TGDevice.STATE_CONNECTING:
-    						Toast.makeText(getApplicationContext(), "Connection en cours ...", Toast.LENGTH_SHORT).show();
-    						Log.v("Statut", "Connection en cours ...");
+    						Toast.makeText(getApplicationContext(), getString(R.string.connecting), Toast.LENGTH_SHORT).show();
+    						Log.v("Statut", getString(R.string.connecting));
 						break;
 						case TGDevice.STATE_CONNECTED:
 							Log.v("Statut", "Connecté");
-							Toast.makeText(getApplicationContext(), "Connecté !", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getApplicationContext(), getString(R.string.connected), Toast.LENGTH_SHORT).show();
 							tgDevice.start();
 						break;
 						case TGDevice.STATE_DISCONNECTED:
 							Log.d("DEBUG", "STATE_DISCONNECTED");
-							Toast.makeText(getApplicationContext(), "Systeme déconnecté !", Toast.LENGTH_SHORT).show();					
+							Toast.makeText(getApplicationContext(), getString(R.string.disconnect), Toast.LENGTH_SHORT).show();					
 						break;
 						case TGDevice.STATE_NOT_FOUND:
 							Log.d("DEBUG", "STATE_NOT_FOUND");
-							Toast.makeText(getApplicationContext(), "Systeme non trouvé !", Toast.LENGTH_SHORT).show();
-							finish(); //Nous renvoie sur le menu
+							Toast.makeText(getApplicationContext(), getString(R.string.sysNotFound), Toast.LENGTH_SHORT).show();
+							finish();
 						break;
 						case TGDevice.STATE_ERR_NO_DEVICE:
 							Log.v("Statut", "Not paired");
@@ -496,6 +499,7 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         MenuBatteryItem = menu.findItem(R.id.battery);
+        MenuSaveItem = menu.findItem(R.id.saveCSV);
         return super.onCreateOptionsMenu(menu);
     }
     

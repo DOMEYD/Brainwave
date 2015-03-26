@@ -14,6 +14,10 @@
    <string name="menu">Menu</string>
    <string name="NoBTAppair">Vous n\'avez pas appair&#233; le BrainWave !</string>
    <string name="battery">Batterie</string>
+   <string name="connecting">Connexion en cours&#8230;</string>
+   <string name="connected">Syst&#232;me connect&#233;</string>
+   <string name="disconnect">Syst&#232;me d&#233;connect&#233; !</string>
+   <string name="sysNotFound">Syst&#232;me non trouv&#233; !</string>
    
    <!-- Graphic -->
    <string name="cancel">annuler</string>
