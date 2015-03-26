@@ -108,8 +108,7 @@ public class CompareActivity extends Activity {
 			rd = new Dialog(CompareActivity.this);
 	        rd.setTitle(getString(R.string.paramsFilesDialogTitle));
 	        rd.setContentView(R.layout.dialog_remove_list);
-	        Button b1 = (Button) rd.findViewById(R.id.button_validation);
-	        Button b2 = (Button) rd.findViewById(R.id.button_cancel);
+	        Button b1 = (Button) rd.findViewById(R.id.button_cancel);
 
 			//Titres des listes
 	        AdaptateurFilesCharging = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2);
@@ -125,12 +124,6 @@ public class CompareActivity extends Activity {
 		        	 rd.dismiss();  
 		          }    
 	        });
-	        b2.setOnClickListener(new OnClickListener() {
-		         @Override
-		         public void onClick(View v) {
-		            rd.dismiss(); // dismiss the dialog
-		         }    
-	        });
 	        
 	        rd.show();
 	}
@@ -139,8 +132,7 @@ public class CompareActivity extends Activity {
 		ad = new Dialog(CompareActivity.this);
         ad.setTitle(getString(R.string.paramsFilesDialogTitle));
         ad.setContentView(R.layout.dialog_list);
-        Button b1 = (Button) ad.findViewById(R.id.button_validation);
-        Button b2 = (Button) ad.findViewById(R.id.button_cancel);
+        Button b1 = (Button) ad.findViewById(R.id.button_cancel);
 
 		//Titres des listes
 		AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
@@ -153,18 +145,12 @@ public class CompareActivity extends Activity {
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
-	        	 ad.dismiss();  
-	          }    
-        });
-        b2.setOnClickListener(new OnClickListener() {
-	         @Override
-	         public void onClick(View v) {
 	            ad.dismiss(); // dismiss the dialog
 	         }    
         });
         
         ad.show();
-}
+	}
 	
 	
 	 public OnItemClickListener mCSVClickListener = new OnItemClickListener() {
