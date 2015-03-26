@@ -253,7 +253,7 @@ public class MainActivity extends Activity {
 	        		CB_clindoeil.setChecked(true);
 	            break;
 	        case 7:  CB_meditation.setChecked(true);
-	        	CB_attention.setChecked(true);
+	        		CB_attention.setChecked(true);
 	        		CB_clindoeil.setChecked(true);
 	            break;
             
