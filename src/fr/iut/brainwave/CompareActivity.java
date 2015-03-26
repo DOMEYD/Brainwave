@@ -68,9 +68,9 @@ public class CompareActivity extends Activity {
     // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
  // Courbe de l'attention (Couleur = rouge / Nom = Attention)
-    GraphViewSeries seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
+    GraphViewSeries seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 3), new GraphViewData[] {});
     // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
-    GraphViewSeries seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
+    GraphViewSeries seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 3), new GraphViewData[] {});
    
     // Instanciation du GraphView
     GraphView graphView;
@@ -220,7 +220,7 @@ public class CompareActivity extends Activity {
 						dessiner_graph();
 						rd.dismiss();
 					}
-					break;
+				
 				}
 				
 			}
@@ -283,11 +283,6 @@ public class CompareActivity extends Activity {
 
 	    	graphView = new LineGraphView(this, "Courbes EEG");
 	    	
-	    	graphView.addSeries(seriesMeditation);
-	    	graphView.addSeries(seriesAttention);
-		    graphView.addSeries(seriesMeditation2);
-	    	graphView.addSeries(seriesAttention2);
-	    	
 			graphView.setManualYAxisBounds((double) max, (double) min);
 			graphView.setShowLegend(true);
 			graphView.setViewPort(1,19);
@@ -307,27 +302,36 @@ public class CompareActivity extends Activity {
 	{
 		int i=0;
 		int j=0;
-	   	graphView.removeSeries(seriesMeditation);
-    	graphView.removeSeries(seriesAttention);
+	    graphView.removeSeries(seriesMeditation);
+	    graphView.removeSeries(seriesAttention);
 	   	seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
 	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
-	    graphView.addSeries(seriesMeditation);
-    	graphView.addSeries(seriesAttention);
-   	  /*  graphView.removeSeries(seriesMeditation2);
-    	graphView.removeSeries(seriesAttention2);
-	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
-	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
-	    graphView.addSeries(seriesMeditation2);
-    	graphView.addSeries(seriesAttention2);*/
-    	
-    	for(j=0;j<ArrayDataImport.size();j++){
-	 
-		    for(i=0;i<ArrayDataImport.get(j).size();i++)
+		graphView.addSeries(seriesMeditation);
+	    graphView.addSeries(seriesAttention);
+	    graphView.removeSeries(seriesMeditation2);
+	    graphView.removeSeries(seriesAttention2);
+	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 3), new GraphViewData[] {});
+	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 3), new GraphViewData[] {});
+		
+	    if(ArrayDataImport.size()>0){
+	    	for(i=0;i<ArrayDataImport.get(0).size();i++)
 			{
-				seriesAttention.appendData( new GraphViewData(ArrayDataImport.get(j).get(i)[0], ArrayDataImport.get(j).get(i)[1]), true);
-				seriesMeditation.appendData( new GraphViewData(ArrayDataImport.get(j).get(i)[0], ArrayDataImport.get(j).get(i)[2]), true);
-			}
-    	}
+				seriesAttention.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[1]), true);
+				seriesMeditation.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[2]), true);
+			}	    
+	    	if(ArrayDataImport.size()>1){
+	    	
+		    	graphView.addSeries(seriesMeditation2);
+			    graphView.addSeries(seriesAttention2);
+		    	
+			    for(i=0;i<ArrayDataImport.get(1).size();i++)
+				{
+					seriesAttention2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[1]), true);
+					seriesMeditation2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[2]), true);
+				}
+	    	}
+	    }
+
 
 	}
 	
