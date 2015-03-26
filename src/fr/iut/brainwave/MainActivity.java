@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -30,7 +28,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.Log;
-
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphView.LegendAlign;
 import com.jjoe64.graphview.GraphViewData;
@@ -76,15 +73,17 @@ public class MainActivity extends Activity {
     boolean getRawData = false;
 
     ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
+    ArrayList<Integer[]> rawDataValues = new ArrayList<Integer[]>();
     Integer[] tempValues ={0,0,0};
     Integer time_record=0;
 
-	
-    // Courbe de l'attention (Couleur = rouge / Nom = Attention)
+	/*
+	 * Attention : red with name 'Attention'
+	 * Meditation : blue with name 'Meditation'
+	 * Blink : green with name 'Clin d'oeil'
+	 */
     GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
-    // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
-    // Courbe des clins d'oeil (Couleur = vert / Nom = clins d'oeil)
     GraphViewSeries seriesBlink = new GraphViewSeries("Clins d'oeil", new GraphViewSeriesStyle(Color.rgb(0, 200, 50), 3), new GraphViewData[] {});
     
     // Instanciation du GraphView
@@ -160,7 +159,7 @@ public class MainActivity extends Activity {
 	    	courbeMeditation = prefs.getBoolean("graph_meditation", true);
 	    	courbeBlink = prefs.getBoolean("graph_blink", true);
 	    	valuesRecord = prefs.getBoolean("values_record", false);
-	    	//timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
+	    	timeRecord = Integer.parseInt(prefs.getString("time_record", "30"));
 
 	    	if(!courbeAttention){
 	    		graphView.removeSeries(seriesAttention);
@@ -208,13 +207,34 @@ public class MainActivity extends Activity {
         Button b2 = (Button) d.findViewById(R.id.button2);
         
         final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPicker1);
-        np.setMaxValue(180);
+        final int step = 5;
+        np.setMaxValue(180/step);
         np.setMinValue(0);
-        np.setWrapSelectorWheel(false);
+        np.setWrapSelectorWheel(false); // prevent 360 selector
+        Log.d("TIMERECORD", ""+timeRecord);
+        np.setValue(timeRecord / step);
+        np.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int i) {
+            	return String.valueOf(i*step);
+            }
+        });
+        np.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); // DISABLE keyboard
+        np.setFocusable(false);
 
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
+	        	 // SET new value
+	        	 timeRecord = np.getValue() * step;
+	        	 
+	        	 // SETting default value
+	        	 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	        	 SharedPreferences.Editor editor = prefs.edit();
+	        	 editor.putString("time_record", "" +timeRecord);
+	        	 editor.commit();
+	        	 
+	        	 // CLOSE dialog box
 	             d.dismiss();
 	          }    
         });
@@ -228,6 +248,7 @@ public class MainActivity extends Activity {
         d.show();
     }
     
+	// TODO : Change name + manage
     private void ImportBox(){    	
     	final Dialog d = new Dialog(MainActivity.this);
         d.setTitle(getString(R.string.paramsTimeDialogTitle));
@@ -265,9 +286,11 @@ public class MainActivity extends Activity {
     	getAttention = true;
     	getMeditation = true;
     	time_record=0;
+    	
     	dataValues = new ArrayList<Integer[]>();
+    	rawDataValues = new ArrayList<Integer[]>();
        
-        Toast.makeText(getApplicationContext(),"Début de l'enregistrement",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Début de l'enregistrement", Toast.LENGTH_LONG).show();
     	Timer timer = new Timer();
     	
     	timer.schedule(new TimerTask() {
@@ -292,17 +315,19 @@ public class MainActivity extends Activity {
     			  entete.add("Enregistrement BrainWaves du "+ s+"\n");
     			  entete.add("Durée de l'enregistrement : "+ time_record +" secondes\n\n");
     			  entete.add("Valeurs des courbes\n");
-    			  entete.add("Time;Attention;Meditation\n");			
-    			
+    			  entete.add("Time;Attention;Meditation\n");
+    			  
+    			  // OLD file		
     			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.FRANCE);
     			  s = f.format(d);
     			  csvWriter csvFile = new csvWriter("recordFile"+ s +".csv");
-    			  
     			  csvFile.addCSVTwoList(dataValues, time_record, entete);
-    			 // Toast.makeText(getApplicationContext(),"CSV Sauvegardé",Toast.LENGTH_LONG).show();
+    			  
+    			  // NEW FILE with raw data
+    			  csvWriter rawCSVFile = new csvWriter("rawRecord" + s + ".csv");
+    			  rawCSVFile.createCSV(rawDataValues, entete);
     		  }
-    		}, (timeRecord+1)*1000);
-    	
+    	}, (timeRecord+1)*1000);
 	}
     
     /**
@@ -312,7 +337,8 @@ public class MainActivity extends Activity {
 		@SuppressWarnings("deprecation")
 		@Override
     	public void handleMessage(Message msg) {
-    		switch (msg.what) {
+			Integer[] tempRawArray;
+			switch (msg.what) {
     			case TGDevice.MSG_STATE_CHANGE:
     				switch (msg.arg1) {
     					case TGDevice.STATE_IDLE:
@@ -392,9 +418,13 @@ public class MainActivity extends Activity {
   				  passage++;
     			break;
     			case TGDevice.MSG_RAW_DATA:
-    				int rawValue = msg.arg1;
-    				int test = msg.arg2;
+//    				int rawValue = msg.arg1;
+//    				int test = msg.arg2;
 //    				Log.v("MsgRawData", "Raw Data : " +rawValue + " / " +test);
+    				tempRawArray = new Integer[2];
+    				tempRawArray[0] = (int) System.currentTimeMillis();
+    				tempRawArray[1] = msg.arg1;
+    				rawDataValues.add(tempRawArray);
     			break;
     			case TGDevice.MSG_HEART_RATE:
     				Log.v("MsgEEG","Heart Rate " +msg.arg1);
@@ -468,18 +498,6 @@ public class MainActivity extends Activity {
         MenuBatteryItem = menu.findItem(R.id.battery);
         return super.onCreateOptionsMenu(menu);
     }
-    
-    /**
-	 * Permet de gerer le bluetooth
-	 * Lance un intent de GestionBluetooth
-	 * @param view
-	 */
-	public void csvWriter(View view)
-	{
-		Intent intent = new Intent();
-		intent.setClass(this, csvWriter.class);
-		startActivity(intent);
-	}
     
     /**
      * Ajoute des objets dans la barre d'action :

@@ -67,6 +67,29 @@ public class csvWriter {
 		     e.printStackTrace();
 		}
 	}
+	
+	public void createCSV(ArrayList<Integer[]> datas, ArrayList<String> entete) {
+		try
+		{
+			FileWriter writer = new FileWriter(monFichier);
+			for(String element: entete){
+				writer.write(element);
+			}
+			for(int i=0; i<datas.size(); i++){
+				for(int j=0; j<datas.get(i).length; j++) {
+					writer.write(Integer.toString(datas.get(i)[j]) + ";");
+				}
+				writer.append("\n");
+			}
+			
+			writer.flush();
+			writer.close();
+		}
+		catch(IOException e)
+		{
+		     e.printStackTrace();
+		}
+	}
 
 	public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException{
 		
