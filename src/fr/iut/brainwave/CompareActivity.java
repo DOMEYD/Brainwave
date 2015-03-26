@@ -169,6 +169,32 @@ public class CompareActivity extends Activity {
 	        final RadioButton RB_attention = (RadioButton) gd.findViewById(R.id.radioButton_attention);
 	        final RadioButton RB_clindoeil = (RadioButton) gd.findViewById(R.id.radioButton_clindoeil);
 
+	        RB_meditaton.setChecked(true);
+	        
+	        RB_meditaton.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(true);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		}
+	    	});
+	        RB_attention.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(true);
+	    		    RB_clindoeil.setChecked(false);
+	    		}
+	    	});
+	        RB_clindoeil.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(true);
+	    		}
+	    	});
 	        b1.setOnClickListener(new OnClickListener() {
 		         @Override
 		         public void onClick(View v) {
@@ -381,17 +407,6 @@ public class CompareActivity extends Activity {
         getMenuInflater().inflate(R.menu.compare_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
-   /* public int GestionRadioButton(){
-    	findViewById(R.id.buttonEng).setOnClickListener( new View.OnClickListener() {
-    		@Override
-    		public void onClick(View v) {
-    		    Button btnEng=(Button)findviewById(R.id.btnEng);
-    		    btnEng.setEnabled(false);
-    		}
-    		});
-    	return
-    }*/
     
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
