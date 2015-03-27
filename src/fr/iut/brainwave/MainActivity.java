@@ -311,6 +311,7 @@ public class MainActivity extends Activity {
     	rawDataValues = new ArrayList<Integer[]>();
        
         Toast.makeText(getApplicationContext(), "Début de l'enregistrement", Toast.LENGTH_LONG).show();
+        MenuSaveItem.setIcon(R.drawable.ic_action_save_on);
     	Timer timer = new Timer();
     	
     	timer.schedule(new TimerTask() {
@@ -433,6 +434,7 @@ public class MainActivity extends Activity {
 					    if(time_record>timeRecord)
 					    {
 					    	 Toast.makeText(getApplicationContext(),"CSV enregistré",Toast.LENGTH_LONG).show();
+					         MenuSaveItem.setIcon(R.drawable.ic_action_save);
 					    }
 				    }
   				  passage++;

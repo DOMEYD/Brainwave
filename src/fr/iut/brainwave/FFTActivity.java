@@ -39,7 +39,6 @@ import android.widget.TextView;
 public class FFTActivity extends Activity {
 	
 	private	Dialog AddFileDialog = null;
-	private	Dialog SelectGraph = null;
 	int flagInit = 0;
 	public ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 	private ListView LvAllCsvFiles;
@@ -56,7 +55,7 @@ public class FFTActivity extends Activity {
     boolean flagFFT=false;
 	double max = 100 ;
 	double min = 0;
-	
+	MenuItem MenuFFTItem;
 	
 	private void AddFilesBox(){
 		AddFileDialog = new Dialog(FFTActivity.this);
@@ -224,11 +223,13 @@ public class FFTActivity extends Activity {
 			 	layout.removeView(graphView);
 			 	if(!flagFFT)
 			 	{
+			 		MenuFFTItem.setIcon(R.drawable.ic_linear_graph);
 			 		graphView = new BarGraphView(this, "Courbes EEG");
 			 		flagFFT=true;
 			 	}
 			 	else if(flagFFT)
 			 	{
+			 		MenuFFTItem.setIcon(R.drawable.ic_fft);
 			 		graphView = new LineGraphView(this, "Courbes EEG");
 			 		flagFFT=false;
 			 	}
@@ -335,6 +336,7 @@ public class FFTActivity extends Activity {
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.fft_menu, menu);
+        MenuFFTItem = menu.findItem(R.id.applyFFT);
         return super.onCreateOptionsMenu(menu);
     }
     
