@@ -50,7 +50,7 @@ public class FFTActivity extends Activity {
 	
 	private	Dialog AddFileDialog = null;
 	private	Dialog SelectGraph = null;
-	 int flagInit = 0;
+	int flagInit = 0;
 	public ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 	private ListView LvAllCsvFiles;
 	public ArrayAdapter<String> AdaptateurFiles;
@@ -63,7 +63,7 @@ public class FFTActivity extends Activity {
     // Instanciation du GraphView
     GraphView graphView;
     LinearLayout layout;
-    
+    boolean flagFFT=false;
 	double max = 100 ;
 	double min = 0;
 	
@@ -232,8 +232,18 @@ public class FFTActivity extends Activity {
 		 
 		 public void newGraphFFT(){
 			 	layout.removeView(graphView);
-		    	graphView = new BarGraphView(this, "Courbes EEG");
+			 	if(!flagFFT)
+			 	{
+			 		graphView = new BarGraphView(this, "Courbes EEG");
+			 		flagFFT=true;
+			 	}
+			 	else if(flagFFT)
+			 	{
+			 		graphView = new LineGraphView(this, "Courbes EEG");
+			 		flagFFT=false;
+			 	}
 		    	
+
 				graphView.setManualYAxisBounds((double) max, (double) min);
 				graphView.setShowLegend(true);
 				graphView.setViewPort(1,19);
