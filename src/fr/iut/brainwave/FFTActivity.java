@@ -62,6 +62,8 @@ public class FFTActivity extends Activity {
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 1), new GraphViewData[] {});
     // Instanciation du GraphView
     GraphView graphView;
+    LinearLayout layout;
+    
 	double max = 100 ;
 	double min = 0;
 	
@@ -205,7 +207,7 @@ public class FFTActivity extends Activity {
 				graphView.getGraphViewStyle().setNumVerticalLabels(5);
 				graphView.getGraphViewStyle().setNumHorizontalLabels(20);
 				graphView.getGraphViewStyle().setTextSize(15);
-				LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
+				layout = (LinearLayout) findViewById(R.id.layout1);
 				layout.addView(graphView);
 		    }	 
 	
@@ -229,7 +231,7 @@ public class FFTActivity extends Activity {
 			}
 		 
 		 public void newGraphFFT(){
-
+			 	layout.removeView(graphView);
 		    	graphView = new BarGraphView(this, "Courbes EEG");
 		    	
 				graphView.setManualYAxisBounds((double) max, (double) min);
@@ -242,7 +244,8 @@ public class FFTActivity extends Activity {
 				graphView.getGraphViewStyle().setNumVerticalLabels(5);
 				graphView.getGraphViewStyle().setNumHorizontalLabels(20);
 				graphView.getGraphViewStyle().setTextSize(15);
-				LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
+				layout = (LinearLayout) findViewById(R.id.layout1);
+				
 				layout.addView(graphView);
 		    }	 
 		 
