@@ -65,22 +65,43 @@ public class CompareActivity extends Activity {
 	
 	public Integer importFiles_max =2;
 	
-    // Courbe de l'attention (Couleur = rouge / Nom = Attention)
     GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
-    // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
- // Courbe de l'attention (Couleur = rouge / Nom = Attention)
+   
     GraphViewSeries seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
-    // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
     GraphViewSeries seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100),2), new GraphViewData[] {});
    
+    GraphViewSeries seriesDelta = new GraphViewSeries("Delta", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries seriesDelta2 = new GraphViewSeries("Delta2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+  
+    GraphViewSeries seriesTheta = new GraphViewSeries("Theta", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries seriesTheta2 = new GraphViewSeries("Theta2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+    
+    GraphViewSeries serieslowAlpha = new GraphViewSeries("lowAlpha", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowAlpha2 = new GraphViewSeries("lowAlpha2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+    
+    GraphViewSeries serieshighAlpha = new GraphViewSeries("highAlpha", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighAlpha2 = new GraphViewSeries("highAlpha2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+    
+    GraphViewSeries seriesLowBeta = new GraphViewSeries("LowBeta", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowBeta2 = new GraphViewSeries("LowBeta2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+    
+    GraphViewSeries serieshighBeta = new GraphViewSeries("highBeta", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighBeta2 = new GraphViewSeries("highBeta2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+    
+    GraphViewSeries seriesLowGamma = new GraphViewSeries("LowGamma", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowGamma2 = new GraphViewSeries("LowGamma2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+    
+    GraphViewSeries serieshighGamma = new GraphViewSeries("highGamma", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighGamma2 = new GraphViewSeries("highGamma2", new GraphViewSeriesStyle(Color.rgb(100, 50, 00), 2), new GraphViewData[] {});
+    
     // Instanciation du GraphView
     GraphView graphView;
 	double max = 100 ;
 	double min = 0;
 	
-	 int flagInit = 0;
-
+	int flagInit = 0;
+	int flagCourbe=0;
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
 		File[] filesCSV = parentDir.listFiles();
@@ -170,7 +191,16 @@ public class CompareActivity extends Activity {
 	        final RadioButton RB_meditaton = (RadioButton) gd.findViewById(R.id.radioButton_meditation);
 	        final RadioButton RB_attention = (RadioButton) gd.findViewById(R.id.radioButton_attention);
 	        final RadioButton RB_clindoeil = (RadioButton) gd.findViewById(R.id.radioButton_clindoeil);
+	        final RadioButton RB_Delta = (RadioButton) gd.findViewById(R.id.radioButton_delta);
+	        final RadioButton RB_Theta = (RadioButton) gd.findViewById(R.id.radioButton_theta);
+	        final RadioButton RB_LowAlpha = (RadioButton) gd.findViewById(R.id.radioButton_lowalpha);
+	        final RadioButton RB_HighAlpha = (RadioButton) gd.findViewById(R.id.radioButton_highalpha);
+	        final RadioButton RB_LowBeta = (RadioButton) gd.findViewById(R.id.radioButton_lowbeta);
+	        final RadioButton RB_HighBeta = (RadioButton) gd.findViewById(R.id.radioButton_highbeta);
+	        final RadioButton RB_LowGamma = (RadioButton) gd.findViewById(R.id.radioButton_lowgamma);
+	        final RadioButton RB_HighGamma = (RadioButton) gd.findViewById(R.id.radioButton_highgamme);
 
+	        
 	        RB_meditaton.setChecked(true);
 	       
 	        
@@ -182,6 +212,14 @@ public class CompareActivity extends Activity {
 	    		    RB_meditaton.setChecked(true);
 	    		    RB_attention.setChecked(false);
 	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
 	    		    flagInit = 1;	    		    
 	    		}
 	    	});
@@ -191,6 +229,14 @@ public class CompareActivity extends Activity {
 	    		    RB_meditaton.setChecked(false);
 	    		    RB_attention.setChecked(true);
 	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
 	    		    flagInit = 2;
 	    		}
 	    	});
@@ -200,9 +246,154 @@ public class CompareActivity extends Activity {
 	    		    RB_meditaton.setChecked(false);
 	    		    RB_attention.setChecked(false);
 	    		    RB_clindoeil.setChecked(true);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
 	    		    flagInit = 3;
 	    		}
 	    	});
+	        RB_Delta.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(true);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
+	    		    flagInit = 4;
+	    		}
+	    	});
+	        RB_Theta.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(true);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
+	    		    flagInit = 5;
+	    		}
+	    	});
+	        RB_LowAlpha.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(true);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
+	    		    flagInit = 6;
+	    		}
+	    	});
+	        RB_HighAlpha.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(true);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
+	    		    flagInit = 7;
+	    		}
+	    	});
+	        RB_LowBeta.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
+	    		    flagInit = 8;
+	    		}
+	    	});
+	        RB_HighBeta.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(false);
+	    		    flagInit = 9;
+	    		}
+	    	});
+	        RB_LowGamma.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(true);
+	    	       RB_HighGamma.setChecked(false);
+	    		    flagInit = 10;
+	    		}
+	    	});
+	        RB_HighGamma.setOnClickListener( new View.OnClickListener() {
+	    		@Override
+	    		public void onClick(View v) {
+	    		    RB_meditaton.setChecked(false);
+	    		    RB_attention.setChecked(false);
+	    		    RB_clindoeil.setChecked(false);
+	    		    RB_Delta.setChecked(false);
+	    	        RB_Theta.setChecked(false);
+	    	        RB_LowAlpha.setChecked(false);
+	    	        RB_HighAlpha.setChecked(false);
+	    	        RB_LowBeta.setChecked(false);
+	    	        RB_HighBeta.setChecked(false);
+	    	        RB_LowGamma.setChecked(false);
+	    	       RB_HighGamma.setChecked(true);
+	    		    flagInit =11;
+	    		}
+	    	});
+
 	        b1.setOnClickListener(new OnClickListener() {
 		         @Override
 		         public void onClick(View v) {
