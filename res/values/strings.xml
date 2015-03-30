@@ -20,15 +20,24 @@
    <string name="disconnect">Syst&#232;me d&#233;connect&#233; !</string>
    <string name="sysNotFound">Syst&#232;me non trouv&#233; !</string>
    
-   <!-- Graphic -->
-   <string name="cancel">annuler</string>
-   <string name="set">configurer</string>
-   <string name="second">sec.</string>
-   <string name="paramsTimeDialogTitle">Temps d\'enregistrement :</string>
-   <string name="validation">Valider</string>
-   <string name="courbe_meditation">Courbe de m&#233;ditation</string>
+	<!-- Graphic -->
+   	<string name="cancel">annuler</string>
+  	<string name="set">configurer</string>
+   	<string name="second">sec.</string>
+  	<string name="paramsTimeDialogTitle">Temps d\'enregistrement :</string>
+  	<string name="validation">Valider</string>
+   	<string name="courbe_meditation">Courbe de m&#233;ditation</string>
 	<string name="courbe_attention">Courbe d\'attention</string>
 	<string name="courbe_clindoeil">Courbe de clin d\'oeil</string>
+	<string name="courbe_delta">Courbe Delta</string>
+	<string name="courbe_theta">Courbe Theta</string>
+	<string name="courbe_lowalpha">Courbe Low Alpha</string>
+	<string name="courbe_highalpha">Courbe High Alpha</string>
+	<string name="courbe_lowbeta">Courbe Low Beta</string>
+	<string name="courbe_highbeta">Courbe High Beta</string>
+	<string name="courbe_lowgamma">Courbe Low Gamma</string>
+	<string name="courbe_highgamma">Courbe High Gamma</string>
+	<string name="separate_textview">----------------------------------------------</string>
 	
 	<!-- Compare -->
 	<string name="selectCurve">Selectionner une courbe</string>
@@ -44,14 +53,14 @@
     
     <string name="recherche"> La recherche est en cours &#8230;</string> <!-- &#8230; est le unicode de "..."   -->
     
-	    <!-- Buttons -->
-	    <string name="on">Activé</string>
-	    <string name="off">Désactivé</string>
-	    <string name="Visible">Rendre visible</string>
-	    <string name="buttonPairedDevices">Afficher les appareils appairés</string>
-	    <string name="buttonAroundDevices">Afficher les appareils environnants</string>
-	    <string name="ListPairedDevices">Liste des appareils appairés:</string>
-	    <string name="ListAroundDevices">Liste des appareils Bluetooth environnants :</string>
+	<!-- Buttons -->
+	<string name="on">Activé</string>
+	<string name="off">Désactivé</string>
+	<string name="Visible">Rendre visible</string>
+	<string name="buttonPairedDevices">Afficher les appareils appairés</string>
+	<string name="buttonAroundDevices">Afficher les appareils environnants</string>
+	<string name="ListPairedDevices">Liste des appareils appairés:</string>
+	<string name="ListAroundDevices">Liste des appareils Bluetooth environnants :</string>
 
 	 <!-- Paramètres -->   
 	    

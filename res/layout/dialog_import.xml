@@ -31,12 +31,67 @@
             android:layout_height="wrap_content"
             android:text="@string/courbe_clindoeil" />
 
+        <TextView
+            android:id="@+id/textView_separate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/separate_textview" />
+
+        <RadioButton
+            android:id="@+id/radioButton_delta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_delta" />
+
+        <RadioButton
+            android:id="@+id/radioButton_theta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_theta" />
+
+        <RadioButton
+            android:id="@+id/radioButton_lowalpha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_lowalpha" />
+
+        <RadioButton
+            android:id="@+id/radioButton_highalpha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_highalpha" />
+
+        <RadioButton
+            android:id="@+id/radioButton_lowbeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_lowbeta" />
+
+        <RadioButton
+            android:id="@+id/radioButton_highbeta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_highbeta" />
+
+        <RadioButton
+            android:id="@+id/radioButton_lowgamma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_lowgamma" />
+
+        <RadioButton
+            android:id="@+id/radioButton_highgamma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/courbe_highgamma" />
+
     </LinearLayout>
 
     <LinearLayout
         style="@android:style/ButtonBar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp">
 
       <Button
             android:id="@+id/button_cancel"
