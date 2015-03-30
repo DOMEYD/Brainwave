@@ -638,6 +638,8 @@ public class CompareActivity extends Activity {
 			graphView.getGraphViewStyle().setTextSize(15);
 			layout = (LinearLayout) findViewById(R.id.layout1);
 			layout.addView(graphView);
+		    graphView.addSeries(seriesMeditation);
+		    graphView.addSeries(seriesMeditation2);
 	    }
 	
 	    
