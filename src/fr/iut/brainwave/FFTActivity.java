@@ -223,13 +223,13 @@ public class FFTActivity extends Activity {
 			 	layout.removeView(graphView);
 			 	if(!flagFFT)
 			 	{
-			 		MenuFFTItem.setIcon(R.drawable.ic_linear_graph);
+			 		MenuFFTItem.setIcon(R.drawable.ic_trending_up_128);
 			 		graphView = new BarGraphView(this, "Courbes EEG");
 			 		flagFFT=true;
 			 	}
 			 	else if(flagFFT)
 			 	{
-			 		MenuFFTItem.setIcon(R.drawable.ic_fft);
+			 		MenuFFTItem.setIcon(R.drawable.ic_equalizer_128);
 			 		graphView = new LineGraphView(this, "Courbes EEG");
 			 		flagFFT=false;
 			 	}

@@ -7,7 +7,7 @@
      <item android:id="@+id/applyFFT" 
          android:title="@string/removeSave" 
          android:showAsAction="ifRoom" 
-         android:icon="@drawable/ic_fft"></item>
+         android:icon="@drawable/ic_equalizer_128"></item>
      
      <item android:id="@+id/selectCurve" 
          android:title="@string/selectCurve" 
