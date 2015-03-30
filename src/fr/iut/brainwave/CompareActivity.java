@@ -409,11 +409,11 @@ public class CompareActivity extends Activity {
 				     graphView.removeSeries(serieslowAlpha2);
 				     graphView.removeSeries(serieshighAlpha);
 				     graphView.removeSeries(serieshighAlpha2);  
-				     graphView.removeSeries(seriesLowBeta);
+				     graphView.removeSeries(serieslowBeta);
 				     graphView.removeSeries(serieslowBeta2);
 				     graphView.removeSeries(serieshighBeta);
 				     graphView.removeSeries(serieshighBeta2); 
-				     graphView.removeSeries(seriesLowGamma);
+				     graphView.removeSeries(serieslowGamma);
 				     graphView.removeSeries(serieslowGamma2);
 				     graphView.removeSeries(serieshighGamma);
 				     graphView.removeSeries(serieshighGamma2); 
@@ -454,7 +454,7 @@ public class CompareActivity extends Activity {
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowBeta.isChecked()==true){
-					     graphView.addSeries(seriesLowBeta);
+					     graphView.addSeries(serieslowBeta);
 					     graphView.addSeries(serieslowBeta2);
 		        		 flagInit = 0;
 		 	        }
@@ -464,7 +464,7 @@ public class CompareActivity extends Activity {
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowGamma.isChecked()==true){
-					     graphView.addSeries(seriesLowGamma);
+					     graphView.addSeries(serieslowGamma);
 					     graphView.addSeries(serieslowGamma2);
 		        		 flagInit = 0;
 		 	        }
@@ -645,11 +645,11 @@ public class CompareActivity extends Activity {
 	    graphView.removeSeries(serieslowAlpha2);
 	    graphView.removeSeries(serieshighAlpha);
 	    graphView.removeSeries(serieshighAlpha2);  
-	    graphView.removeSeries(seriesLowBeta);
+	    graphView.removeSeries(serieslowBeta);
 	    graphView.removeSeries(serieslowBeta2);
 	    graphView.removeSeries(serieshighBeta);
 	    graphView.removeSeries(serieshighBeta2); 
-	    graphView.removeSeries(seriesLowGamma);
+	    graphView.removeSeries(serieslowGamma);
 	    graphView.removeSeries(serieslowGamma2);
 	    graphView.removeSeries(serieshighGamma);
 	    graphView.removeSeries(serieshighGamma2); 
