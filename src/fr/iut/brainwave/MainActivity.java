@@ -518,7 +518,7 @@ public class MainActivity extends Activity {
 		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.BLACK);
 		graphView.getGraphViewStyle().setLegendWidth(200);
 		graphView.setLegendAlign(LegendAlign.TOP);
-		graphView.getGraphViewStyle().setNumVerticalLabels(5);
+		graphView.getGraphViewStyle().setNumVerticalLabels(21);
 		graphView.getGraphViewStyle().setNumHorizontalLabels(20);
 		graphView.getGraphViewStyle().setTextSize(14);
 		LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
