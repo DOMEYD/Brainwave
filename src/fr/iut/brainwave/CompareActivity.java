@@ -62,11 +62,11 @@ public class CompareActivity extends Activity {
 	
 	public ArrayList<Integer[]> ArrayDataImportFile = new ArrayList<Integer[]>();
 //	public ArrayList<Integer[]> ArrayDataImportFile2 = new ArrayList<Integer[]>();
-	
+	LinearLayout layout;
 	public Integer importFiles_max =2;
 	
-    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(255, 00, 00), 2), new GraphViewData[] {});
-    GraphViewSeries seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(255, 117, 117), 2), new GraphViewData[] {});
+    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
+    GraphViewSeries seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 0), 2), new GraphViewData[] {});
     
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
     GraphViewSeries seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100),2), new GraphViewData[] {});
@@ -421,56 +421,76 @@ public class CompareActivity extends Activity {
 		        	 if(RB_meditaton.isChecked()==true){
 		 	        	graphView.addSeries(seriesMeditation);
 		     		    graphView.addSeries(seriesMeditation2);
+		     		    max = 100 ;
+		     			 min = 0;
 		 	        	flagInit = 0;
 		 	        }
 		        	 else if(RB_attention.isChecked()==true){
 		 	        	graphView.addSeries(seriesAttention);
 		     		    graphView.addSeries(seriesAttention2);
-		     		    
+		     		   max = 100 ;
+		     			 min = 0;
 		 	        	flagInit = 0;
 		 	        }
 		        	 else if(RB_clindoeil.isChecked()==true){
-		            
+		        		 max = 100 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_Delta.isChecked()==true){
 		        		 graphView.addSeries(seriesDelta);
 			     		 graphView.addSeries(seriesDelta2); 
+			     		max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_Theta.isChecked()==true){
 				     	 graphView.addSeries(seriesTheta);
 				     	 graphView.addSeries(seriesTheta2);
+				     	max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowAlpha.isChecked()==true){
 				     	 graphView.addSeries(serieslowAlpha);
 					     graphView.addSeries(serieslowAlpha2);
+					     max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_HighAlpha.isChecked()==true){
 					     graphView.addSeries(serieshighAlpha);
 					     graphView.addSeries(serieshighAlpha2);
+					     max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowBeta.isChecked()==true){
 					     graphView.addSeries(serieslowBeta);
 					     graphView.addSeries(serieslowBeta2);
+					     max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_HighBeta.isChecked()==true){
 					     graphView.addSeries(serieshighBeta);
 					     graphView.addSeries(serieshighBeta2); 
+					     max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowGamma.isChecked()==true){
 					     graphView.addSeries(serieslowGamma);
 					     graphView.addSeries(serieslowGamma2);
+					     max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_HighGamma.isChecked()==true){
 					     graphView.addSeries(serieshighGamma);
 					     graphView.addSeries(serieshighGamma2); 
+					     max = 100000000 ;
+		     			 min = 0;
 		        		 flagInit = 0;
 		 	        }
 		        	 
@@ -585,6 +605,8 @@ public class CompareActivity extends Activity {
 			           {
 			        	   try{
 				        	   tempValues[i]=Integer.parseInt(temp[i]);
+				        	   
+				        	   
 			        	   }catch(NumberFormatException e){
 			        		   
 			        	   }
@@ -623,7 +645,7 @@ public class CompareActivity extends Activity {
 			graphView.getGraphViewStyle().setNumVerticalLabels(5);
 			graphView.getGraphViewStyle().setNumHorizontalLabels(20);
 			graphView.getGraphViewStyle().setTextSize(15);
-			LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);
+			layout = (LinearLayout) findViewById(R.id.layout1);
 			layout.addView(graphView);
 	    }
 	
@@ -632,7 +654,8 @@ public class CompareActivity extends Activity {
 	{
 		int i=0;
 		int j=0;
-	   
+		layout.removeView(graphView);
+		createGraph();
 		graphView.removeSeries(seriesMeditation);
 	    graphView.removeSeries(seriesMeditation2);
 	    graphView.removeSeries(seriesAttention);
@@ -653,8 +676,8 @@ public class CompareActivity extends Activity {
 	    graphView.removeSeries(serieslowGamma2);
 	    graphView.removeSeries(serieshighGamma);
 	    graphView.removeSeries(serieshighGamma2); 
-	    seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(255, 00, 00), 2), new GraphViewData[] {});
-	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(255, 117, 117), 2), new GraphViewData[] {});
+	    seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
+	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 0), 2), new GraphViewData[] {});
 	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200),2), new GraphViewData[] {});
 	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 2), new GraphViewData[] {});
 	    seriesDelta = new GraphViewSeries("Delta", new GraphViewSeriesStyle(Color.rgb(255, 255, 0), 2), new GraphViewData[] {});
