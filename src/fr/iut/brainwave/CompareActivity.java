@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.jjoe64.graphview.BarGraphView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GraphViewData;
 import com.jjoe64.graphview.GraphViewSeries;
@@ -71,37 +72,40 @@ public class CompareActivity extends Activity {
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
     GraphViewSeries seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100),2), new GraphViewData[] {});
    
-    GraphViewSeries seriesDelta = new GraphViewSeries("Delta", new GraphViewSeriesStyle(Color.rgb(255, 255, 0), 2), new GraphViewData[] {});
-    GraphViewSeries seriesDelta2 = new GraphViewSeries("Delta2", new GraphViewSeriesStyle(Color.rgb(255, 255, 113), 2), new GraphViewData[] {});
+    GraphViewSeries seriesDelta = new GraphViewSeries("Delta", new GraphViewSeriesStyle(Color.rgb(244, 210, 15), 2), new GraphViewData[] {});
+    GraphViewSeries seriesDelta2 = new GraphViewSeries("Delta2", new GraphViewSeriesStyle(Color.rgb(160, 137, 7), 2), new GraphViewData[] {});
   
     GraphViewSeries seriesTheta = new GraphViewSeries("Theta", new GraphViewSeriesStyle(Color.rgb(255, 128, 0), 2), new GraphViewData[] {});
-    GraphViewSeries seriesTheta2 = new GraphViewSeries("Theta2", new GraphViewSeriesStyle(Color.rgb(255, 174, 94), 2), new GraphViewData[] {});
+    GraphViewSeries seriesTheta2 = new GraphViewSeries("Theta2", new GraphViewSeriesStyle(Color.rgb(210, 105, 0), 2), new GraphViewData[] {});
     
-    GraphViewSeries serieslowAlpha = new GraphViewSeries("lowAlpha", new GraphViewSeriesStyle(Color.rgb(255, 0, 255), 2), new GraphViewData[] {});
-    GraphViewSeries serieslowAlpha2 = new GraphViewSeries("lowAlpha2", new GraphViewSeriesStyle(Color.rgb(255, 125, 255), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowAlpha = new GraphViewSeries("lowAlpha", new GraphViewSeriesStyle(Color.rgb(255, 85,170), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowAlpha2 = new GraphViewSeries("lowAlpha2", new GraphViewSeriesStyle(Color.rgb(204, 0, 102), 2), new GraphViewData[] {});
     
-    GraphViewSeries serieshighAlpha = new GraphViewSeries("highAlpha", new GraphViewSeriesStyle(Color.rgb(128, 0, 255), 2), new GraphViewData[] {});
-    GraphViewSeries serieshighAlpha2 = new GraphViewSeries("highAlpha2", new GraphViewSeriesStyle(Color.rgb(192, 130, 255), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighAlpha = new GraphViewSeries("highAlpha2", new GraphViewSeriesStyle(Color.rgb(128, 0, 255), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighAlpha2 = new GraphViewSeries("highAlpha", new GraphViewSeriesStyle(Color.rgb(192, 130, 255), 2), new GraphViewData[] {});
     
-    GraphViewSeries serieslowBeta = new GraphViewSeries("LowBeta", new GraphViewSeriesStyle(Color.rgb(0,128, 64), 2), new GraphViewData[] {});
-    GraphViewSeries serieslowBeta2 = new GraphViewSeries("LowBeta2", new GraphViewSeriesStyle(Color.rgb(60,255, 157), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowBeta = new GraphViewSeries("LowBeta", new GraphViewSeriesStyle(Color.rgb(0,255, 0), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowBeta2 = new GraphViewSeries("LowBeta2", new GraphViewSeriesStyle(Color.rgb(0,135, 0), 2), new GraphViewData[] {});
     
-    GraphViewSeries serieshighBeta = new GraphViewSeries("highBeta", new GraphViewSeriesStyle(Color.rgb(128, 64, 64), 2), new GraphViewData[] {});
-    GraphViewSeries serieshighBeta2 = new GraphViewSeries("highBeta2", new GraphViewSeriesStyle(Color.rgb(203, 152, 152), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighBeta = new GraphViewSeries("highBeta", new GraphViewSeriesStyle(Color.rgb(255,104, 32), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighBeta2 = new GraphViewSeries("highBeta2", new GraphViewSeriesStyle(Color.rgb(174, 56, 0), 2), new GraphViewData[] {});
     
-    GraphViewSeries serieslowGamma = new GraphViewSeries("LowGamma", new GraphViewSeriesStyle(Color.rgb(128,128, 128), 2), new GraphViewData[] {});
-    GraphViewSeries serieslowGamma2 = new GraphViewSeries("LowGamma2", new GraphViewSeriesStyle(Color.rgb(166, 166, 166), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowGamma = new GraphViewSeries("LowGamma", new GraphViewSeriesStyle(Color.rgb(255,23, 255), 2), new GraphViewData[] {});
+    GraphViewSeries serieslowGamma2 = new GraphViewSeries("LowGamma2", new GraphViewSeriesStyle(Color.rgb(140, 0, 140), 2), new GraphViewData[] {});
     
-    GraphViewSeries serieshighGamma = new GraphViewSeries("highGamma", new GraphViewSeriesStyle(Color.rgb(0, 255, 255), 2), new GraphViewData[] {});
-    GraphViewSeries serieshighGamma2 = new GraphViewSeries("highGamma2", new GraphViewSeriesStyle(Color.rgb(111, 255, 255), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighGamma = new GraphViewSeries("highGamma", new GraphViewSeriesStyle(Color.rgb(128, 128,128), 2), new GraphViewData[] {});
+    GraphViewSeries serieshighGamma2 = new GraphViewSeries("highGamma2", new GraphViewSeriesStyle(Color.rgb(72, 72,72), 2), new GraphViewData[] {});
     
     // Instanciation du GraphView
     GraphView graphView;
 	double max = 100 ;
 	double min = 0;
+	double max_EGG = 100 ;
+
 	
 	int flagInit = 0;
 	int flagCourbe=0;
+	
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
 		File[] filesCSV = parentDir.listFiles();
@@ -419,78 +423,80 @@ public class CompareActivity extends Activity {
 				     graphView.removeSeries(serieshighGamma2); 
 		        	 
 		        	 if(RB_meditaton.isChecked()==true){
-		 	        	graphView.addSeries(seriesMeditation);
+			     		newGraph();
+		        		 graphView.addSeries(seriesMeditation);
 		     		    graphView.addSeries(seriesMeditation2);
-		     		    max = 100 ;
-		     			 min = 0;
+		     		   
 		 	        	flagInit = 0;
 		 	        }
 		        	 else if(RB_attention.isChecked()==true){
-		 	        	graphView.addSeries(seriesAttention);
+				     		newGraph();		        		 
+		        		 graphView.addSeries(seriesAttention);
 		     		    graphView.addSeries(seriesAttention2);
-		     		   max = 100 ;
-		     			 min = 0;
+		    
 		 	        	flagInit = 0;
 		 	        }
 		        	 else if(RB_clindoeil.isChecked()==true){
-		        		 max = 100 ;
-		     			 min = 0;
+				     		newGraph();
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_Delta.isChecked()==true){
+				     		newGraph();
 		        		 graphView.addSeries(seriesDelta);
 			     		 graphView.addSeries(seriesDelta2); 
-			     		max = 100000000 ;
-		     			 min = 0;
+			     
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_Theta.isChecked()==true){
-				     	 graphView.addSeries(seriesTheta);
+				     		newGraph();
+		        		 graphView.addSeries(seriesTheta);
 				     	 graphView.addSeries(seriesTheta2);
-				     	max = 100000000 ;
-		     			 min = 0;
+				     	
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowAlpha.isChecked()==true){
-				     	 graphView.addSeries(serieslowAlpha);
+				     		newGraph();
+		        		 
+		        		 graphView.addSeries(serieslowAlpha);
 					     graphView.addSeries(serieslowAlpha2);
-					     max = 100000000 ;
-		     			 min = 0;
+
+
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_HighAlpha.isChecked()==true){
+				     		newGraph();
 					     graphView.addSeries(serieshighAlpha);
 					     graphView.addSeries(serieshighAlpha2);
-					     max = 100000000 ;
-		     			 min = 0;
+
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowBeta.isChecked()==true){
-					     graphView.addSeries(serieslowBeta);
+				     		newGraph();
+		        		 graphView.addSeries(serieslowBeta);
 					     graphView.addSeries(serieslowBeta2);
-					     max = 100000000 ;
-		     			 min = 0;
+
+
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_HighBeta.isChecked()==true){
-					     graphView.addSeries(serieshighBeta);
+				     		newGraph();
+		        		 graphView.addSeries(serieshighBeta);
 					     graphView.addSeries(serieshighBeta2); 
-					     max = 100000000 ;
-		     			 min = 0;
+					  
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_LowGamma.isChecked()==true){
-					     graphView.addSeries(serieslowGamma);
+				     		newGraph();
+		        		 graphView.addSeries(serieslowGamma);
 					     graphView.addSeries(serieslowGamma2);
-					     max = 100000000 ;
-		     			 min = 0;
+					 
 		        		 flagInit = 0;
 		 	        }
 		        	 else if(RB_HighGamma.isChecked()==true){
-					     graphView.addSeries(serieshighGamma);
+				     		newGraph();
+		        		 graphView.addSeries(serieshighGamma);
 					     graphView.addSeries(serieshighGamma2); 
-					     max = 100000000 ;
-		     			 min = 0;
+					     
 		        		 flagInit = 0;
 		 	        }
 		        	 
@@ -593,8 +599,8 @@ public class CompareActivity extends Activity {
 				 String line = br.readLine();
 				 line = br.readLine();
 				 line = br.readLine();
-				line = br.readLine();
-				line = br.readLine();
+				 line = br.readLine();
+				 line = br.readLine();
 				 line = br.readLine();
 				 line = br.readLine();
 				
@@ -605,7 +611,10 @@ public class CompareActivity extends Activity {
 			           {
 			        	   try{
 				        	   tempValues[i]=Integer.parseInt(temp[i]);
-				        	   
+				        	   if(tempValues[i]>max_EGG)
+				        	   {
+				        		   max_EGG=tempValues[i];
+				        	   }
 				        	   
 			        	   }catch(NumberFormatException e){
 			        		   
@@ -649,13 +658,41 @@ public class CompareActivity extends Activity {
 			layout.addView(graphView);
 	    }
 	
+	    
+	    public void newGraph(){
+		 	layout.removeView(graphView);
+		 	graphView = new LineGraphView(this, "Courbes EEG");
+		 	if (flagInit>3)
+		 	{
+		 		graphView.setManualYAxisBounds((double) max_EGG, (double) min);
+		 		graphView.getGraphViewStyle().setNumVerticalLabels(10);
+		 	}
+		 	else
+		 	{
+		 		graphView.setManualYAxisBounds((double) max, (double) min);
+		 		graphView.getGraphViewStyle().setNumVerticalLabels(5);
+		 	}
+	    	
+			graphView.setShowLegend(true);
+			graphView.setViewPort(1,19);
+			graphView.setScrollable(true);
+			graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.BLACK);
+			graphView.getGraphViewStyle().setLegendWidth(200);
+			graphView.setLegendAlign(LegendAlign.TOP);
+			graphView.getGraphViewStyle().setNumVerticalLabels(5);
+			graphView.getGraphViewStyle().setNumHorizontalLabels(20);
+			graphView.getGraphViewStyle().setTextSize(15);
+			layout = (LinearLayout) findViewById(R.id.layout1);
+			
+			layout.addView(graphView);
+	    }	 
+	    
 	/*****************************PARTIE CODE CORRECTE***************************/
 	public void dessiner_graph()
 	{
 		int i=0;
 		int j=0;
-		layout.removeView(graphView);
-		createGraph();
+		newGraph();
 		graphView.removeSeries(seriesMeditation);
 	    graphView.removeSeries(seriesMeditation2);
 	    graphView.removeSeries(seriesAttention);
@@ -678,24 +715,24 @@ public class CompareActivity extends Activity {
 	    graphView.removeSeries(serieshighGamma2); 
 	    seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
 	    seriesAttention2 = new GraphViewSeries("Attention2", new GraphViewSeriesStyle(Color.rgb(100, 50, 0), 2), new GraphViewData[] {});
-	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200),2), new GraphViewData[] {});
-	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100), 2), new GraphViewData[] {});
-	    seriesDelta = new GraphViewSeries("Delta", new GraphViewSeriesStyle(Color.rgb(255, 255, 0), 2), new GraphViewData[] {});
-	    seriesDelta2 = new GraphViewSeries("Delta2", new GraphViewSeriesStyle(Color.rgb(255, 255, 113), 2), new GraphViewData[] {});
-	    seriesTheta = new GraphViewSeries("Theta", new GraphViewSeriesStyle(Color.rgb(255, 128, 0), 2), new GraphViewData[] {});
-	    seriesTheta2 = new GraphViewSeries("Theta2", new GraphViewSeriesStyle(Color.rgb(255, 174, 94), 2), new GraphViewData[] {});
-	    serieslowAlpha = new GraphViewSeries("lowAlpha", new GraphViewSeriesStyle(Color.rgb(255, 0, 255), 2), new GraphViewData[] {});
-	    serieslowAlpha2 = new GraphViewSeries("lowAlpha2", new GraphViewSeriesStyle(Color.rgb(255, 125, 255), 2), new GraphViewData[] {});
-	    serieshighAlpha = new GraphViewSeries("highAlpha", new GraphViewSeriesStyle(Color.rgb(128, 0, 255), 2), new GraphViewData[] {});
-	    serieshighAlpha2 = new GraphViewSeries("highAlpha2", new GraphViewSeriesStyle(Color.rgb(192, 130, 255), 2), new GraphViewData[] {});
-	    serieslowBeta = new GraphViewSeries("LowBeta", new GraphViewSeriesStyle(Color.rgb(0,128, 64), 2), new GraphViewData[] {});
-	    serieslowBeta2 = new GraphViewSeries("LowBeta2", new GraphViewSeriesStyle(Color.rgb(60,255, 157), 2), new GraphViewData[] {});
-	    serieshighBeta = new GraphViewSeries("highBeta", new GraphViewSeriesStyle(Color.rgb(128, 64, 64), 2), new GraphViewData[] {});
-	    serieshighBeta2 = new GraphViewSeries("highBeta2", new GraphViewSeriesStyle(Color.rgb(203, 152, 152), 2), new GraphViewData[] {});
-	    serieslowGamma = new GraphViewSeries("LowGamma", new GraphViewSeriesStyle(Color.rgb(128,128, 128), 2), new GraphViewData[] {});
-	    serieslowGamma2 = new GraphViewSeries("LowGamma2", new GraphViewSeriesStyle(Color.rgb(166, 166, 166), 2), new GraphViewData[] {});
-	    serieshighGamma = new GraphViewSeries("highGamma", new GraphViewSeriesStyle(Color.rgb(0, 255, 255), 2), new GraphViewData[] {});
-	    serieshighGamma2 = new GraphViewSeries("highGamma2", new GraphViewSeriesStyle(Color.rgb(111, 255, 255), 2), new GraphViewData[] {});
+	    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 2), new GraphViewData[] {});
+	    seriesMeditation2 = new GraphViewSeries("Meditation2", new GraphViewSeriesStyle(Color.rgb(0, 50, 100),2), new GraphViewData[] {});
+	   seriesDelta = new GraphViewSeries("Delta", new GraphViewSeriesStyle(Color.rgb(244, 210, 15), 2), new GraphViewData[] {});
+	    seriesDelta2 = new GraphViewSeries("Delta2", new GraphViewSeriesStyle(Color.rgb(160, 137, 7), 2), new GraphViewData[] {});
+	  seriesTheta = new GraphViewSeries("Theta", new GraphViewSeriesStyle(Color.rgb(255, 128, 0), 2), new GraphViewData[] {});
+	    seriesTheta2 = new GraphViewSeries("Theta2", new GraphViewSeriesStyle(Color.rgb(210, 105, 0), 2), new GraphViewData[] {});
+	    serieslowAlpha = new GraphViewSeries("lowAlpha", new GraphViewSeriesStyle(Color.rgb(255, 85,170), 2), new GraphViewData[] {});
+	   serieslowAlpha2 = new GraphViewSeries("lowAlpha2", new GraphViewSeriesStyle(Color.rgb(204, 0, 102), 2), new GraphViewData[] {});
+	    serieshighAlpha = new GraphViewSeries("highAlpha2", new GraphViewSeriesStyle(Color.rgb(128, 0, 255), 2), new GraphViewData[] {});
+	    serieshighAlpha2 = new GraphViewSeries("highAlpha", new GraphViewSeriesStyle(Color.rgb(192, 130, 255), 2), new GraphViewData[] {});
+	    serieslowBeta = new GraphViewSeries("LowBeta", new GraphViewSeriesStyle(Color.rgb(0,255, 0), 2), new GraphViewData[] {});
+	    serieslowBeta2 = new GraphViewSeries("LowBeta2", new GraphViewSeriesStyle(Color.rgb(0,135, 0), 2), new GraphViewData[] {});
+	    serieshighBeta = new GraphViewSeries("highBeta", new GraphViewSeriesStyle(Color.rgb(255,104, 32), 2), new GraphViewData[] {});
+	    serieshighBeta2 = new GraphViewSeries("highBeta2", new GraphViewSeriesStyle(Color.rgb(174, 56, 0), 2), new GraphViewData[] {});
+	    serieslowGamma = new GraphViewSeries("LowGamma", new GraphViewSeriesStyle(Color.rgb(255,23, 255), 2), new GraphViewData[] {});
+	    serieslowGamma2 = new GraphViewSeries("LowGamma2", new GraphViewSeriesStyle(Color.rgb(140, 0, 140), 2), new GraphViewData[] {});
+	    serieshighGamma = new GraphViewSeries("highGamma", new GraphViewSeriesStyle(Color.rgb(128, 128,128), 2), new GraphViewData[] {});
+	    serieshighGamma2 = new GraphViewSeries("highGamma2", new GraphViewSeriesStyle(Color.rgb(72, 72,72), 2), new GraphViewData[] {});
 	    graphView.addSeries(seriesMeditation2);
 	    graphView.addSeries(seriesMeditation);
 	    
@@ -720,14 +757,14 @@ public class CompareActivity extends Activity {
 				{
 					seriesAttention2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[1]), true);
 					seriesMeditation2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[2]), true);
-					seriesDelta2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[3]), true);
-					seriesTheta2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[4]), true);
-					serieslowAlpha2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[5]), true);
-					serieshighAlpha2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[6]), true);
-					serieslowBeta2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[7]), true);
-					serieshighBeta2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[8]), true);
-					serieslowGamma2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[9]), true);
-					serieshighGamma2.appendData( new GraphViewData(ArrayDataImport.get(0).get(i)[0], ArrayDataImport.get(0).get(i)[10]), true);
+					seriesDelta2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[3]), true);
+					seriesTheta2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[4]), true);
+					serieslowAlpha2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[5]), true);
+					serieshighAlpha2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[6]), true);
+					serieslowBeta2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[7]), true);
+					serieshighBeta2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[8]), true);
+					serieslowGamma2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[9]), true);
+					serieshighGamma2.appendData( new GraphViewData(ArrayDataImport.get(1).get(i)[0], ArrayDataImport.get(1).get(i)[10]), true);
 					
 				}
 	    	}
