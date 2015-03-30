@@ -70,10 +70,11 @@ public class FFTActivity extends Activity {
 		LvAllCsvFiles.setOnItemClickListener(mCSVClickListener);
 		        
 		getListFiles();
-		
+		Log.d("CLICK", "test1");
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
+	        	 Log.d("CLICK", "test2");
 	        	 AddFileDialog.dismiss(); // dismiss the dialog
 	         }    
         });
@@ -91,6 +92,7 @@ public class FFTActivity extends Activity {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
 		
 		for (File file : filesCSV) {			
+			
 			AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
 			ArrayListCsvFiles.add(file);
 		}   
@@ -100,8 +102,9 @@ public class FFTActivity extends Activity {
 		 @Override
 			public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
 			{			
+			 	Log.d("CLICK", "test1");
 				String info = ((TextView) v).getText().toString();
-				String fileName = info.substring(0, 29);
+				String fileName = info.substring(0, 28);
 				Log.v("FILENAME", fileName);
 				
 				Log.d("Nbr CSV",  ArrayListCsvFiles.size()+"");
@@ -112,11 +115,12 @@ public class FFTActivity extends Activity {
 						
 							ArrayDataImport = new ArrayList<Integer[]>();
 							try {
-								Log.d("TEST", "try");
+								
 								
 								ArrayDataImport=ReaderCSVFile(ArrayListCsvFiles.get(i));
-													
-								dessiner_graph();
+					
+								
+								//1dessiner_graph();
 								AddFileDialog.dismiss();
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
@@ -146,24 +150,44 @@ public class FFTActivity extends Activity {
 					 String line = br.readLine();
 					 line = br.readLine();
 					 line = br.readLine();
-					line = br.readLine();
-					line = br.readLine();
 					 line = br.readLine();
 					 line = br.readLine();
-					
+					 line = br.readLine();
+					 line = br.readLine();
+					  int tempMax=0;
+			    	  int tempMin=0;
 				       while( line != null) {
-				    	  
+				    	 
 				           temp= line.split(";");
 				           for(int i=0;i<temp.length;i++)
 				           {
 				        	   try{
 					        	   tempValues[i]=Integer.parseInt(temp[i]);
+					        	   
+					        	  /*if( tempValues[1]>tempMax)
+					        	   {
+					        		   tempMax=tempValues[1];
+					        	   }
+					        	   if( tempValues[1]< tempMin)
+					        	   {
+					        		   tempMin=tempValues[1];
+					        	   }*/
 				        	   }catch(NumberFormatException e){
 				        		   
 				        	   }
 
 				           }
-				                  
+				           
+				          /* String tempString =Integer.toString(tempMax);
+				         
+				           Double tempInt =tempMax/(Math.pow(10, (tempString.length()-1)));
+				           max=Math.ceil(tempInt)*Math.pow(10, (tempString.length()-1));
+				           
+				           tempMin=tempMin*(-1);
+				           tempInt = tempMin/(Math.pow(10, (tempString.length()-1)));
+				           min=(-1)*Math.ceil(tempInt)*Math.pow(10, (tempString.length()-1));*/
+				           
+				           
 				           dataValues.add(tempValues);		
 				         
 				           tempValues = new Integer[3];

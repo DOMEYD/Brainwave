@@ -654,7 +654,7 @@ public class CompareActivity extends Activity {
 				{
 				 	 if(ArrayDataImport.get(0).get(j)[flagInit-1]>max_EGG)
 				     {
-				       	   max_EGG=ArrayDataImport.get(0).get(j)[flagInit-1]+1000;
+				       	   max_EGG=ArrayDataImport.get(0).get(j)[flagInit-1];
 				     }
 				 }
 				 			
@@ -664,7 +664,7 @@ public class CompareActivity extends Activity {
 			 		{
 			 			 if(ArrayDataImport.get(1).get(j)[flagInit-1]>max_EGG)
 			        	   {
-			        		   max_EGG=ArrayDataImport.get(1).get(j)[flagInit-1]+1000;
+			        		   max_EGG=ArrayDataImport.get(1).get(j)[flagInit-1];
 			        	   }
 			 		}
 			 			
