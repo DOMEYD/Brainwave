@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
     int flag_courbe = 0;
     ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
     ArrayList<Integer[]> rawDataValues = new ArrayList<Integer[]>();
-    Integer[] tempValues ={0,0,0};
+    Integer[] tempValues = new Integer[11];
     Integer time_record=0;
 
 	/*
@@ -336,7 +336,7 @@ public class MainActivity extends Activity {
     			  entete.add("Enregistrement BrainWaves du "+ s+"\n");
     			  entete.add("Durée de l'enregistrement : "+ time_record +" secondes\n\n");
     			  entete.add("Valeurs des courbes\n");
-    			  entete.add("Time;Attention;Meditation\n");
+    			  entete.add("Time;Attention;Meditation;Delta;Theta;Alpha Low;Alpha High;Beta Low;Beta High;Gamma Low;Gamma High\n");
     			  
     			  // OLD file		
     			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.FRANCE);
@@ -407,7 +407,7 @@ public class MainActivity extends Activity {
     				  seriesAttention.appendData( new GraphViewData(passage, msg.arg1), true);
     				  
     				  if(getAttention){
-    					  tempValues = new Integer[3];
+    					 
     					  tempValues[1]=msg.arg1;
     				  }
     				  
@@ -429,6 +429,7 @@ public class MainActivity extends Activity {
   				    	tempValues[0]=time_record;
 					    tempValues[2]=msg.arg1;
 					    dataValues.add(tempValues);
+					    tempValues = new Integer[11];
 					    time_record ++;
 					   
 					    if(time_record>timeRecord)
@@ -469,16 +470,24 @@ public class MainActivity extends Activity {
     			case TGDevice.MSG_EEG_POWER:
     				TGEegPower ep = (TGEegPower)msg.obj;
     				Log.v("MsgEEGD", "Delta: " + ep.delta);
+    				tempValues[3]=ep.delta;
     				Log.v("MsgEEGGM","Theta : " + ep.theta);
+    				tempValues[4]=ep.theta;
     				
-    				Log.v("MsgEEGD", "Alpha low : " + ep.highAlpha);
+    				Log.v("MsgEEGD", "Alpha low : " + ep.lowAlpha);
+    				tempValues[5]=ep.lowAlpha;
     				Log.v("MsgEEGD", "Alpha high : " + ep.highAlpha);
+    				tempValues[6]=ep.highAlpha;
 
     				Log.v("MsgEEGD", "Beta low : " + ep.lowBeta);
+    				tempValues[7]= ep.lowBeta;
     				Log.v("MsgEEGD", "Beta High : " + ep.highBeta);
+    				tempValues[8]= ep.highBeta;
     				
     				Log.v("MsgEEGGL","Gamma Low : " + ep.lowGamma);
+    				tempValues[9]=ep.lowGamma;
     				Log.v("MsgEEGGM","Gamma Mid : " + ep.midGamma);
+    				tempValues[10]=ep.midGamma;
     			default:
     			break;
     		}

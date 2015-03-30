@@ -50,15 +50,17 @@ public class csvWriter {
 				writer.write(element);
 			}
 			int i=0;
+			int j=0;
 			for(i=0;i<time_record;i++){
 				writer.write(Integer.toString(ValeursData.get(i)[0]));
+				for(j=1;j<ValeursData.get(i).length;j++)
+				{
 				writer.write(";");
-				writer.write(Integer.toString(ValeursData.get(i)[1]));
-				writer.write(";");
-				writer.write(Integer.toString(ValeursData.get(i)[2]));
+				writer.write(Integer.toString(ValeursData.get(i)[j]));
+				}
 				writer.append("\n");
 			}
-			
+		
 			writer.flush();
 			writer.close();
 		}
