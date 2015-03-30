@@ -37,7 +37,7 @@
 	<string name="courbe_highbeta">Courbe High Beta</string>
 	<string name="courbe_lowgamma">Courbe Low Gamma</string>
 	<string name="courbe_highgamma">Courbe High Gamma</string>
-	<string name="separate_textview">----------------------------------------------</string>
+	<string name="separate_textview">--------------------------------</string>
 	
 	<!-- Compare -->
 	<string name="selectCurve">Selectionner une courbe</string>
