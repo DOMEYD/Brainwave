@@ -10,11 +10,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 /**
  * 
- * @author Robin, Chafik, Loïc, Cécile
+ * @author TUILARD, GRATADE, DOMEY
  *
  */
 public class MenuApp extends Activity 
@@ -22,6 +21,7 @@ public class MenuApp extends Activity
 	
 	//Déclaration des variables
 	private BluetoothAdapter BA;
+	static final int ENABLED_BTH = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -42,13 +42,26 @@ public class MenuApp extends Activity
 	{
 		if (!BA.isEnabled())  //Test si le bluetooth est activé sinon quitte la méthode
 		{
-			Toast.makeText(getApplicationContext(),"The bluetooth is not on", Toast.LENGTH_LONG).show();
+//			Toast.makeText(getApplicationContext(),"The bluetooth is not on", Toast.LENGTH_LONG).show();
+			Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(turnOn, ENABLED_BTH);
 			return; //Sort de la méthode, ne lance pas l'activité Graph
 		}
 		
 		Intent intent = new Intent();
 		intent.setClass(this, MainActivity.class);
 		startActivity(intent);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == ENABLED_BTH) {
+	        if (resultCode == RESULT_OK) {
+	        	Intent intent = new Intent();
+	    		intent.setClass(this, MainActivity.class);
+	    		startActivity(intent);
+	        }
+	    }
 	}
 	
 	/**

@@ -46,9 +46,7 @@ public class FFTActivity extends Activity {
 	public ArrayList<Integer[]> ArrayDataImport = new ArrayList<Integer[]>();
 	
 	// Courbe de l'attention (Couleur = rouge / Nom = Attention)
-    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 1), new GraphViewData[] {});
-    // Courbe de la méditation (Couleur = bleu / Nom = Meditation)
-    GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 1), new GraphViewData[] {});
+    GraphViewSeries seriesRaw = new GraphViewSeries("RawData", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
     // Instanciation du GraphView
     GraphView graphView;
     LinearLayout layout;
@@ -70,10 +68,11 @@ public class FFTActivity extends Activity {
 		LvAllCsvFiles.setOnItemClickListener(mCSVClickListener);
 		        
 		getListFiles();
-		
+		Log.d("CLICK", "test1");
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
+	        	 Log.d("CLICK", "test2");
 	        	 AddFileDialog.dismiss(); // dismiss the dialog
 	         }    
         });
@@ -91,6 +90,7 @@ public class FFTActivity extends Activity {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
 		
 		for (File file : filesCSV) {			
+			
 			AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
 			ArrayListCsvFiles.add(file);
 		}   
@@ -100,8 +100,9 @@ public class FFTActivity extends Activity {
 		 @Override
 			public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
 			{			
+			 	Log.d("CLICK", "test1");
 				String info = ((TextView) v).getText().toString();
-				String fileName = info.substring(0, 29);
+				String fileName = info.substring(0, 28);
 				Log.v("FILENAME", fileName);
 				
 				Log.d("Nbr CSV",  ArrayListCsvFiles.size()+"");
@@ -112,10 +113,11 @@ public class FFTActivity extends Activity {
 						
 							ArrayDataImport = new ArrayList<Integer[]>();
 							try {
-								Log.d("TEST", "try");
+								
 								
 								ArrayDataImport=ReaderCSVFile(ArrayListCsvFiles.get(i));
-													
+					
+								
 								dessiner_graph();
 								AddFileDialog.dismiss();
 							} catch (IOException e) {
@@ -146,24 +148,27 @@ public class FFTActivity extends Activity {
 					 String line = br.readLine();
 					 line = br.readLine();
 					 line = br.readLine();
-					line = br.readLine();
-					line = br.readLine();
 					 line = br.readLine();
 					 line = br.readLine();
-					
+					 line = br.readLine();
+					 line = br.readLine();
+				
 				       while( line != null) {
-				    	  
+				    	 
 				           temp= line.split(";");
 				           for(int i=0;i<temp.length;i++)
 				           {
 				        	   try{
 					        	   tempValues[i]=Integer.parseInt(temp[i]);
+					        	   
 				        	   }catch(NumberFormatException e){
 				        		   
 				        	   }
 
 				           }
-				                  
+				           
+				          
+				           
 				           dataValues.add(tempValues);		
 				         
 				           tempValues = new Integer[3];
@@ -198,23 +203,21 @@ public class FFTActivity extends Activity {
 				graphView.getGraphViewStyle().setTextSize(15);
 				layout = (LinearLayout) findViewById(R.id.layout1);
 				layout.addView(graphView);
+		
 		    }	 
-	
-		 
+		 	 
 		 public void dessiner_graph()
 			{
 				int i=0;
 				int j=0;
-			    graphView.removeSeries(seriesMeditation);
-			    graphView.removeSeries(seriesAttention);
-			   	seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
-			    seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200),2), new GraphViewData[] {});
-				graphView.addSeries(seriesMeditation);
+				newGraphFFT();
+			    graphView.removeSeries(seriesRaw);
+			   	seriesRaw = new GraphViewSeries("RawData", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 2), new GraphViewData[] {});
+			   graphView.addSeries(seriesRaw);
 			    
 			    	for(i=0;i<ArrayDataImport.size();i++)
 					{
-						seriesAttention.appendData( new GraphViewData(ArrayDataImport.get(i)[0], ArrayDataImport.get(i)[1]), true);
-						seriesMeditation.appendData( new GraphViewData(ArrayDataImport.get(i)[0], ArrayDataImport.get(i)[2]), true);
+						seriesRaw.appendData(new GraphViewData( i, ArrayDataImport.get(i)[1]), true);
 					}	    
 			    	
 			}
@@ -233,17 +236,42 @@ public class FFTActivity extends Activity {
 			 		graphView = new LineGraphView(this, "Courbes EEG");
 			 		flagFFT=false;
 			 	}
-		    	
+			 	int j=0;
+			 	int i=0;
+				 int tempMax=0;
+		    	 int tempMin=0;
+
+				 	for(j=0;j<ArrayDataImport.size();j++)
+				 	{
+				 			if(ArrayDataImport.get(j)[1]>tempMax)
+				       	    {
+				 			    tempMax=ArrayDataImport.get(j)[1];
+				        	}
+				        	if( ArrayDataImport.get(j)[1]< tempMin)
+				        	{
+				        		  tempMin=ArrayDataImport.get(j)[1];
+				        	}
+				       
+					}
+		
+		 			String tempString =Integer.toString(tempMax);
+			         
+			        Double tempInt =tempMax/(Math.pow(10, (tempString.length()-1)));
+			        max=Math.ceil(tempInt)*Math.pow(10, (tempString.length()-1));
+			           
+			        tempMin=tempMin*(-1);
+			        tempInt = tempMin/(Math.pow(10, (tempString.length()-1)));
+			        min=(-1)*Math.ceil(tempInt)*Math.pow(10, (tempString.length()-1));
 
 				graphView.setManualYAxisBounds((double) max, (double) min);
 				graphView.setShowLegend(true);
-				graphView.setViewPort(1,19);
+				graphView.setViewPort(1,999);
 				graphView.setScrollable(true);
 				graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.BLACK);
 				graphView.getGraphViewStyle().setLegendWidth(200);
 				graphView.setLegendAlign(LegendAlign.TOP);
 				graphView.getGraphViewStyle().setNumVerticalLabels(5);
-				graphView.getGraphViewStyle().setNumHorizontalLabels(20);
+				graphView.getGraphViewStyle().setNumHorizontalLabels(6);
 				graphView.getGraphViewStyle().setTextSize(15);
 				layout = (LinearLayout) findViewById(R.id.layout1);
 				
@@ -294,15 +322,14 @@ public class FFTActivity extends Activity {
 		        b1.setOnClickListener(new OnClickListener() {
 			         @Override
 			         public void onClick(View v) {
-			        	 graphView.removeSeries(seriesMeditation);
-			     		    graphView.removeSeries(seriesAttention);
+			        	 graphView.removeSeries(seriesRaw);
 			        	 
 			        	 if(RB_meditaton.isChecked()==true){
-			 	        	graphView.addSeries(seriesMeditation);
+			 	        	graphView.addSeries(seriesRaw);
 			 	        	flagInit = 0;
 			 	        }
 			        	 else if(RB_attention.isChecked()==true){
-			 	        	graphView.addSeries(seriesAttention);
+			 	        	graphView.addSeries(seriesRaw);
 			 	        	flagInit = 0;
 			 	        }
 			        	 else if(RB_clindoeil.isChecked()==true){

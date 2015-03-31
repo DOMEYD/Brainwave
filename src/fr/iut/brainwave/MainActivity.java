@@ -85,7 +85,7 @@ public class MainActivity extends Activity {
 	 * Meditation : blue with name 'Meditation'
 	 * Blink : green with name 'Clin d'oeil'
 	 */
-    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(255, 00, 00), 3), new GraphViewData[] {});
+    GraphViewSeries seriesAttention = new GraphViewSeries("Attention", new GraphViewSeriesStyle(Color.rgb(200, 50, 00), 3), new GraphViewData[] {});
     GraphViewSeries seriesMeditation = new GraphViewSeries("Meditation", new GraphViewSeriesStyle(Color.rgb(0, 50, 200), 3), new GraphViewData[] {});
     GraphViewSeries seriesBlink = new GraphViewSeries("Clins d'oeil", new GraphViewSeriesStyle(Color.rgb(0, 200, 50), 3), new GraphViewData[] {});
     
@@ -329,6 +329,7 @@ public class MainActivity extends Activity {
     			  editor.commit();
     			  
     			  ArrayList<String> entete = new ArrayList<String>();
+    			  ArrayList<String> enteteRaw = new ArrayList<String>();
     			  
     			  Date d = new Date();
     			  SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy'-'HH:mm:ss", Locale.FRANCE);
@@ -338,6 +339,11 @@ public class MainActivity extends Activity {
     			  entete.add("Valeurs des courbes\n");
     			  entete.add("Time;Attention;Meditation;Delta;Theta;Alpha Low;Alpha High;Beta Low;Beta High;Gamma Low;Gamma High\n");
     			  
+    			  enteteRaw.add("Enregistrement BrainWaves du "+ s+"\n");
+    			  enteteRaw.add("Durée de l'enregistrement : "+ time_record +" secondes\n\n");
+    			  enteteRaw.add("Valeurs du Raw DATA\n");
+    			  enteteRaw.add("Time;RawData\n");
+    			  
     			  // OLD file		
     			  f = new SimpleDateFormat("yyyyMMdd'T'HHmmss", Locale.FRANCE);
     			  s = f.format(d);
@@ -346,7 +352,7 @@ public class MainActivity extends Activity {
     			  
     			  // NEW FILE with raw data
     			  csvWriter rawCSVFile = new csvWriter("rawRecord" + s + ".csv");
-    			  rawCSVFile.createCSV(rawDataValues, entete);
+    			  rawCSVFile.createCSV(rawDataValues, enteteRaw);
     		  }
     	}, (timeRecord+1)*1000);
 	}
@@ -512,7 +518,7 @@ public class MainActivity extends Activity {
 		graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.BLACK);
 		graphView.getGraphViewStyle().setLegendWidth(200);
 		graphView.setLegendAlign(LegendAlign.TOP);
-		graphView.getGraphViewStyle().setNumVerticalLabels(5);
+		graphView.getGraphViewStyle().setNumVerticalLabels(21);
 		graphView.getGraphViewStyle().setNumHorizontalLabels(20);
 		graphView.getGraphViewStyle().setTextSize(14);
 		LinearLayout layout = (LinearLayout) findViewById(R.id.layout1);

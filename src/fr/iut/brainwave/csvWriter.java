@@ -104,34 +104,4 @@ public class csvWriter {
 		}
 	}
 
-	public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException{
-		
-		ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
-		Integer[] tempValues={0,0,0};
-	
-		String[] temp;
-		
-		try {
-			FileReader fr = new FileReader(file);
-			 BufferedReader br = new BufferedReader(fr);
-			 String line = br.readLine();
-		       while( line != null) {
-		           temp= line.split(";");
-		           tempValues[0]=Integer.parseInt(temp[0]);
-		           tempValues[1]=Integer.parseInt(temp[1]);
-		           tempValues[2]= Integer.parseInt(temp[2]);
-		           dataValues.add(tempValues);		        		   
-		        }
-
-		        br.close();
-		        fr.close();
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return dataValues;
-	      
-	}
 }
