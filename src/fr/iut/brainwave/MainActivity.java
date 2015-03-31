@@ -451,9 +451,10 @@ public class MainActivity extends Activity {
 //    				int test = msg.arg2;
 //    				Log.v("MsgRawData", "Raw Data : " +rawValue + " / " +test);
     				tempRawArray = new Integer[2];
-    				tempRawArray[0] = (int) System.currentTimeMillis();
+    				tempRawArray[0] = (int) System.nanoTime();
     				tempRawArray[1] = msg.arg1;
     				rawDataValues.add(tempRawArray);
+    				
     			break;
     			case TGDevice.MSG_HEART_RATE:
     				Log.v("MsgEEG","Heart Rate " +msg.arg1);

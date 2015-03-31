@@ -100,7 +100,6 @@ public class FFTActivity extends Activity {
 		 @Override
 			public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
 			{			
-			 	Log.d("CLICK", "test1");
 				String info = ((TextView) v).getText().toString();
 				String fileName = info.substring(0, 28);
 				Log.v("FILENAME", fileName);
@@ -137,8 +136,8 @@ public class FFTActivity extends Activity {
 		 public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException{
 				Log.v("READER", "test1");
 				ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
-				Integer[] tempValues = new Integer[3];
-			
+				Integer[] tempValues = new Integer[2];
+				 int echantillon =0;
 				String[] temp;
 				
 				try {
@@ -152,29 +151,41 @@ public class FFTActivity extends Activity {
 					 line = br.readLine();
 					 line = br.readLine();
 					 line = br.readLine();
-				
-				       while( line != null) {
-				    	 
-				           temp= line.split(";");
-				           for(int i=0;i<temp.length;i++)
-				           {
-				        	   try{
-					        	   tempValues[i]=Integer.parseInt(temp[i]);
-					        	   
-				        	   }catch(NumberFormatException e){
-				        		   
-				        	   }
 
-				           }
-				           
-				          
-				           
-				           dataValues.add(tempValues);		
+				       
+					 while( line != null) {
+				    	 
+				           temp= line.split(";"); 
+				            if(echantillon==0)
+				            {
+					        	   try{
+					        		   tempValues[0]=Integer.parseInt(temp[0]);
+						        	   tempValues[1]=Integer.parseInt(temp[1]);
+
+						        	   dataValues.add(tempValues);		
+							           tempValues = new Integer[2];
+					        	   }
+					        	   catch(NumberFormatException e){
+					        		   
+					        	   }
+					        	   
+				        	 }
+				        	   
+				            if(echantillon<10)
+				        	{
+				        	   echantillon++;
+				        	}
+				        	else
+				        	{
+				        		echantillon =0;
+				        	}
+				        
+				                     
+				           Log.v("READER", echantillon+"");
 				         
-				           tempValues = new Integer[3];
 				           line = br.readLine();
 				        }
-				       
+				       Log.v("READER", "fin de reader");
 				        br.close();
 				        fr.close();
 				        
@@ -182,7 +193,7 @@ public class FFTActivity extends Activity {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
+				
 				return dataValues;
 			      
 			}
@@ -198,7 +209,7 @@ public class FFTActivity extends Activity {
 				graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.BLACK);
 				graphView.getGraphViewStyle().setLegendWidth(200);
 				graphView.setLegendAlign(LegendAlign.TOP);
-				graphView.getGraphViewStyle().setNumVerticalLabels(5);
+				graphView.getGraphViewStyle().setNumVerticalLabels(21);
 				graphView.getGraphViewStyle().setNumHorizontalLabels(20);
 				graphView.getGraphViewStyle().setTextSize(15);
 				layout = (LinearLayout) findViewById(R.id.layout1);
@@ -228,13 +239,11 @@ public class FFTActivity extends Activity {
 			 	{
 			 		MenuFFTItem.setIcon(R.drawable.ic_trending_up_128);
 			 		graphView = new BarGraphView(this, "Courbes EEG");
-			 		flagFFT=true;
 			 	}
-			 	else if(flagFFT)
+			 	else
 			 	{
 			 		MenuFFTItem.setIcon(R.drawable.ic_equalizer_128);
 			 		graphView = new LineGraphView(this, "Courbes EEG");
-			 		flagFFT=false;
 			 	}
 			 	int j=0;
 			 	int i=0;
@@ -265,13 +274,13 @@ public class FFTActivity extends Activity {
 
 				graphView.setManualYAxisBounds((double) max, (double) min);
 				graphView.setShowLegend(true);
-				graphView.setViewPort(1,999);
+				graphView.setViewPort(1,499);
 				graphView.setScrollable(true);
 				graphView.getGraphViewStyle().setHorizontalLabelsColor(Color.BLACK);
 				graphView.getGraphViewStyle().setLegendWidth(200);
 				graphView.setLegendAlign(LegendAlign.TOP);
-				graphView.getGraphViewStyle().setNumVerticalLabels(5);
-				graphView.getGraphViewStyle().setNumHorizontalLabels(6);
+				graphView.getGraphViewStyle().setNumVerticalLabels(21);
+				graphView.getGraphViewStyle().setNumHorizontalLabels(10);
 				graphView.getGraphViewStyle().setTextSize(15);
 				layout = (LinearLayout) findViewById(R.id.layout1);
 				
@@ -353,8 +362,9 @@ public class FFTActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_fft);
-		
+		flagFFT=true;
 		createGraph();
+		
 	}
 	
     /**
@@ -374,8 +384,16 @@ public class FFTActivity extends Activity {
 				AddFilesBox();
 				return true;
 			case R.id.applyFFT:
-				newGraphFFT();
+				//newGraphFFT();
 				dessiner_graph();
+				if(flagFFT){
+					flagFFT=false;
+				}
+				else
+				{
+					flagFFT=true;
+				}
+				
 					return true;
 			case R.id.selectCurve:
 				SelectGraphBox();
