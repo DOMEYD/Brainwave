@@ -1,3 +1,19 @@
+/********************** CSV WRITER *********************
+ * 
+ * Date: 30/03/2015
+ * Version:
+ * 
+ * @authors:
+ * - Diana GRATADE
+ * - Dimitri DOMEY
+ * - Benjamin TUILARD
+ * 
+ * Résumé: 
+ * 
+ * Méthodes:	- csvWriter(String fileName)
+ * 
+ */
+
 package fr.iut.brainwave;
 
 import java.io.File;
@@ -9,12 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import android.os.Environment;
-/**
- * Permet de créer un fichier CSV d'après les données recueillies
- * 
- * @author Robin, Chafik, Loïc, Cécile
- *
- */
+
 public class csvWriter {
 
 	//Déclaration des variables
