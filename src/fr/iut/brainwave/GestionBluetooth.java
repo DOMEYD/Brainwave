@@ -1,3 +1,22 @@
+/********************** GESTION BLUETOOTH *********************
+ * 
+ * Date: 30/03/2015
+ * Version:
+ * 
+ * @authors:
+ * - Diana GRATADE
+ * - Dimitri DOMEY
+ * - Benjamin TUILARD
+ * 
+ * Résumé: 
+ * 
+ * Méthodes:	- protected void onCreate(Bundle savedInstanceState)
+ * 				- public void onToggleClicked(View view)
+ * 				- public void createCSV(ArrayList<Integer[]> datas, ArrayList<String> entete)
+ * 				- public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException
+ * 
+ */
+
 package fr.iut.brainwave;
 
 //IMPORTS

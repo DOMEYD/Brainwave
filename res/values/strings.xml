@@ -2,13 +2,11 @@
 <resources>
 
     <!-- Basics -->
-    
     <string name="app_name">Brain Waves</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Paramètres</string>
    
    <!-- Main Activity-->
-   
    <string name="buttonGraph">Lancer le graphique</string>
    <string name="buttonGraphCompare">Comparer les graphiques</string>
    <string name="buttonGraphFFT">Analyse FTT d\'un graphique</string>
@@ -45,12 +43,10 @@
 	<string name="removeSave">Des&#233;lectionner un enregistrement</string>
    	<string name="paramsFilesDialogTitle">S&#233;lection fichier</string>
 	
-   <!-- Gestion Bluetooth -->
-      
+   	<!-- Gestion Bluetooth -->
     <string name="GestionBluetooth">Gestion Bluetooth</string>
     <string name="TRYAppair">Tentative d\'appairage</string>
     <string name="BTAppair">Le syst&#232;me a bien &#233;t&#233; appair&#233;</string>
-    
     <string name="recherche"> La recherche est en cours &#8230;</string> <!-- &#8230; est le unicode de "..."   -->
     
 	<!-- Buttons -->
@@ -62,8 +58,7 @@
 	<string name="ListPairedDevices">Liste des appareils appairés:</string>
 	<string name="ListAroundDevices">Liste des appareils Bluetooth environnants :</string>
 
-	 <!-- Paramètres -->   
-	    
+	<!-- Paramètres -->   
     <string name="settings">Paramètres</string>
     <string name="aide">Aide</string>
     <string name="propos">A propos</string>
