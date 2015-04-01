@@ -35,6 +35,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FFTActivity extends Activity {
 	
@@ -82,18 +83,34 @@ public class FFTActivity extends Activity {
 	
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
-		File[] filesCSV = parentDir.listFiles();
+		if(parentDir.exists())
+		{
+			File[] filesCSV = parentDir.listFiles();
+			if(filesCSV.length==0)
+			{
 
-		AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-		LvAllCsvFiles.setAdapter(AdaptateurFiles);
+				AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+				LvAllCsvFiles.setAdapter(AdaptateurFiles);
 		
-		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
+				SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
 		
-		for (File file : filesCSV) {			
-			
-			AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
-			ArrayListCsvFiles.add(file);
-		}   
+				for (File file : filesCSV) {			
+					
+					AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
+					ArrayListCsvFiles.add(file);
+				}   
+				
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+			}
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+		}
+
 	}
 	
 	 public OnItemClickListener mCSVClickListener = new OnItemClickListener() {

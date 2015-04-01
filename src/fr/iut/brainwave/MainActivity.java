@@ -68,6 +68,7 @@ public class MainActivity extends Activity {
     boolean courbeBlink = true;
     boolean valuesRecord = false;
     int timeRecord = 30;
+    long time_first=0;
     
     //getter de valeurs
     boolean getAttention = false;
@@ -306,7 +307,7 @@ public class MainActivity extends Activity {
     	getAttention = true;
     	getMeditation = true;
     	time_record=0;
-    	
+    	time_first = System.nanoTime();
     	dataValues = new ArrayList<Integer[]>();
     	rawDataValues = new ArrayList<Integer[]>();
        
@@ -330,7 +331,6 @@ public class MainActivity extends Activity {
     			  
     			  ArrayList<String> entete = new ArrayList<String>();
     			  ArrayList<String> enteteRaw = new ArrayList<String>();
-    			  
     			  Date d = new Date();
     			  SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy'-'HH:mm:ss", Locale.FRANCE);
     			  String s = f.format(d);
@@ -451,7 +451,8 @@ public class MainActivity extends Activity {
 //    				int test = msg.arg2;
 //    				Log.v("MsgRawData", "Raw Data : " +rawValue + " / " +test);
     				tempRawArray = new Integer[2];
-    				tempRawArray[0] = (int) System.nanoTime();
+    				tempRawArray[0] = (int) (time_first - System.nanoTime());
+    				
     				tempRawArray[1] = msg.arg1;
     				rawDataValues.add(tempRawArray);
     				

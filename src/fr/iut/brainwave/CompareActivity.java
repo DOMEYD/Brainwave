@@ -108,17 +108,32 @@ public class CompareActivity extends Activity {
 	
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
-		File[] filesCSV = parentDir.listFiles();
-
-		AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
-		LvAllCsvFiles.setAdapter(AdaptateurFiles);
 		
-		SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
+		if(parentDir.exists())
+		{
+			File[] filesCSV = parentDir.listFiles();
+			if(filesCSV.length==0)
+			{
+				AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+				LvAllCsvFiles.setAdapter(AdaptateurFiles);
+				
+				SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
+				
+				for (File file : filesCSV) {			
+					AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
+					ArrayListCsvFiles.add(file);
+				}   
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+			}
+		}
+		else
+		{
+			Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+		}
 		
-		for (File file : filesCSV) {			
-			AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
-			ArrayListCsvFiles.add(file);
-		}   
 	}
 	
 	private void getListFilesCharging() {
