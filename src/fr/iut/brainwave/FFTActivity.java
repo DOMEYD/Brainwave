@@ -39,11 +39,18 @@ import android.widget.Toast;
 
 public class FFTActivity extends Activity {
 	
+	//Variable de DialogBox permettant le chargement d'un fichier CSV
 	private	Dialog AddFileDialog = null;
+	
+	//Variable permettant de savoir quelle courbe est choisi
 	int flagInit = 0;
+	
+	//Ensemble des variables pour la création de la liste de fichier CSV
 	public ArrayList<File> ArrayListCsvFiles = new ArrayList<File>();
 	private ListView LvAllCsvFiles;
 	public ArrayAdapter<String> AdaptateurFiles;
+	
+	//Variable stockant les données d'un fichier chargé par l'utilisateur
 	public ArrayList<Integer[]> ArrayDataImport = new ArrayList<Integer[]>();
 	
 	// Courbe de l'attention (Couleur = rouge / Nom = Attention)
@@ -51,25 +58,32 @@ public class FFTActivity extends Activity {
     // Instanciation du GraphView
     GraphView graphView;
     LinearLayout layout;
+    
+    //Variable FLAG pour savoir si on affiche le spectre ou la courbe des données des RAWDATA
     boolean flagFFT=false;
-	double max = 100 ;
+	
+    // Echelle Y du graph
+    double max = 100 ;
 	double min = 0;
+	
+	 //Variable permettant le changement d'icone dans l'actionBar
 	MenuItem MenuFFTItem;
 	
+	//Méthode permettant d'afficher l'ensemble des fichiers de RAWDATA dans une DialogBox
 	private void AddFilesBox(){
 		AddFileDialog = new Dialog(FFTActivity.this);
 		AddFileDialog.setTitle(getString(R.string.paramsFilesDialogTitle));
 		AddFileDialog.setContentView(R.layout.dialog_list);
         Button b1 = (Button) AddFileDialog.findViewById(R.id.button_cancel);
 
-		//Titres des listes
 		AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 		
 		LvAllCsvFiles = (ListView) AddFileDialog.findViewById(R.id.lvCSVFiles);	
 		LvAllCsvFiles.setOnItemClickListener(mCSVClickListener);
-		        
+		    
+		AddFileDialog.show();
 		getListFiles();
-		Log.d("CLICK", "test1");
+
         b1.setOnClickListener(new OnClickListener() {
 	         @Override
 	         public void onClick(View v) {
@@ -78,15 +92,17 @@ public class FFTActivity extends Activity {
 	         }    
         });
         
-        AddFileDialog.show();
+      
 	}
 	
+	
+	//Méthode permettant la création de la liste des fichiers CSV à afficher dans la dialogBox
 	private void getListFiles() {
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
 		if(parentDir.exists())
 		{
 			File[] filesCSV = parentDir.listFiles();
-			if(filesCSV.length==0)
+			if(filesCSV.length>0)
 			{
 
 				AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
@@ -95,24 +111,29 @@ public class FFTActivity extends Activity {
 				SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
 		
 				for (File file : filesCSV) {			
-					
+					if(file.getName().startsWith("rawRecord"))
+					{
 					AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
 					ArrayListCsvFiles.add(file);
+					}
 				}   
 				
 			}
 			else
 			{
 				Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+				AddFileDialog.dismiss();
 			}
 		}
 		else
 		{
 			Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+			AddFileDialog.dismiss();
 		}
 
 	}
-	
+
+	//Méthode permettant de gérer le clique de l'utilisateur sur un fichier qu'il désire chargé
 	 public OnItemClickListener mCSVClickListener = new OnItemClickListener() {
 		 @Override
 			public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
@@ -147,9 +168,8 @@ public class FFTActivity extends Activity {
 			}
 	 };
 	 
-	 
-	 /***lecture du fichier CSV
-		 * @throws IOException ***/
+	 //méthode pour lire un fichier CSV 
+	 /**** @throws IOException ***/
 		 public ArrayList<Integer[]> ReaderCSVFile (File file) throws IOException{
 				Log.v("READER", "test1");
 				ArrayList<Integer[]> dataValues = new ArrayList<Integer[]>();
@@ -215,6 +235,7 @@ public class FFTActivity extends Activity {
 			      
 			}
 		 
+		 //Méthode qui permet de créer un graphique pou la première instanciation de la Class 
 		 public void createGraph(){
 
 		    	graphView = new LineGraphView(this, "Courbes EEG");
@@ -233,7 +254,8 @@ public class FFTActivity extends Activity {
 				layout.addView(graphView);
 		
 		    }	 
-		 	 
+		 
+		 //Permet de dessiner le graphique en ajoutant les valeurs dans la série
 		 public void dessiner_graph()
 			{
 				int i=0;
@@ -250,6 +272,8 @@ public class FFTActivity extends Activity {
 			    	
 			}
 		 
+		 //Permet de récréer le graphique en modifiant son type suivant 
+		 //si on souhaite afficher la FFT
 		 public void newGraphFFT(){
 			 	layout.removeView(graphView);
 			 	if(!flagFFT)
@@ -304,6 +328,7 @@ public class FFTActivity extends Activity {
 				layout.addView(graphView);
 		    }	 
 		 
+		 //DialogBox permettant de gérer le choix de courbes à visualiser
 		 private void SelectGraphBox(){    	
 		    	final Dialog SelectGraph = new Dialog(FFTActivity.this);
 		    	SelectGraph.setTitle(getString(R.string.paramsTimeDialogTitle));

@@ -107,31 +107,39 @@ public class CompareActivity extends Activity {
 	int flagCourbe=0;
 	
 	private void getListFiles() {
+		
 		File parentDir = Environment.getExternalStoragePublicDirectory("org.BrainWaves");
 		
 		if(parentDir.exists())
 		{
 			File[] filesCSV = parentDir.listFiles();
-			if(filesCSV.length==0)
+ 			if(filesCSV.length>0)
 			{
 				AdaptateurFiles = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 				LvAllCsvFiles.setAdapter(AdaptateurFiles);
 				
 				SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.FRANCE);
 				
-				for (File file : filesCSV) {			
-					AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
-					ArrayListCsvFiles.add(file);
+				for (File file : filesCSV) {		
+					if(file.getName().startsWith("recordFile"))
+					{
+						AdaptateurFiles.add(file.getName()+"\n"+ sdfDate.format(file.lastModified()) );
+						ArrayListCsvFiles.add(file);
+					}
 				}   
 			}
 			else
 			{
+				ad.dismiss();
 				Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+				
 			}
 		}
 		else
 		{
+			ad.dismiss();
 			Toast.makeText(getApplicationContext(),"Aucun fichier CSV trouvé !",Toast.LENGTH_LONG).show();
+			
 		}
 		
 	}
@@ -187,7 +195,9 @@ public class CompareActivity extends Activity {
 		
 		LvAllCsvFiles = (ListView) ad.findViewById(R.id.lvCSVFiles);	
 		LvAllCsvFiles.setOnItemClickListener(mCSVClickListener);
-		        
+		
+		ad.show();
+		
 		getListFiles();
 		
         b1.setOnClickListener(new OnClickListener() {
@@ -197,7 +207,7 @@ public class CompareActivity extends Activity {
 	         }    
         });
         
-        ad.show();
+        
 	}
 	
 	 private void SelectGraphBox(){    	
